@@ -22,75 +22,70 @@ jobs:
       fail-fast: false
 
     steps:
+      # -----------------------------
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      # -------------------------------
-      # Restore previous build cache
-      # -------------------------------
-      - name: Restore cache for CGCT & output
+      # -----------------------------
+      - name: Ensure CGCT log exists
+        run: |
+          mkdir -p /tmp
+          touch /tmp/cgct_build.log
+
+      # -----------------------------
+      - name: Restore cache for Termux build
         uses: actions/cache@v3
         with:
           path: |
             ~/.termux/tmp
             output
-          key: termux-build-${{ matrix.arch }}-${{ hashFiles('packages/**') }}-${{ hashFiles('root-packages/**') }}-${{ hashFiles('x11-packages/**') }}
+          key: termux-build-${{ matrix.arch }}-${{ hashFiles('packages/**/*') }}-${{ hashFiles('root-packages/**/*') }}-${{ hashFiles('x11-packages/**/*') }}
           restore-keys: |
             termux-build-${{ matrix.arch }}-
 
-      # -------------------------------
-      # Setup native Termux build env
-      # -------------------------------
-      - name: Setup Termux Build Environment
+      # -----------------------------
+      - name: Setup Termux build environment
         run: |
           chmod +x ./scripts/setup-native-termux.sh
-          ./scripts/setup-native-termux.sh
+          ./scripts/setup-native-termux.sh 2>&1 | tee -a /tmp/cgct_build.log
 
-      # -------------------------------
-      # Free disk space
-      # -------------------------------
+      # -----------------------------
       - name: Free disk space
         run: ./scripts/free-space.sh || true
 
-      # -------------------------------
-      # Build packages
-      # -------------------------------
+      # -----------------------------
       - name: Build packages for ${{ matrix.arch }}
-        run: ./scripts/bin/update-packages "@all" || true
+        run: |
+          ./scripts/bin/update-packages "@all" 2>&1 | tee -a /tmp/cgct_build.log
 
-      # -------------------------------
-      # Save built .deb files
-      # -------------------------------
+      # -----------------------------
       - name: Archive built .deb files
         run: |
           mkdir -p artifacts
           find output -type f -name '*.deb' -exec mv {} artifacts/ \;
 
+      # -----------------------------
       - name: Upload built packages as artifacts
         uses: actions/upload-artifact@v7
         with:
           name: termux-debs-${{ matrix.arch }}
           path: artifacts/
 
-      # -------------------------------
-      # Upload CGCT build log if exists
-      # -------------------------------
-      - name: Upload CGCT build log
-        if: failure() || always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: cgct-build-log-${{ matrix.arch }}
-          path: /tmp/cgct_build.log
-
-      # -------------------------------
-      # Save cache for next workflow run
-      # -------------------------------
-      - name: Save build cache
+      # -----------------------------
+      - name: Save cache for Termux build
         uses: actions/cache@v3
         with:
           path: |
             ~/.termux/tmp
             output
-          key: termux-build-${{ matrix.arch }}-${{ hashFiles('packages/**') }}-${{ hashFiles('root-packages/**') }}-${{ hashFiles('x11-packages/**') }}
+          key: termux-build-${{ matrix.arch }}-${{ hashFiles('packages/**/*') }}-${{ hashFiles('root-packages/**/*') }}-${{ hashFiles('x11-packages/**/*') }}
+
+      # -----------------------------
+      - name: Upload CGCT build log
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cgct-build-log-${{ matrix.arch }}
+          path: /tmp/cgct_build.log
