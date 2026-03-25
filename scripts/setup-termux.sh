@@ -1,86 +1,71 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# =============================================================================
+# setup-termux-packages.sh - Install required packages for Termux build scripts
+# =============================================================================
 
+set -euo pipefail
+
+# -------------------------
+# System packages
+# -------------------------
 PACKAGES=""
-# Tier 1: requirements for the core build scripts in scripts/build/.
-PACKAGES+=" clang"				# Required for termux-elf-cleaner and C/C++ packages.
-PACKAGES+=" file"				# Used in termux_step_massage().
-PACKAGES+=" gnupg"				# Used in termux_get_repo_files() and build-package.sh.
-PACKAGES+=" lzip"				# Used by tar to extract *.tar.lz source archives.
-PACKAGES+=" patch"				# Used for applying patches on source code.
-PACKAGES+=" python"				# Used buildorder.py core script.
-PACKAGES+=" python-pip" # Necessary to install 'itstool' for on-device-building (since Ubuntu gets it from 'apt')
-PACKAGES+=" unzip"				# Used to extract *.zip source archives.
-PACKAGES+=" jq"					# Used for parsing repo.json.
 
-# Tier 2: requirements for building many other packages.
-PACKAGES+=" asciidoc"
-PACKAGES+=" asciidoctor"
-PACKAGES+=" autoconf"
-PACKAGES+=" automake"
-PACKAGES+=" bc"
-PACKAGES+=" bison"
-PACKAGES+=" bsdtar"                     # Needed to create pacman packages
-PACKAGES+=" cmake"
-PACKAGES+=" ed"
-PACKAGES+=" flex"
-PACKAGES+=" gettext"
-PACKAGES+=" git"
-PACKAGES+=" glslang"                    # Needed by mesa
-PACKAGES+=" golang"
-PACKAGES+=" gperf"
-PACKAGES+=" help2man"
-PACKAGES+=" intltool"                   # Needed by qalc
-PACKAGES+=" libtool"
-PACKAGES+=" llvm-tools"		# Needed to build rust
-PACKAGES+=" m4"
-PACKAGES+=" make"			# Used for all Makefile-based projects.
-PACKAGES+=" ndk-multilib"		# Needed to build rust
-PACKAGES+=" ninja"			# Used by default to build all CMake projects.
-PACKAGES+=" perl"
-PACKAGES+=" pkg-config"
-PACKAGES+=" protobuf"
-PACKAGES+=" python2"
-PACKAGES+=" re2c"                       # Needed by kphp-timelib
-PACKAGES+=" rust"
-PACKAGES+=" scdoc"
-PACKAGES+=" texinfo"
-PACKAGES+=" spirv-tools"                # Needed by mesa
-PACKAGES+=" uuid-utils"
-PACKAGES+=" valac"
-PACKAGES+=" xmlto"                      # Needed by git's manpage generation
-PACKAGES+=" zip"
+# Tier 1: requirements for core build scripts
+PACKAGES+=" clang"           # Required for termux-elf-cleaner and C/C++ packages
+PACKAGES+=" file"            # Used in termux_step_massage()
+PACKAGES+=" gnupg"           # Used in termux_get_repo_files() and build-package.sh
+PACKAGES+=" lzip"            # Used by tar to extract *.tar.lz source archives
+PACKAGES+=" patch"           # Used for applying patches on source code
+PACKAGES+=" python"          # Used by buildorder.py core script
+PACKAGES+=" python3-pip"     # Needed to install Python packages
+PACKAGES+=" unzip"           # Used to extract *.zip source archives
+PACKAGES+=" jq"              # Used for parsing JSON manifests
 
+# Tier 2: packages required for building many Termux packages
+PACKAGES+=" asciidoc asciidoctor autoconf automake bc bison bsdtar cmake ed"
+PACKAGES+=" flex gettext git glslang golang gperf help2man intltool libtool"
+PACKAGES+=" llvm-tools m4 make ndk-multilib ninja perl pkg-config protobuf"
+PACKAGES+=" python2 re2c rust scdoc texinfo spirv-tools uuid-utils valac xmlto zip"
+
+# -------------------------
+# Python packages (system-wide)
+# -------------------------
 PYTHON_PACKAGES=""
-PYTHON_PACKAGES+=" itstool"      # necessary to build orca and some other packages
-PYTHON_PACKAGES+=" pygments"     # necessary to build mesa (dependency of mako that _must_ be kept `--upgrade`d)
-PYTHON_PACKAGES+=" mako"         # necessary to build mesa
-PYTHON_PACKAGES+=" pyyaml"       # necessary to build mesa
-PYTHON_PACKAGES+=" setuptools"   # necessary to build mesa (explicitly 'system'-wide unlike the setuptools in termux_setup_python_pip)
-# More 'system-wide' python packages should be added here if working towards the goal
-# of setup-termux.sh for on-device building having closer behavior
-# to setup-ubuntu.sh for cross-compilation. If adding packages here, please add a comment
-# for each one naming at least one of its reverse build dependencies, for which least one
-# error during on-device building is solved by installing the dependency through pip.
-#PYTHON_PACKAGES+=" "
+PYTHON_PACKAGES+=" itstool"      # Needed to build orca
+PYTHON_PACKAGES+=" pygments"     # Needed by mesa/mako
+PYTHON_PACKAGES+=" mako"         # Needed by mesa
+PYTHON_PACKAGES+=" pyyaml"       # Needed by mesa
+PYTHON_PACKAGES+=" setuptools"   # Needed by mesa (system-wide install)
 
-# Definition of a package manager
-export TERMUX_SCRIPTDIR=$(dirname "$(realpath "$0")")/../
-. $(dirname "$(realpath "$0")")/properties.sh
-source "$TERMUX_PREFIX/bin/termux-setup-package-manager" || true
+# -------------------------
+# Detect Termux/Ubuntu environment
+# -------------------------
+export TERMUX_SCRIPTDIR=$(dirname "$(realpath "$0")")/..
+. "$TERMUX_SCRIPTDIR/properties.sh"
 
-if [ "$TERMUX_APP_PACKAGE_MANAGER" = "apt" ]; then
-	apt update
-	yes | apt dist-upgrade
-	yes | apt install $PACKAGES
-elif [ "$TERMUX_APP_PACKAGE_MANAGER" = "pacman" ]; then
-	pacman -Syu $PACKAGES --needed --noconfirm
-else
-	echo "Error: no package manager defined"
-	exit 1
+# Load Termux package manager if available
+if [ -f "$TERMUX_PREFIX/bin/termux-setup-package-manager" ]; then
+    source "$TERMUX_PREFIX/bin/termux-setup-package-manager" || true
 fi
 
-# Should not be installed inside venv because on Ubuntu cross-builder image, these
-# particular python packages are installed system-wide,
-# so should be installed Termux-wide for on-device building to be reasonably accurate
-# compared with the behavior of the Ubuntu cross-builder image.
+# -------------------------
+# Install system packages
+# -------------------------
+if [ "${TERMUX_APP_PACKAGE_MANAGER:-}" = "apt" ]; then
+    sudo apt update
+    sudo DEBIAN_FRONTEND=noninteractive apt -y dist-upgrade
+    sudo DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends $PACKAGES
+elif [ "${TERMUX_APP_PACKAGE_MANAGER:-}" = "pacman" ]; then
+    sudo pacman -Syu --needed --noconfirm $PACKAGES
+else
+    echo "Error: no supported package manager found (apt or pacman)"
+    exit 1
+fi
+
+# -------------------------
+# Install Python packages system-wide
+# -------------------------
+# Should not be installed inside a venv to mimic Ubuntu cross-builder image behavior
 pip install --upgrade $PYTHON_PACKAGES
+
+echo "System and Python packages installation complete."

@@ -14,7 +14,7 @@ ENV LANG=en_US.UTF-8
 RUN rm -rf /tmp/termux-packages
 RUN mkdir -p /tmp/termux-packages
 RUN mkdir -p /tmp/termux-packages/scripts
-COPY ./llvm-snapshot.gpg.key ./properties.sh ./setup-ubuntu.sh /tmp/termux-packages/scripts/
+COPY ./llvm-snapshot.gpg.key ./properties.sh ./setup-ubuntu.sh ./setup-cgct.sh /tmp/termux-packages/scripts/
 RUN mkdir -p /tmp/termux-packages/scripts/build
 COPY ./build/termux_download.sh /tmp/termux-packages/scripts/build/
 
@@ -27,6 +27,7 @@ RUN apt-get update && \
     echo "builder ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/builder && \
     chmod 0440 /etc/sudoers.d/builder && \
     chmod a+rx /tmp/termux-packages/scripts/*.sh /tmp/termux-packages/scripts/build/termux_download.sh && \
+    # Run setup scripts as builder user
     su - builder -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' /tmp/termux-packages/scripts/setup-ubuntu.sh" && \
     su - builder -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' /tmp/termux-packages/scripts/setup-cgct.sh" && \
     # Cleanup unused packages to make a smaller image
@@ -39,5 +40,5 @@ RUN apt-get update && \
 # Switch User
 USER builder:builder
 
-# We expect this to be mounted with '-v $PWD:/home/builder/termux-packages':
+# Work directory for mounted termux-packages
 WORKDIR /home/builder/termux-packages
