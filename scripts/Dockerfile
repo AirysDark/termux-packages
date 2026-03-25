@@ -36,12 +36,13 @@ COPY ./build/termux_download.sh /tmp/termux-packages/scripts/build/
 # -----------------------------
 RUN apt-get update && \
     apt-get -yq upgrade && \
-    apt-get install -yq sudo curl gnupg git lzip tar unzip python3 python3-pip locales jq xz-utils pkg-config && \
-    # Remove default ubuntu user and add builder
-    userdel ubuntu || true && \
-    useradd -u 1001 -U -m -s /bin/bash builder && \
-    echo "builder ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/builder && \
-    chmod 0440 /etc/sudoers.d/builder
+    apt-get install -yq \
+        sudo curl gnupg git lzip tar unzip python3 python3-pip locales jq xz-utils pkg-config \
+        python3-venv clang lld libwxgtk3.0-gtk3-dev libglib2.0-0 \
+    && userdel ubuntu || true \
+    && useradd -u 1001 -U -m -s /bin/bash builder \
+    && echo "builder ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/builder \
+    && chmod 0440 /etc/sudoers.d/builder
 
 # -----------------------------
 # Copy AppArmor profile (for reference only, no parsing)

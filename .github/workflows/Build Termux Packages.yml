@@ -16,7 +16,7 @@ on:
 jobs:
   build-docker:
     name: Build Docker Image
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -42,7 +42,7 @@ jobs:
   build-packages:
     name: Build Termux Packages
     needs: build-docker
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         arch: [aarch64, arm, i686, x86_64]

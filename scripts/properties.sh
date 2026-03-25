@@ -73,7 +73,6 @@ export -f termux_build_props__set_termux_prefix_dir_and_sub_variables
 # -----------------------------
 
 ### Regex definitions ###
-
 TERMUX_REGEX__ABSOLUTE_PATH='^(/[^/]+)+$'
 TERMUX_REGEX__RELATIVE_PATH='^[^/]+(/[^/]+)*$'
 TERMUX_REGEX__ROOTFS_OR_ABSOLUTE_PATH='^((/)|((/[^/]+)+))$'
@@ -89,7 +88,6 @@ TERMUX_REGEX__APP_PACKAGE_NAME="^[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+
 TERMUX_REGEX__APP_DATA_DIR_PATH='^(((/data/data)|(/data/user/[0-9]+)|(/mnt/expand/[^/]+/user/[0-9]+))/[^/]+)$'
 
 ### Core Termux variables ###
-
 TERMUX__NAME="Termux"
 TERMUX__LNAME="${TERMUX__NAME,,}"
 TERMUX__UNAME="${TERMUX__NAME^^}"
