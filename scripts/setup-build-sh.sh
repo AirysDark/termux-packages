@@ -8,6 +8,14 @@ set -euo pipefail
 # =============================================================================
 
 # -----------------------------------------------------------------------------
+# Check if Python3 is installed
+# -----------------------------------------------------------------------------
+if ! command -v python3 >/dev/null 2>&1; then
+    echo "❌ Error: python3 is not installed. Please install python3 to generate build.sh files."
+    exit 1
+fi
+
+# -----------------------------------------------------------------------------
 # Run Python generators for each package type
 # -----------------------------------------------------------------------------
 echo "🔧 Generating build.sh files for packages..."
@@ -35,7 +43,6 @@ fi
 # Ensure all build.sh scripts are executable
 # -----------------------------------------------------------------------------
 echo "🔑 Setting executable permissions for all build.sh scripts..."
-
 find packages root-packages x11-packages -type f -name "build.sh" -exec chmod +x {} \;
 
 echo "✅ build.sh generation and permission setup completed."
