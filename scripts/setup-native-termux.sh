@@ -10,7 +10,7 @@ set -euo pipefail
 # -----------------------------
 LOG_FILE="/tmp/cgct_build.log"
 mkdir -p "$(dirname "$LOG_FILE")"
-echo "Starting native Termux build setup at $(date)" > "$LOG_FILE"
+echo "🚀 Starting native Termux build setup at $(date)" > "$LOG_FILE"
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 # -----------------------------
@@ -39,9 +39,9 @@ mkdir -p "$TMP_CGCT" "$CGCT_DIR"
 # -----------------------------------------------------------------------------
 apt_install() {
     packages="$*"
-    echo "Installing packages: $packages"
+    echo "📦 Installing packages: $packages"
     if ! $SUDO apt-get install -y $packages; then
-        echo "WARNING: Failed to install packages: $packages" >> "$LOG_FILE"
+        echo "⚠ WARNING: Failed to install packages: $packages" >> "$LOG_FILE"
         echo "You may need to install them manually or fix missing dependencies." >> "$LOG_FILE"
     fi
 }
@@ -49,7 +49,7 @@ apt_install() {
 # -----------------------------------------------------------------------------
 # Enable multiarch and update apt
 # -----------------------------------------------------------------------------
-echo "Updating system packages..."
+echo "🔄 Updating system packages..."
 $SUDO dpkg --add-architecture i386
 $SUDO apt-get update -y
 $SUDO apt-get upgrade -y
@@ -70,7 +70,7 @@ apt_install \
 # -----------------------------------------------------------------------------
 # Generate locale
 # -----------------------------------------------------------------------------
-echo "Generating locale..."
+echo "🌐 Generating locale..."
 $SUDO locale-gen en_US.UTF-8
 $SUDO update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -79,10 +79,10 @@ export LC_ALL=en_US.UTF-8
 # -----------------------------------------------------------------------------
 # CGCT installation
 # -----------------------------------------------------------------------------
-echo "Installing CGCT cross toolchain..."
+echo "🛠 Installing CGCT cross toolchain..."
 CGCT_MANIFEST_JSON="$TMP_CGCT/cgct.json"
 if ! curl -sSf "https://service.termux-pacman.dev/cgct/x86_64/cgct.json" -o "$CGCT_MANIFEST_JSON"; then
-    echo "ERROR: Failed to download CGCT manifest" >> "$LOG_FILE"
+    echo "❌ ERROR: Failed to download CGCT manifest" >> "$LOG_FILE"
     exit 1
 fi
 
@@ -92,32 +92,32 @@ for pkgname in cbt cgt glibc-cgct cgct-headers; do
     URL="https://service.termux-pacman.dev/cgct/x86_64/$FILENAME"
 
     if [ -z "$SHA256SUM" ] || [ -z "$FILENAME" ]; then
-        echo "ERROR: CGCT manifest missing SHA256SUM or FILENAME for $pkgname" >> "$LOG_FILE"
+        echo "❌ ERROR: CGCT manifest missing SHA256SUM or FILENAME for $pkgname" >> "$LOG_FILE"
         exit 1
     fi
 
-    echo "Downloading $pkgname..."
+    echo "⬇ Downloading $pkgname..."
     if ! curl -L -o "$TMP_CGCT/$FILENAME" "$URL"; then
-        echo "ERROR: Failed to download $pkgname from $URL" >> "$LOG_FILE"
+        echo "❌ ERROR: Failed to download $pkgname from $URL" >> "$LOG_FILE"
         exit 1
     fi
 
-    echo "Verifying $pkgname checksum..."
+    echo "✅ Verifying $pkgname checksum..."
     if ! echo "$SHA256SUM  $TMP_CGCT/$FILENAME" | sha256sum -c -; then
-        echo "ERROR: SHA256 mismatch for $pkgname" >> "$LOG_FILE"
+        echo "❌ ERROR: SHA256 mismatch for $pkgname" >> "$LOG_FILE"
         exit 1
     fi
 
-    echo "Extracting $pkgname..."
+    echo "📂 Extracting $pkgname..."
     if ! tar xJf "$TMP_CGCT/$FILENAME" -C "$CGCT_DIR"; then
-        echo "ERROR: Failed to extract $pkgname" >> "$LOG_FILE"
+        echo "❌ ERROR: Failed to extract $pkgname" >> "$LOG_FILE"
         exit 1
     fi
 done
 
-echo "CGCT setup complete."
+echo "✅ CGCT setup complete."
 
 # -----------------------------------------------------------------------------
 # Final log entry
 # -----------------------------------------------------------------------------
-echo "Native Termux build environment setup completed successfully at $(date)" >> "$LOG_FILE"
+echo "🎉 Native Termux build environment setup completed successfully at $(date)" >> "$LOG_FILE"
