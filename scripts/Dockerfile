@@ -1,5 +1,5 @@
 # -----------------------------
-# Termux Package Builder Dockerfile (CI-friendly)
+# Termux Package Builder Dockerfile for CI (AppArmor disabled)
 # -----------------------------
 
 FROM ubuntu:24.04
@@ -34,7 +34,7 @@ COPY ./build/termux_download.sh /tmp/termux-packages/scripts/build/
 # -----------------------------
 RUN apt-get update && \
     apt-get -yq upgrade && \
-    apt-get install -yq sudo curl gnupg git lzip tar unzip python3 python3-pip locales jq xz-utils pkg-config apparmor apparmor-utils && \
+    apt-get install -yq sudo curl gnupg git lzip tar unzip python3 python3-pip locales jq xz-utils pkg-config && \
     # Remove default ubuntu user and add builder
     userdel ubuntu || true && \
     useradd -u 1001 -U -m -s /bin/bash builder && \
@@ -42,7 +42,7 @@ RUN apt-get update && \
     chmod 0440 /etc/sudoers.d/builder
 
 # -----------------------------
-# Copy AppArmor profile
+# Copy AppArmor profile (for reference, no parsing)
 # -----------------------------
 COPY ./apparmor/_custom-termux-package-builder.profile /etc/apparmor.d/_custom-termux-package-builder
 
@@ -53,13 +53,9 @@ RUN chmod +x /tmp/termux-packages/scripts/setup-*.sh \
  && chmod +x /tmp/termux-packages/scripts/build/termux_download.sh
 
 # -----------------------------
-# Enable AppArmor profile only if supported
+# Skip AppArmor parsing entirely for CI
 # -----------------------------
-RUN if [ -f /sys/module/apparmor/parameters/enabled ]; then \
-        apparmor_parser -r /etc/apparmor.d/_custom-termux-package-builder; \
-    else \
-        echo "Skipping AppArmor parse in CI / unsupported kernel"; \
-    fi
+RUN echo "Skipping AppArmor parse in CI / unsupported kernel"
 
 # -----------------------------
 # Import PGP keys for verification
@@ -75,10 +71,8 @@ WORKDIR /home/builder/termux-packages
 # -----------------------------
 # Run setup scripts as builder
 # -----------------------------
-RUN bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true'; \
-    . /tmp/termux-packages/scripts/properties.sh; \
-    /tmp/termux-packages/scripts/setup-ubuntu.sh; \
-    /tmp/termux-packages/scripts/setup-cgct.sh"
+RUN bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' /tmp/termux-packages/scripts/setup-ubuntu.sh && \
+             /tmp/termux-packages/scripts/setup-cgct.sh"
 
 # -----------------------------
 # Cleanup to reduce image size
