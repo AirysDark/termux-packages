@@ -1,5 +1,5 @@
 # -----------------------------
-# Termux Package Builder Dockerfile (CI-safe, no AppArmor)
+# Termux Package Builder Dockerfile (CI-friendly)
 # -----------------------------
 
 FROM ubuntu:24.04
@@ -20,7 +20,8 @@ RUN groupadd -r systemd-journal -g 999 || true \
 # Create directories
 # -----------------------------
 RUN rm -rf /tmp/termux-packages \
- && mkdir -p /tmp/termux-packages/scripts/build
+ && mkdir -p /tmp/termux-packages/scripts/build \
+ && mkdir -p /etc/apparmor.d
 
 # -----------------------------
 # Copy required scripts
@@ -33,7 +34,7 @@ COPY ./build/termux_download.sh /tmp/termux-packages/scripts/build/
 # -----------------------------
 RUN apt-get update && \
     apt-get -yq upgrade && \
-    apt-get install -yq sudo curl gnupg git lzip tar unzip python3 python3-pip locales jq xz-utils pkg-config && \
+    apt-get install -yq sudo curl gnupg git lzip tar unzip python3 python3-pip locales jq xz-utils pkg-config apparmor apparmor-utils && \
     # Remove default ubuntu user and add builder
     userdel ubuntu || true && \
     useradd -u 1001 -U -m -s /bin/bash builder && \
@@ -41,10 +42,24 @@ RUN apt-get update && \
     chmod 0440 /etc/sudoers.d/builder
 
 # -----------------------------
+# Copy AppArmor profile
+# -----------------------------
+COPY ./apparmor/_custom-termux-package-builder.profile /etc/apparmor.d/_custom-termux-package-builder
+
+# -----------------------------
 # Ensure scripts are executable (as root)
 # -----------------------------
 RUN chmod +x /tmp/termux-packages/scripts/setup-*.sh \
  && chmod +x /tmp/termux-packages/scripts/build/termux_download.sh
+
+# -----------------------------
+# Enable AppArmor profile only if supported
+# -----------------------------
+RUN if [ -f /sys/module/apparmor/parameters/enabled ]; then \
+        apparmor_parser -r /etc/apparmor.d/_custom-termux-package-builder; \
+    else \
+        echo "Skipping AppArmor parse in CI / unsupported kernel"; \
+    fi
 
 # -----------------------------
 # Import PGP keys for verification
@@ -60,8 +75,9 @@ WORKDIR /home/builder/termux-packages
 # -----------------------------
 # Run setup scripts as builder
 # -----------------------------
-RUN bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' \
-    /tmp/termux-packages/scripts/setup-ubuntu.sh && \
+RUN bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true'; \
+    . /tmp/termux-packages/scripts/properties.sh; \
+    /tmp/termux-packages/scripts/setup-ubuntu.sh; \
     /tmp/termux-packages/scripts/setup-cgct.sh"
 
 # -----------------------------

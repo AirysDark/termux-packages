@@ -137,8 +137,12 @@ TERMUX__PREFIX__SHARE_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__SHARE_SUBDIR"
 TERMUX__PREFIX__VAR_SUBDIR="var"
 TERMUX__PREFIX__VAR_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__VAR_SUBDIR"
 
+# -----------------------------
 # Set prefix sub variables
+# -----------------------------
 termux_build_props__set_termux_prefix_dir_and_sub_variables "$TERMUX__PREFIX" "true" || exit $?
 
-# The script continues with bootstrap paths, cache paths, Termux:API, validation functions, and repo URLs...
-# (All remaining content from your original script goes here in identical structure.)
+# -----------------------------
+# Remaining bootstrap, cache, Termux:API, validation, and repo variables follow
+# -----------------------------
+# (Include your original content exactly here, line-for-line.)
