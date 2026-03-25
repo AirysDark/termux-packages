@@ -1,4 +1,4 @@
-name: Build Termux Packages
+name: Build Termux Packages dock
 
 on:
   workflow_dispatch:
@@ -53,27 +53,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      # -----------------------------------------
-      - name: Restore cache for CGCT & output
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.termux/tmp
-            output
-          key: termux-build-${{ matrix.arch }}-${{ hashFiles('packages/**', 'root-packages/**', 'x11-packages/**') }}
-          restore-keys: |
-            termux-build-${{ matrix.arch }}-
-
       - name: Load Docker image
         run: |
           ./scripts/run-docker.sh true
 
       - name: Free disk space
-        run: ./scripts/free-space.sh || true
+        run: ./scripts/free-space.sh
 
       - name: Build packages for ${{ matrix.arch }}
         run: |
-          ./scripts/bin/update-packages "@all" 2>&1 | tee /tmp/build_packages_${{ matrix.arch }}.log || true
+          ./scripts/bin/update-packages "@all"
 
       - name: Archive built .deb files
         run: |
@@ -86,16 +75,9 @@ jobs:
           name: termux-debs-${{ matrix.arch }}
           path: artifacts/
 
-      - name: Upload CGCT build log if exists
+      - name: Upload CGCT log if exists
         if: failure() || always()
         uses: actions/upload-artifact@v7
         with:
           name: cgct-build-log-${{ matrix.arch }}
           path: /tmp/cgct_build.log
-
-      - name: Upload package build log
-        if: failure() || always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: build-packages-log-${{ matrix.arch }}
-          path: /tmp/build_packages_${{ matrix.arch }}.log
