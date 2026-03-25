@@ -1,5 +1,5 @@
 # -----------------------------
-# Termux Package Builder Dockerfile with AppArmor
+# Termux Package Builder Dockerfile (CI-safe AppArmor)
 # -----------------------------
 
 FROM ubuntu:24.04
@@ -42,7 +42,7 @@ RUN apt-get update && \
     chmod 0440 /etc/sudoers.d/builder
 
 # -----------------------------
-# Copy AppArmor profile
+# Copy AppArmor profile (for local builds only)
 # -----------------------------
 COPY ./apparmor/_custom-termux-package-builder.profile /etc/apparmor.d/_custom-termux-package-builder
 
@@ -53,9 +53,13 @@ RUN chmod +x /tmp/termux-packages/scripts/setup-*.sh \
  && chmod +x /tmp/termux-packages/scripts/build/termux_download.sh
 
 # -----------------------------
-# Enable AppArmor profile
+# Enable AppArmor profile only if AppArmor is available
 # -----------------------------
-RUN apparmor_parser -r /etc/apparmor.d/_custom-termux-package-builder
+RUN if [ -f /sys/module/apparmor/parameters/enabled ]; then \
+      apparmor_parser -r /etc/apparmor.d/_custom-termux-package-builder; \
+    else \
+      echo "Skipping AppArmor parse in CI / unsupported kernel"; \
+    fi
 
 # -----------------------------
 # Import PGP keys for verification
@@ -69,9 +73,14 @@ USER builder:builder
 WORKDIR /home/builder/termux-packages
 
 # -----------------------------
-# Run setup scripts as builder under AppArmor confinement
+# Run setup scripts as builder (AppArmor profile used if available)
 # -----------------------------
-RUN bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' aa-exec -p _custom-termux-package-builder bash -c '/tmp/termux-packages/scripts/setup-ubuntu.sh && /tmp/termux-packages/scripts/setup-cgct.sh'"
+RUN bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' \
+             if command -v aa-exec >/dev/null 2>&1; then \
+                 aa-exec -p _custom-termux-package-builder bash -c '/tmp/termux-packages/scripts/setup-ubuntu.sh && /tmp/termux-packages/scripts/setup-cgct.sh'; \
+             else \
+                 bash -c '/tmp/termux-packages/scripts/setup-ubuntu.sh && /tmp/termux-packages/scripts/setup-cgct.sh'; \
+             fi"
 
 # -----------------------------
 # Cleanup to reduce image size
