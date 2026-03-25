@@ -34,38 +34,40 @@ jobs:
           chmod +x ./scripts/setup-native-termux.sh
           ./scripts/setup-native-termux.sh 2>&1 | tee /tmp/setup-native-termux.log
 
-      # Step 3: Free disk space (optional)
-      - name: Free disk space
+      # Step 3: Install Python globally to ensure build.sh generator works
+      - name: Ensure Python is available
         run: |
-          chmod +x ./scripts/free-space.sh
-          ./scripts/free-space.sh 2>&1 | tee /tmp/free-space.log || true
+          sudo apt-get update -y
+          sudo apt-get install -y python3 python3-pip python3-venv
 
-      # Step 3b: Generate missing build.sh files
-      - name: Generate missing build.sh for packages
+      # Step 4: Free disk space (optional)
+      - name: Free disk space
+        run: ./scripts/free-space.sh || true
+
+      # Step 5: Generate build.sh files for packages
+      - name: Generate missing build.sh files
         run: |
           chmod +x ./scripts/setup-build-sh.sh
-          ./scripts/setup-build-sh.sh
+          ./scripts/setup-build-sh.sh 2>&1 | tee /tmp/setup-build-sh-build-sh.log
 
-      # Step 4: Build packages for matrix architectures
+      # Step 6: Build packages for matrix architectures
       - name: Build packages for ${{ matrix.arch }}
-        run: |
-          chmod +x ./scripts/bin/update-packages
-          ./scripts/bin/update-packages "@all" 2>&1 | tee /tmp/termux-build-${{ matrix.arch }}.log
+        run: ./scripts/bin/update-packages "@all" 2>&1 | tee /tmp/termux-build-${{ matrix.arch }}.log
 
-      # Step 5: Archive built .deb files
+      # Step 7: Archive built .deb files
       - name: Archive built .deb files
         run: |
           mkdir -p artifacts
           find output -type f -name '*.deb' -exec mv {} artifacts/ \;
 
-      # Step 6: Upload built .deb artifacts
+      # Step 8: Upload built .deb artifacts
       - name: Upload built packages
         uses: actions/upload-artifact@v7
         with:
           name: termux-debs-${{ matrix.arch }}
           path: artifacts/
 
-      # Step 7: Upload setup/build logs for debugging
+      # Step 9: Upload setup/build logs for debugging
       - name: Upload setup/build logs
         if: failure() || always()
         uses: actions/upload-artifact@v7
@@ -73,6 +75,6 @@ jobs:
           name: termux-build-logs-${{ matrix.arch }}
           path: |
             /tmp/setup-native-termux.log
-            /tmp/free-space.log
+            /tmp/setup-build-sh-build-sh.log
             /tmp/termux-build-${{ matrix.arch }}.log
             /tmp/cgct_build.log
