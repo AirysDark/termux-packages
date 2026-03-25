@@ -1,0 +1,76 @@
+name: Build Termux Packages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - dev
+    paths:
+      - 'packages/**'
+      - 'root-packages/**'
+      - 'x11-packages/**'
+      - 'scripts/**'
+      - '.github/workflows/build.yml'
+
+jobs:
+  build-docker:
+    name: Build Docker Image
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Build Docker image
+        run: |
+          docker build -t termux/package-builder:latest scripts/
+          docker tag termux/package-builder:latest ghcr.io/${{ github.repository_owner }}/package-builder:latest
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/package-builder:latest
+
+  build-packages:
+    name: Build Packages
+    needs: build-docker
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        arch: [aarch64, arm, i686, x86_64]
+      fail-fast: false
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Load Docker image
+        run: |
+          ./scripts/run-docker.sh true
+
+      - name: Free disk space
+        run: ./scripts/free-space.sh
+
+      - name: Build packages
+        run: |
+          ./scripts/bin/update-packages "@all"
+
+      - name: Archive built .deb files
+        run: |
+          mkdir -p artifacts
+          find output -type f -name '*.deb' -exec mv {} artifacts/ \;
+
+      - name: Upload built packages
+        uses: actions/upload-artifact@v7
+        with:
+          name: termux-debs-${{ matrix.arch }}
+          path: artifacts/
