@@ -1,10 +1,26 @@
 # First, build the base image (see Dockerfile) if necessary
 # - if that is not built locally, the remote image will be pulled.
 # Then, build with:
-#	docker build -t ghcr.io/termux/package-builder-cgct --file Dockerfile.cgct .
+#   docker build -t ghcr.io/termux/package-builder-cgct --file Dockerfile.cgct .
 # Push to GitHub registry with:
-#	docker push ghcr.io/termux/package-builder-cgct
+#   docker push ghcr.io/termux/package-builder-cgct
 # This is done after changing this file or any of the
 # scripts/setup-{ubuntu,android-sdk,cgct}.sh setup scripts.
+
 FROM ghcr.io/termux/package-builder
-RUN TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' /tmp/termux-packages/scripts/setup-cgct.sh
+
+# Switch to builder user before running setup scripts
+USER builder:builder
+WORKDIR /home/builder/termux-packages
+
+# Run the CGCT setup script as builder user
+RUN bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' /tmp/termux-packages/scripts/setup-cgct.sh"
+
+# Switch back to root for any cleanup if needed
+USER root
+# Optional: cleanup temporary files to reduce image size
+RUN rm -rf /tmp/termux-packages/scripts/*.log /tmp/termux-packages/scripts/tmp
+
+# Switch back to builder user for any further operations
+USER builder:builder
+WORKDIR /home/builder/termux-packages
