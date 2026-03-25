@@ -6,6 +6,29 @@
 set -euo pipefail
 
 # -----------------------------
+# Logging setup
+# -----------------------------
+LOGFILE="/tmp/cgct_build.log"
+exec > >(tee -a "$LOGFILE") 2>&1
+
+trap 'echo "ERROR: A failure occurred. See $LOGFILE for details."; handle_error $?' ERR
+
+handle_error() {
+    local exit_code="$1"
+    echo "Exit code: $exit_code" >> "$LOGFILE"
+
+    if grep -q "SHA256SUM or filename" "$LOGFILE"; then
+        echo "TIP: Check your cgct.json manifest to ensure all packages have SHA256SUM and FILENAME fields." >> "$LOGFILE"
+    elif grep -q "sha256sum -c -" "$LOGFILE"; then
+        echo "TIP: Downloaded package may be corrupted. Retry or manually verify the checksum." >> "$LOGFILE"
+    elif grep -q "setup-cgct command not found" "$LOGFILE"; then
+        echo "TIP: Ensure CGCT packages were correctly extracted into $CGCT_DIR and the correct architecture is selected." >> "$LOGFILE"
+    else
+        echo "TIP: Review $LOGFILE for more information on the failure." >> "$LOGFILE"
+    fi
+}
+
+# -----------------------------
 # Source required scripts
 # -----------------------------
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
@@ -16,7 +39,6 @@ if [ ! -f "$PROPERTIES_SH" ]; then
     echo "Error: properties.sh not found at $PROPERTIES_SH"
     exit 1
 fi
-
 if [ ! -f "$TERMUX_DOWNLOAD_SH" ]; then
     echo "Error: termux_download.sh not found at $TERMUX_DOWNLOAD_SH"
     exit 1
@@ -31,7 +53,6 @@ source "$TERMUX_DOWNLOAD_SH"
 ARCH="x86_64"
 REPO_URL="https://service.termux-pacman.dev/cgct/${ARCH}"
 
-# Validate host architecture
 HOST_ARCH="$(uname -m)"
 if [ "$ARCH" != "$HOST_ARCH" ]; then
     echo "Error: the requested CGCT is not supported on your architecture ($HOST_ARCH)"
@@ -55,10 +76,8 @@ declare -A CGCT=(
 TMPDIR_CGCT="${TERMUX_PKG_TMPDIR}/cgct"
 CGCT_DIR="/opt/cgct"
 
-mkdir -p "$TMPDIR_CGCT"
-mkdir -p "$CGCT_DIR"
+mkdir -p "$TMPDIR_CGCT" "$CGCT_DIR"
 
-# Remove old installation if present
 if [ -d "$CGCT_DIR" ] && [ "$(ls -A "$CGCT_DIR")" ]; then
     echo "Removing old CGCT..."
     rm -rf "$CGCT_DIR"/*
@@ -85,7 +104,6 @@ for pkgname in "${!CGCT[@]}"; do
     SHA256SUM=$(jq -r '."'$pkgname'"."SHA256SUM"' "$CGCT_MANIFEST_JSON")
     filename=$(jq -r '."'$pkgname'"."FILENAME"' "$CGCT_MANIFEST_JSON")
 
-    # Validate manifest
     if [ "$version" != "$version_of_json" ]; then
         echo "Error: version mismatch for '${pkgname}': requested '${version}', got '${version_of_json}'"
         exit 1
@@ -95,16 +113,13 @@ for pkgname in "${!CGCT[@]}"; do
         exit 1
     fi
 
-    # Download package if missing
     if [ ! -f "$TMPDIR_CGCT/$filename" ]; then
         echo "Downloading ${pkgname}..."
         termux_download "${REPO_URL}/${filename}" "$TMPDIR_CGCT/$filename" "$SHA256SUM"
     fi
 
-    # Verify SHA256 checksum
     echo "${SHA256SUM}  $TMPDIR_CGCT/$filename" | sha256sum -c -
 
-    # Extract package
     echo "Extracting ${pkgname}..."
     tar xJf "$TMPDIR_CGCT/$filename" -C "$CGCT_DIR"
 done
@@ -138,3 +153,4 @@ echo "Setting up CGCT..."
 "$CGCT_DIR/bin/setup-cgct" "/usr/lib/x86_64-linux-gnu"
 
 echo "CGCT installation complete."
+echo "Full log available at $LOGFILE"
