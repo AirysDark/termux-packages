@@ -30,13 +30,15 @@ jobs:
       - name: Setup Termux Build Environment
         run: |
           chmod +x ./scripts/setup-native-termux.sh
-          ./scripts/setup-native-termux.sh
+          ./scripts/setup-native-termux.sh 2>&1 | tee /tmp/termux_build.log
 
       - name: Free disk space
         run: ./scripts/free-space.sh || true
 
       - name: Build packages for ${{ matrix.arch }}
-        run: ./scripts/bin/update-packages "@all"
+        run: |
+          mkdir -p /tmp/termux_build.log_dir
+          ./scripts/bin/update-packages "@all" 2>&1 | tee -a /tmp/termux_build.log
 
       - name: Archive built .deb files
         run: |
@@ -49,9 +51,9 @@ jobs:
           name: termux-debs-${{ matrix.arch }}
           path: artifacts/
 
-      - name: Upload CGCT build log if exists
+      - name: Upload Termux build log
         if: failure() || always()
         uses: actions/upload-artifact@v7
         with:
-          name: cgct-build-log-${{ matrix.arch }}
-          path: /tmp/cgct_build.log
+          name: termux-build-log-${{ matrix.arch }}
+          path: /tmp/termux_build.log
