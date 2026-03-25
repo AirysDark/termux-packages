@@ -22,6 +22,16 @@ fi
 : "${TERMUX_PKG_TMPDIR:=/tmp}"
 
 # =============================================================================
+# Generate locale early to avoid tex-common / fmtutil errors
+# =============================================================================
+$SUDO apt-get update
+$SUDO apt-get install -y locales
+$SUDO locale-gen en_US.UTF-8
+$SUDO update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# =============================================================================
 # Core package list
 # =============================================================================
 PACKAGES=""
@@ -47,7 +57,7 @@ PACKAGES+=" ed recutils bsdmainutils valac fig2dev gegl gengetopt libdbus-1-dev 
 # =============================================================================
 $SUDO dpkg --add-architecture i386
 $SUDO env DEBIAN_FRONTEND=noninteractive apt-get update
-$SUDO env DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends jq gnupg curl
+$SUDO env DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends jq gnupg curl locales
 
 # =============================================================================
 # Add LLVM repository (Jammy + LLVM 16)
@@ -55,8 +65,6 @@ $SUDO env DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recomm
 LLVM_KEY="$(dirname "$(realpath "$0")")/llvm-snapshot.gpg.key"
 $SUDO cp "$LLVM_KEY" /etc/apt/trusted.gpg.d/apt.llvm.org.asc
 $SUDO chmod a+r /etc/apt/trusted.gpg.d/apt.llvm.org.asc
-
-# Correct LLVM repo for Jammy (Ubuntu 22.04)
 echo "deb [arch=amd64] http://apt.llvm.org/jammy/ llvm-toolchain-jammy-${TERMUX_HOST_LLVM_MAJOR_VERSION} main" | $SUDO tee /etc/apt/sources.list.d/apt-llvm-org.list
 
 LLVM_PACKAGES="llvm-${TERMUX_HOST_LLVM_MAJOR_VERSION}-dev llvm-${TERMUX_HOST_LLVM_MAJOR_VERSION}-tools clang-${TERMUX_HOST_LLVM_MAJOR_VERSION} lld-${TERMUX_HOST_LLVM_MAJOR_VERSION}"
@@ -66,12 +74,6 @@ LLVM_PACKAGES="llvm-${TERMUX_HOST_LLVM_MAJOR_VERSION}-dev llvm-${TERMUX_HOST_LLV
 # =============================================================================
 $SUDO env DEBIAN_FRONTEND=noninteractive apt-get update
 $SUDO env DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends $PACKAGES $LLVM_PACKAGES
-
-# =============================================================================
-# Generate locale
-# =============================================================================
-$SUDO locale-gen --purge en_US.UTF-8
-echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' | $SUDO tee /etc/default/locale
 
 # =============================================================================
 # Fix ownership of Termux directories
