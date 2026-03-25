@@ -1,23 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.qt.io/
-TERMUX_PKG_DESCRIPTION="Qt 5 QMake"
-TERMUX_PKG_LICENSE="LGPL-3.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="qt5-qmake"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=5.15.5
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL="https://download.qt.io/archive/qt/${TERMUX_PKG_VERSION%.*}/${TERMUX_PKG_VERSION}/submodules/qtbase-everywhere-opensource-src-${TERMUX_PKG_VERSION}.tar.xz"
-# TERMUX_PKG_SHA256 is not used in termux-build-qmake.sh.
-TERMUX_PKG_SHA256=SKIP_CHECKSUM
-TERMUX_PKG_SKIP_SRC_EXTRACT=true
-TERMUX_PKG_DEPENDS="qt5-qtbase"
-TERMUX_PKG_BREAKS="qt5-qtbase (<< 5.15.7)"
-TERMUX_PKG_REPLACES="qt5-qtbase (<< 5.15.7)"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	## Unpacking prebuilt qmake from archive.
-	cd "${TERMUX_PKG_SRCDIR}" && {
-		tar xf "${TERMUX_PKG_BUILDER_DIR}/prebuilt.tar.xz"
-		install \
-			-Dm700 "${TERMUX_PKG_SRCDIR}/bin/qmake-${TERMUX_HOST_PLATFORM}" \
-			"${TERMUX_PREFIX}/bin/qmake"
-	}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

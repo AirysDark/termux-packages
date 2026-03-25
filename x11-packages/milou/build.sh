@@ -1,21 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://invent.kde.org/plasma/milou"
-TERMUX_PKG_DESCRIPTION="A dedicated search application built on top of Baloo"
-TERMUX_PKG_LICENSE="LGPL-2.0-or-later"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="milou"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="6.6.3"
-TERMUX_PKG_SRCURL="https://download.kde.org/stable/plasma/${TERMUX_PKG_VERSION}/milou-${TERMUX_PKG_VERSION}.tar.xz"
-TERMUX_PKG_SHA256=909834cd7c62de83255a97090c685903ed6245b50be9c15d299703d9b822f9fd
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="kf6-kconfig, kf6-kirigami, kf6-krunner, libc++, libplasma, qt6-qtbase, qt6-qtdeclarative"
-TERMUX_PKG_BUILD_DEPENDS="extra-cmake-modules, kf6-kdoctools"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_SYSTEM_NAME=Linux
--DKDE_INSTALL_QMLDIR=lib/qt6/qml
--DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	if [[ "$TERMUX_ON_DEVICE_BUILD" == "false" ]]; then
-		TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DKF6_HOST_TOOLING=$TERMUX_PREFIX/opt/kf6/cross/lib/cmake/"
-	fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,18 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://mate-desktop.org/
-TERMUX_PKG_DESCRIPTION="Official themes for the MATE desktop"
-TERMUX_PKG_LICENSE="LGPL-2.1-or-later"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="mate-themes"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="3.22.26"
-TERMUX_PKG_SRCURL="https://github.com/mate-desktop/mate-themes/releases/download/v$TERMUX_PKG_VERSION/mate-themes-$TERMUX_PKG_VERSION.tar.xz"
-TERMUX_PKG_SHA256=224e89d364eb3b73f1cf756d05494a98421a93cbf54349a2c85fc607eb755ed7
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_BUILD_DEPENDS="autoconf-archive, mate-common"
-TERMUX_PKG_RECOMMENDS="mate-icon-theme"
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	# Remove check for gtk2
-	sed -i '/Check GTK+ theme engines/,+3d' configure.ac
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	autoreconf -fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

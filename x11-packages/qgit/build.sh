@@ -1,12 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/tibirna/qgit
-TERMUX_PKG_DESCRIPTION="A git GUI viewer"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="qgit"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.13"
-TERMUX_PKG_SRCURL=https://github.com/tibirna/qgit/archive/refs/tags/qgit-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=9fa64b011963b7b876b8634b140ec5339a81a422317df71b619fcee5740a364a
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="git, libc++, qt6-qtbase, qt6-qt5compat"
-TERMUX_PKG_RECOMMENDS="hicolor-icon-theme"
-TERMUX_PKG_BUILD_DEPENDS="qt6-qtbase-cross-tools"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

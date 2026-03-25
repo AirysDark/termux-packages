@@ -1,36 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.qt.io/
-TERMUX_PKG_DESCRIPTION="Qt X11 Extras enables the Qt programmer to write applications for the Linux/X11 platform"
-TERMUX_PKG_LICENSE="LGPL-3.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="qt5-qtx11extras"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="5.15.18"
-TERMUX_PKG_SRCURL="https://download.qt.io/archive/qt/${TERMUX_PKG_VERSION%.*}/${TERMUX_PKG_VERSION}/submodules/qtx11extras-everywhere-opensource-src-${TERMUX_PKG_VERSION}.tar.xz"
-TERMUX_PKG_SHA256=31e72bea959f9093bbc41023ab67f9d23bcf62c1f557064caa48b4c2f7709917
-TERMUX_PKG_DEPENDS="qt5-qtbase"
-TERMUX_PKG_BUILD_DEPENDS="qt5-qtbase-cross-tools"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_NO_STATICSPLIT=true
 
-# Replacing the old qt5-base packages
-TERMUX_PKG_REPLACES="qt5-x11extras"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_configure () {
-	"${TERMUX_PREFIX}/opt/qt/cross/bin/qmake" \
-		-spec "${TERMUX_PREFIX}/lib/qt/mkspecs/termux-cross"
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make_install() {
-	make install
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	#######################################################
-	##
-	##  Fixes & cleanup.
-	##
-	#######################################################
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	## Drop QMAKE_PRL_BUILD_DIR because reference the build dir.
-	find "${TERMUX_PREFIX}/lib" -type f -name "libQt5X11*.prl" \
-		-exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' "{}" \;
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	## Remove *.la files.
-	find "${TERMUX_PREFIX}/lib" -iname \*.la -delete
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

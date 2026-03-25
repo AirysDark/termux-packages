@@ -1,11 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://herbstluftwm.org"
-TERMUX_PKG_DESCRIPTION="Manual tiling window manager for X"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="herbstluftwm"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.9.5"
-TERMUX_PKG_SRCURL="https://herbstluftwm.org/tarballs/herbstluftwm-${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=b2d4600909e5bece5ad63818dfb30bb19fd2ac9f52847b1a7a74ad4040718105
-TERMUX_PKG_DEPENDS="freetype, libx11, libxext, libxfixes, libxft, libxinerama, libxrandr"
-TERMUX_PKG_RECOMMENDS="xorg-xsetroot"
-TERMUX_PKG_BUILD_DEPENDS="xorgproto"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-DCMAKE_INSTALL_SYSCONF_PREFIX=${TERMUX_PREFIX}/etc"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

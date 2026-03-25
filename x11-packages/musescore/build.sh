@@ -1,19 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://musescore.org/
-TERMUX_PKG_DESCRIPTION="A music score editor/player"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="musescore"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="4.6.5"
-TERMUX_PKG_SRCURL="https://github.com/musescore/MuseScore/archive/refs/tags/v${TERMUX_PKG_VERSION//\~/-}.tar.gz"
-TERMUX_PKG_SHA256=c9441c1344d2bd63f86e737e25293fbad532f3edec9380c7d42eab3a8042ced1
-TERMUX_PKG_DEPENDS="libc++, qt6-qtbase, qt6-qtnetworkauth, qt6-qt5compat, qt6-qtscxml, qt6-qtsvg, libopus, libopusenc, libsndfile, alsa-lib"
-TERMUX_PKG_BUILD_DEPENDS="qt6-qttools"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE=newest-tag
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_SYSTEM_NAME=Linux
--DCMAKE_PROGRAM_PATH=${TERMUX_PREFIX}/opt/qt6/cross/bin/;${TERMUX_PREFIX}/opt/qt6/cross/lib/qt6/bin/
--DMUE_RUN_LRELEASE=OFF
--DMUE_COMPILE_USE_SYSTEM_OPUS=TRUE
--DMUE_COMPILE_USE_SYSTEM_OPUSENC=TRUE
--DMUSE_ENABLE_UNIT_TESTS=FALSE
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

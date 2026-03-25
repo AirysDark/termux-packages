@@ -1,49 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://deadbeef.sourceforge.io/
-TERMUX_PKG_DESCRIPTION="A modular cross-platform audio player"
-TERMUX_PKG_LICENSE="ZLIB, GPL-2.0, LGPL-2.1, BSD 3-Clause, MIT"
-TERMUX_PKG_LICENSE_FILE="COPYING"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="deadbeef"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.10.2"
-TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/deadbeef/Builds/${TERMUX_PKG_VERSION}/linux/deadbeef-${TERMUX_PKG_VERSION}.tar.bz2
-TERMUX_PKG_SHA256=dd951e83e0069e2f3df18985dd40d2cf9409f502b0ecaaf1ac229d5009a8e698
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="atk, dbus, ffmpeg, gdk-pixbuf, glib, gtk3, harfbuzz, libblocksruntime, libc++, libcairo, libcurl, libdispatch, libflac, libiconv, libjansson, libmad, libogg, libsamplerate, libsndfile, libvorbis, libwavpack, libx11, libzip, libmpg123, opusfile, pango, pulseaudio, zlib"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
-ax_cv_c_flags__msse2=no
---disable-ffap
---disable-gtk2
---disable-sid
-"
-
-termux_step_pre_configure() {
-	autoreconf -fi
-
-	CPPFLAGS+=" -Wno-implicit-function-declaration -D_FILE_OFFSET_BITS=64"
-
-	# ERROR: ./lib/deadbeef/adplug.so contains undefined symbols: __extendsftf2
-	local _libgcc_file="$($CC -print-libgcc-file-name)"
-	local _libgcc_path="$(dirname $_libgcc_file)"
-	local _libgcc_name="$(basename $_libgcc_file)"
-	LDFLAGS+=" -lm -L$_libgcc_path -l:$_libgcc_name"
-
-	rm -rf intl
-	mkdir -p intl
-	cat > intl/Makefile.in <<-EOF
-		all:
-		install:
-	EOF
-}
-
-termux_step_post_configure() {
-	echo '!<arch>' >> intl/libintl.a
-}
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-	cd $TERMUX_PKG_SRCDIR
-	local f
-	for f in $(find plugins -name COPYING); do
-		local d=$(dirname ${f})
-		install -Dm600 -T $TERMUX_PKG_SRCDIR/${f} \
-			$TERMUX_PREFIX/share/doc/$TERMUX_PKG_NAME/COPYING.${d//\//.}
-	done
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

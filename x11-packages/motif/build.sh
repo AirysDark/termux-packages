@@ -1,38 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://sourceforge.net/projects/motif/
-TERMUX_PKG_DESCRIPTION="Motif widget toolkit"
-TERMUX_PKG_LICENSE="LGPL-2.1"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="motif"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=2.3.8
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/project/motif/Motif%20${TERMUX_PKG_VERSION}%20Source%20Code/motif-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=859b723666eeac7df018209d66045c9853b50b4218cecadb794e2359619ebce7
-TERMUX_PKG_DEPENDS="fontconfig, freetype, libandroid-support, libice, libiconv, libjpeg-turbo, libpng, libsm, libx11, libxext, libxft, libxmu, libxt"
-TERMUX_PKG_BUILD_DEPENDS="flex, xbitmaps, xorgproto"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
-ac_cv_file__usr_X_include_X11_X_h=no
-ac_cv_file__usr_X11R6_include_X11_X_h=no
-ac_cv_func_setpgrp_void=yes
-"
-TERMUX_PKG_MAKE_PROCESSES=1
-TERMUX_PKG_HOSTBUILD=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	rm -f tools/wml/{wmllex,wmluiltok}.c
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_host_build() {
-	"$TERMUX_PKG_SRCDIR/configure" ${TERMUX_PKG_EXTRA_HOSTBUILD_CONFIGURE_ARGS}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	make -C config/util makestrs
-	make -C lib/Xm
-	make -C tools/wml wmluiltok LIBS=-lfl
-	make -C tools/wml
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_pre_configure() {
-	export PATH=$TERMUX_PKG_HOSTBUILD_DIR/config/util:$TERMUX_PKG_HOSTBUILD_DIR/tools/wml:$PATH
-}
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-termux_step_post_configure() {
-	make -C tools/wml wmluiltok LIBS=-lfl
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

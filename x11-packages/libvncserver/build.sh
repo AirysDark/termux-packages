@@ -1,24 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://libvnc.github.io/
-TERMUX_PKG_DESCRIPTION="Cross-platform C libraries that allow you to easily implement VNC server or client functionality"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libvncserver"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.9.15"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/LibVNC/libvncserver/archive/refs/tags/LibVNCServer-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=62352c7795e231dfce044beb96156065a05a05c974e5de9e023d688d8ff675d7
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libgcrypt, libgnutls, libjpeg-turbo, liblzo, libpng, zlib"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_POLICY_VERSION_MINIMUM=3.5
--DWITH_OPENSSL=OFF
--DWITH_SASL=OFF
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_massage() {
-	local f
-	for f in ./lib/pkgconfig/libvnc{client,server}.pc; do
-		if [ -e "${f}" ]; then
-			sed -i '/^Libs\.private:/s/ -l\(-pthread\)/ \1/' "${f}"
-		fi
-	done
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

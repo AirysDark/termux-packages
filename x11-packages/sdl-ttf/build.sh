@@ -1,35 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.libsdl.org/projects/SDL_ttf
-TERMUX_PKG_DESCRIPTION="A companion library to SDL for working with TrueType (tm) fonts"
-TERMUX_PKG_LICENSE="ZLIB"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="sdl-ttf"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-_COMMIT=2648c22c4f9e32d05a11b32f636b1c225a1502ac
-_COMMIT_DATE=20220526
-TERMUX_PKG_VERSION=2.0.11-p${_COMMIT_DATE}
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=git+https://github.com/libsdl-org/SDL_ttf
-TERMUX_PKG_SHA256=9e603ae3ee9363808e5eacf671f35ab92001ece21dc7d3eb1fb6209fa5c38ad4
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_GIT_BRANCH=SDL-1.2
-TERMUX_PKG_DEPENDS="freetype, sdl"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	git fetch --unshallow
-	git checkout $_COMMIT
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local pdate="p$(git log -1 --format=%cs | sed 's/-//g')"
-	if [[ "$TERMUX_PKG_VERSION" != *"${pdate}" ]]; then
-		echo -n "ERROR: The version string \"$TERMUX_PKG_VERSION\" is"
-		echo -n " different from what is expected to be; should end"
-		echo " with \"${pdate}\"."
-		return 1
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	local s=$(find . -type f ! -path '*/.git/*' -print0 | xargs -0 sha256sum | LC_ALL=C sort | sha256sum)
-	if [[ "${s}" != "${TERMUX_PKG_SHA256}  "* ]]; then
-		termux_error_exit "Checksum mismatch for source files."
-	fi
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_pre_configure() {
-	LDFLAGS+=" -lm"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,51 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://meldmerge.org/
-TERMUX_PKG_DESCRIPTION="A visual diff and merge tool targeted at developers"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="meld"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="3.23.1"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://download.gnome.org/sources/meld/${TERMUX_PKG_VERSION%.*}/meld-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=73f827924663c7c6b451a74c8385304d99feaa13c81f4e0a171da597c6843574
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+\.\d+\.\d+"
-TERMUX_PKG_DEPENDS="gsettings-desktop-schemas, glib, gtk3, gtksourceview4, libcairo, pango, pycairo, pygobject, python"
-TERMUX_PKG_BUILD_DEPENDS="gettext"
-# build dependency only
-TERMUX_PKG_PYTHON_TARGET_DEPS="itstool"
-TERMUX_PKG_PYTHON_RUNTIME_DEPS=false
-TERMUX_MESON_WHEEL_CROSSFILE="$TERMUX_PKG_TMPDIR/wheel-cross-file.txt"
-TERMUX_PKG_SETUP_PYTHON=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---cross-file $TERMUX_MESON_WHEEL_CROSSFILE
-"
-termux_step_pre_configure() {
-	termux_setup_glib_cross_pkg_config_wrapper
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-	# This is necessary to prevent the error "...libxml2mod.so: cannot open shared object file..." but is insufficient alone
-	if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
-		local _bin="$TERMUX_PKG_BUILDDIR/_bin"
-		export ITSTOOL="${_bin}/itstool"
-		rm -rf "${_bin}"
-		mkdir -p "${_bin}"
-		cat > "$ITSTOOL" <<-EOF
-			#!$(command -v sh)
-			unset PYTHONPATH
-			exec $(command -v itstool) "\$@"
-		EOF
-		chmod 0700 "$ITSTOOL"
-	fi
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-# This is necessary to prevent the error "...libxml2mod.so: cannot open shared object file..." and depends on the block in termux_step_pre_configure()
-termux_step_configure() {
-	termux_setup_meson
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	cp -f $TERMUX_MESON_CROSSFILE $TERMUX_MESON_WHEEL_CROSSFILE
-	if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
-		sed -i 's|^\(\[binaries\]\)$|\1\nitstool = '\'$ITSTOOL\''|g' \
-			$TERMUX_MESON_WHEEL_CROSSFILE
-	fi
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	termux_step_configure_meson
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

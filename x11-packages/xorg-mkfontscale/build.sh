@@ -1,24 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://xorg.freedesktop.org/
-TERMUX_PKG_DESCRIPTION="Create an index of scalable font files for X"
-TERMUX_PKG_LICENSE="MIT, HPND"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="xorg-mkfontscale"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.2.3"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://xorg.freedesktop.org/archive/individual/app/mkfontscale-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=2921cdc344f1acee04bcd6ea1e29565c1308263006e134a9ee38cf9c9d6fe75e
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="findutils, freetype, libfontenc, zlib"
-TERMUX_PKG_BUILD_DEPENDS="xorg-util-macros, xorgproto"
-TERMUX_PKG_CONFLICTS="xorg-mkfontdir"
-TERMUX_PKG_REPLACES="xorg-mkfontdir"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_create_debscripts() {
-	for i in postinst postrm triggers; do
-		cp "${TERMUX_PKG_BUILDER_DIR}/${i}" ./${i}
-		sed -i "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" ./${i}
-	done
-	unset i
-	if [[ "$TERMUX_PACKAGE_FORMAT" == "pacman" ]]; then
-		echo "post_install" > postupg
-	fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

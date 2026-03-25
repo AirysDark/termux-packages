@@ -1,17 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://code.kryo.se/iodine
-TERMUX_PKG_DESCRIPTION="Tunnel IPv4 data through a DNS server"
-TERMUX_PKG_LICENSE="ISC"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="iodine"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.8.0
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://code.kryo.se/iodine/iodine-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=546e92cf8617f7970ea81c850b1063eb189c68c406d0c6a67e02c55e72e714c6
-TERMUX_PKG_DEPENDS="net-tools, zlib"
-TERMUX_PKG_EXTRA_MAKE_ARGS="prefix=$TERMUX_PREFIX"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	CPPFLAGS+=" -DANDROID"
-	CFLAGS+=" $CPPFLAGS"
-	LDFLAGS+=" -lz"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

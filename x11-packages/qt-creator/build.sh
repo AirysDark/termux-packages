@@ -1,38 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.qt.io/
-TERMUX_PKG_DESCRIPTION="Integrated Development Environment for Qt"
-TERMUX_PKG_LICENSE="GPL-3.0-only"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="qt-creator"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="19.0.0"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL="https://download.qt.io/official_releases/qtcreator/${TERMUX_PKG_VERSION%.*}/${TERMUX_PKG_VERSION}/qt-creator-opensource-src-${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=092695d38ece9f1c82440a7a63040e34fcd73f1272e7177e7217ad97b22587c1
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="clang, glib, libandroid-execinfo, libarchive, libelf, libllvm, libsecret, opengl, python, qt6-qtbase, qt6-qtcharts, qt6-qtdeclarative, qt6-qttools, qt6-qtsvg, libyaml-cpp, zstd"
-TERMUX_PKG_BUILD_DEPENDS="libllvm-static, qt6-qtbase-cross-tools, qt6-qtcharts-cross-tools, qt6-qtdeclarative-cross-tools, qt6-qttools-cross-tools, qt6-qtsvg-cross-tools"
-TERMUX_PKG_RECOMMENDS="gdb, git, make, cmake, mlocate"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_NO_STATICSPLIT=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_SYSTEM_NAME=Linux
--DCMAKE_INSTALL_LIBDIR=lib
--DCMAKE_INSTALL_INCLUDEDIR=include
--DBUILD_WITH_PCH=OFF
-"
 
-# Starting with version 19.0.0 32-bit builds fails due to using __int128:
-TERMUX_PKG_EXCLUDED_ARCHES="arm, i686"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	termux_setup_golang
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	LDFLAGS+=" -landroid-execinfo"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	# add the directories of all .so files found in the package
-	# to the library run paths of all executables in the package
-	# the 'qtcreator.sh' script sets LD_LIBRARY_PATH automatically so does not
-	# seem to need this, but setting these makes the 'qtcreator' binary
-	# possible to launch directly without errors.
-	LDFLAGS+=" -Wl,-rpath=$TERMUX_PREFIX/lib/qtcreator"
-	LDFLAGS+=" -Wl,-rpath=$TERMUX_PREFIX/lib/qtcreator/plugins"
-	LDFLAGS+=" -Wl,-rpath=$TERMUX_PREFIX/lib/qtcreator/plugins/qmldesigner"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

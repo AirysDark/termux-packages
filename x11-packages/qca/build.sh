@@ -1,15 +1,33 @@
-TERMUX_PKG_HOMEPAGE='https://userbase.kde.org/QCA'
-TERMUX_PKG_DESCRIPTION='Qt Cryptographic Architecture'
-TERMUX_PKG_LICENSE="LGPL-2.1"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="qca"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.3.10"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://download.kde.org/stable/qca/${TERMUX_PKG_VERSION}/qca-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=1c5b722da93d559365719226bb121c726ec3c0dc4c67dea34f1e50e4e0d14a02
-TERMUX_PKG_DEPENDS="botan3, ca-certificates, libc++, libnss, libsasl, openssl, qt6-qt5compat, qt6-qtbase"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DQT6=ON
--DBUILD_TESTS=OFF
--DQCA_MAN_INSTALL_DIR=$TERMUX_PREFIX/share/man
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

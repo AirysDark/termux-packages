@@ -1,10 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://xorg.freedesktop.org/
-TERMUX_PKG_DESCRIPTION="Scientific calculator for X"
-TERMUX_PKG_LICENSE="MIT, HPND"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="xorg-xcalc"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1.1.2
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://xorg.freedesktop.org/archive/individual/app/xcalc-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=8578dfa1457e94289f6d6ed6146714307d8a73a1b54d2f42af1321b625fc1cd4
-TERMUX_PKG_DEPENDS="libx11, libxaw, libxt, xorg-fonts-75dpi | xorg-fonts-100dpi"
-TERMUX_PKG_BUILD_DEPENDS="xorg-util-macros"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

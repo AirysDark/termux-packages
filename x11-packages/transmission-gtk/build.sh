@@ -1,35 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://transmissionbt.com/
-TERMUX_PKG_DESCRIPTION="Easy, lean and powerful BitTorrent client (gtk3)"
-# with OpenSSL linking exception:
-TERMUX_PKG_LICENSE="GPL-2.0, GPL-3.0"
-TERMUX_PKG_LICENSE_FILE="COPYING, licenses/gpl-2.0.txt, licenses/gpl-3.0.txt"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="transmission-gtk"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="4.1.1"
-TERMUX_PKG_SRCURL=git+https://github.com/transmission/transmission
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="latest-release-tag"
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+\.\d+\.\d+"
-TERMUX_PKG_GIT_BRANCH=$TERMUX_PKG_VERSION
-TERMUX_PKG_DEPENDS="glib, gtk3, gtkmm3, libatkmm-1.6, libc++, libcairomm-1.0, libcurl, libevent, libglibmm-2.4, libpangomm-1.4, libpsl, libsigc++-2.0, miniupnpc, natpmpc, openssl"
-TERMUX_PKG_CONFLICTS="transmission"
-TERMUX_PKG_REPLACES="transmission"
-TERMUX_PKG_SUGGESTS="jackett"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DENABLE_GTK=ON
--DENABLE_QT=OFF
--DENABLE_TESTS=OFF
--DENABLE_NLS=ON
--DRUN_CLANG_TIDY=OFF
--DUSE_GTK_VERSION=3
--DGLIB_COMPILE_RESOURCES_EXECUTABLE=glib-compile-resources
-"
-# transmission already puts timestamps in the info printed to stdout so no need for svlogd -tt,
-# therefore we override the transmission/log run script
-TERMUX_PKG_SERVICE_SCRIPT=(
-	"transmission" 'exec transmission-daemon -f 2>&1'
-	"transmission/log" 'mkdir -p "$LOGDIR/sv/transmission"\nexec svlogd "$LOGDIR/sv/transmission"'
-)
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	LDFLAGS+=" -llog"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

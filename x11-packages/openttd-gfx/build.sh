@@ -1,26 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://dev.openttdcoop.org/projects/opengfx
-TERMUX_PKG_DESCRIPTION="A free graphics set for openttd"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="openttd-gfx"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=7.1
-TERMUX_PKG_SRCURL=https://cdn.openttd.org/opengfx-releases/$TERMUX_PKG_VERSION/opengfx-$TERMUX_PKG_VERSION-all.zip
-TERMUX_PKG_SHA256=928fcf34efd0719a3560cbab6821d71ce686b6315e8825360fba87a7a94d7846
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
 
-termux_step_get_source() {
-	termux_download \
-		"$TERMUX_PKG_SRCURL" \
-		"$TERMUX_PKG_CACHEDIR/opengfx-$TERMUX_PKG_VERSION.zip" \
-		"$TERMUX_PKG_SHA256"
-	unzip -d "$TERMUX_PKG_SRCDIR" "$TERMUX_PKG_CACHEDIR/opengfx-$TERMUX_PKG_VERSION.zip"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	cd "$TERMUX_PKG_SRCDIR"
-	tar xf "opengfx-$TERMUX_PKG_VERSION.tar" --strip-components=1
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make_install() {
-	install -d "$TERMUX_PREFIX"/share/openttd/data
-	install -m600 *.grf "$TERMUX_PREFIX"/share/openttd/data
-	install -m600 *.obg "$TERMUX_PREFIX"/share/openttd/data
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

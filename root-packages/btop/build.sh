@@ -1,31 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/aristocratos/btop
-TERMUX_PKG_DESCRIPTION="Resource monitor that shows usage and stats for processor, memory, disks, network and processes."
-TERMUX_PKG_LICENSE="Apache-2.0"
-TERMUX_PKG_MAINTAINER="@tstein <me@tedstein.net>"
-TERMUX_PKG_VERSION="1.4.6"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_SRCURL=https://github.com/aristocratos/btop/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=4beb90172c6acaac08c1b4a5112fb616772e214a7ef992bcbd461453295a58be
-TERMUX_PKG_BUILD_DEPENDS="aosp-libs, lowdown"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
-	-DBTOP_LTO=OFF
-	-DBTOP_GPU=OFF
-"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="btop"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	if [[ "$TERMUX_ON_DEVICE_BUILD" == "true" ]]; then
-		return
-	fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	termux_setup_proot
-	mkdir "${TERMUX_PKG_TMPDIR}/bin"
-	printf '%s\ntermux-proot-run %s "$@"\n' \
-		"#!/bin/sh" \
-		"${TERMUX_PREFIX}/bin/lowdown" \
-	> "${TERMUX_PKG_TMPDIR}/bin/lowdown"
-	chmod +x "${TERMUX_PKG_TMPDIR}/bin/lowdown"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	PATH="${TERMUX_PKG_TMPDIR}/bin:$PATH"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DLOWDOWN_EXECUTABLE=${TERMUX_PKG_TMPDIR}/bin/lowdown"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

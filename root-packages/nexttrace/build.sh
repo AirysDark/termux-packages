@@ -1,31 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/nxtrace/Ntrace-V1
-TERMUX_PKG_DESCRIPTION="An open source visual routing tool that pursues light weight"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="nexttrace"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.6.1"
-TERMUX_PKG_SRCURL=https://github.com/nxtrace/Ntrace-V1/archive/refs/tags/v${TERMUX_PKG_VERSION//\~/-}.tar.gz
-TERMUX_PKG_SHA256=062127af6b3c59f3cbb178e14ac35623f64f80eb7279c8e53ebd20a7a5a83fe3
-TERMUX_PKG_BREAKS="nexttrace-enhanced"
-TERMUX_PKG_REPLACES="nexttrace-enhanced"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
 
-termux_step_pre_configure() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	go mod init || :
-	go mod tidy
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make() {
-	local _BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-	local _COMMIT_SHA1=$(git ls-remote https://github.com/nxtrace/Ntrace-V1 refs/tags/v$TERMUX_PKG_VERSION | head -c 9)
-	go build -trimpath -o nexttrace \
-	-ldflags "-X 'github.com/nxtrace/NTrace-core/config.Version=${TERMUX_PKG_VERSION}' \
-	-X 'github.com/nxtrace/NTrace-core/config.BuildDate=${_BUILD_DATE}' \
-	-X 'github.com/nxtrace/NTrace-core/config.CommitID=${_COMMIT_SHA1}' -w -s"
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	install -Dm700 -t "${TERMUX_PREFIX}"/bin nexttrace
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

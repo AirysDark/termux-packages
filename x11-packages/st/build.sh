@@ -1,18 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://st.suckless.org/
-TERMUX_PKG_DESCRIPTION="A simple virtual terminal emulator for X"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="st"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.9.3"
-TERMUX_PKG_SRCURL="https://dl.suckless.org/st/st-$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=9ed9feabcded713d4ded38c8cebf36a3b08f0042ef7934a0e2b2409da56e649b
-TERMUX_PKG_AUTO_UPDATE=true
-# FIXME: config.h specified a Liberation Mono font which is not available in Termux.
-# Needs a patch for ttf-dejavu font package or liberation font package should be added.
-TERMUX_PKG_DEPENDS="fontconfig, freetype, libx11, libxft"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_MAKE_ARGS="TERMINFO=$TERMUX_PREFIX/share/terminfo"
-TERMUX_PKG_RM_AFTER_INSTALL="share/terminfo"
 
-termux_step_pre_configure() {
-	cp config.def.h config.h
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

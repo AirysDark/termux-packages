@@ -1,15 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.chocolate-doom.org
-TERMUX_PKG_DESCRIPTION="Historically-accurate Doom, Heretic, Hexen, and Strife ports."
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="chocolate-doom"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="3.1.1"
-TERMUX_PKG_SRCURL=https://github.com/chocolate-doom/chocolate-doom/archive/refs/tags/chocolate-doom-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=1edcc41254bdc194beb0d33e267fae306556c4d24110a1d3d3f865717f25da23
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="sdl2 | sdl2-compat, sdl2-mixer, sdl2-net"
-TERMUX_PKG_ANTI_BUILD_DEPENDS="sdl2-compat"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure(){
-	autoreconf -fi
-	CFLAGS+=" -fcommon"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,31 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://powdertoy.co.uk/
-TERMUX_PKG_DESCRIPTION="The Powder Toy is a free physics sandbox game"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="the-powder-toy"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="99.3.384"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://github.com/ThePowderToy/The-Powder-Toy/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=d41145bd17c0a91006722bc9bd9169de4950359a305b1b97063b0fdd6edbffaa
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="fftw, jsoncpp, libandroid-execinfo, libbz2, libc++, libcurl, luajit, libpng, sdl2 | sdl2-compat"
-TERMUX_PKG_ANTI_BUILD_DEPENDS="sdl2-compat"
-TERMUX_PKG_GROUPS="games"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--Dworkaround_elusive_bzip2_lib_dir=$TERMUX_PREFIX/lib
--Dworkaround_elusive_bzip2_include_dir=$TERMUX_PREFIX/include
--Db_pie=true
--Dignore_updates=true
--Dapp_data=$TERMUX_ANDROID_HOME/.powdertoy
--Dcan_install=no
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	LDFLAGS+=" -landroid-execinfo"
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make_install() {
-	install -Dm700 -t $TERMUX_PREFIX/bin powder
-	ln -sf powder $TERMUX_PREFIX/bin/the-powder-toy
-	install -Dm700 -t $TERMUX_PREFIX/share/applications resources/powder.desktop
-	install -Dm700 -T $TERMUX_PKG_SRCDIR/resources/generated_icons/icon_exe.png $TERMUX_PREFIX/share/pixmaps/powdertoy-powder.png
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

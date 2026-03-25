@@ -1,27 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://mate-desktop.org/
-TERMUX_PKG_DESCRIPTION="Faenza icon theme for MATE"
-TERMUX_PKG_LICENSE="GPL-3.0-only"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="mate-icon-theme-faenza"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.20.0"
-TERMUX_PKG_SRCURL="https://github.com/mate-desktop-legacy-archive/mate-icon-theme-faenza/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=3e838a08c18116d4d69fcacf50b456d79846db12bf249b44c7d971cf2df7b9c0
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE=newest-tag
-TERMUX_PKG_BUILD_DEPENDS="mate-common"
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_HOSTBUILD=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_host_build() {
-	termux_download_ubuntu_packages mate-common
-	sed -i "s|prefix=/usr|prefix=$TERMUX_PKG_HOSTBUILD_DIR/ubuntu_packages/usr|" \
-		"$TERMUX_PKG_HOSTBUILD_DIR/ubuntu_packages/usr/bin/mate-doc-common"
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	if [[ "$TERMUX_ON_DEVICE_BUILD" == "false" ]]; then
-		export PATH="$TERMUX_PKG_HOSTBUILD_DIR/ubuntu_packages/usr/bin:$PATH"
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	./autogen.sh
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

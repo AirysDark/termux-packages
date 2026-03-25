@@ -1,32 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://sourceware.org/lvm2/
-TERMUX_PKG_DESCRIPTION="A device-mapper library from LVM2 package"
-TERMUX_PKG_LICENSE="GPL-2.0, LGPL-2.1, BSD 2-Clause"
-TERMUX_PKG_LICENSE_FILE="COPYING, COPYING.BSD, COPYING.LIB"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="lvm2"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.03.39"
-TERMUX_PKG_SRCURL=https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.${TERMUX_PKG_VERSION}.tgz
-TERMUX_PKG_SHA256=54753b7d82a8ffdcc29d9f2c7ff523048a30cc0094048db129496ead1804f482
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libaio, libandroid-support, libblkid, readline"
-TERMUX_PKG_BREAKS="libdevmapper-dev"
-TERMUX_PKG_REPLACES="libdevmapper-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---enable-pkgconfig
---disable-selinux
---with-default-system-dir=$TERMUX_PREFIX/etc/lvm
---with-default-pid-dir=$TERMUX_PREFIX/var/run
---with-default-profile-subdir=profile.d
---with-default-run-dir=$TERMUX_PREFIX/var/run
---with-default-locking-dir=$TERMUX_PREFIX/var/run/lock/lvm
---with-confdir=$TERMUX_PREFIX/etc
---with-symvers=no
-"
 
-termux_step_pre_configure() {
-	export CFLAGS="$CFLAGS $CPPFLAGS"
-	export CLDFLAGS="$LDFLAGS"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	find "$TERMUX_PKG_SRCDIR" -name '*.[ch]' | xargs -n 1 \
-		sed -i 's/\([^A-Za-z0-9_]\)\(stack[^A-Za-z0-9_]\)/\1log_\2/g'
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

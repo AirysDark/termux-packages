@@ -1,28 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/libfuse/libfuse
-TERMUX_PKG_DESCRIPTION="FUSE (Filesystem in Userspace) is an interface for userspace programs to export a filesystem to the Linux kernel"
-TERMUX_PKG_LICENSE="LGPL-2.1, GPL-2.0"
-TERMUX_PKG_MAINTAINER="Henrik Grimler @Grimler91"
-TERMUX_PKG_VERSION=2.9.9
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://github.com/libfuse/libfuse/archive/refs/tags/fuse-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=e57a24721177c3b3dd71cb9239ca46b4dee283db9388d48f7ccd256184982194
-#that package is a snapshot, it does not need to be updated.
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_DEPENDS="libiconv"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libfuse2"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---disable-example
---disable-mtab
-"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-TERMUX_PKG_RM_AFTER_INSTALL="
-etc/init.d
-etc/udev
-"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_pre_configure() {
-	export MOUNT_FUSE_PATH=$TERMUX_PREFIX/bin
-	export UDEV_RULES_PATH=$TERMUX_PREFIX/etc/udev/rules.d
-	export INIT_D_PATH=$TERMUX_PREFIX/etc/init.d
-	./makeconf.sh
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

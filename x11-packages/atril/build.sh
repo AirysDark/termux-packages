@@ -1,37 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://mate-desktop.org
-TERMUX_PKG_DESCRIPTION="MATE document viewer"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="atril"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.28.1"
-TERMUX_PKG_REVISION=4
-TERMUX_PKG_SRCURL="https://pub.mate-desktop.org/releases/${TERMUX_PKG_VERSION%.*}/atril-${TERMUX_PKG_VERSION}.tar.xz"
-TERMUX_PKG_SHA256=74c4f42979f3ead52def23767448d06ad7f715421e03c9b509404b096de8193e
-TERMUX_PKG_AUTO_UPDATE=true
-# links with poppler-glib, not poppler
-TERMUX_PKG_DEPENDS="atk, djvulibre, gdk-pixbuf, glib, gtk3, harfbuzz, libarchive, libc++, libcairo, libice, libsecret, libsm, libsoup3, libtiff, libxml2, mate-desktop, pango, poppler, texlive-bin, webkit2gtk-4.1, zlib"
-TERMUX_PKG_BUILD_DEPENDS="g-ir-scanner, glib-cross"
-TERMUX_PKG_VERSIONED_GIR=false
-TERMUX_PKG_DISABLE_GIR=false
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---disable-caja
---enable-djvu
---enable-dvi
---enable-epub
---enable-introspection
---enable-pixbuf
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_setup_gir
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	CPPFLAGS+=" -DHAVE_MEMCPY -Wno-deprecated-declarations"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# fix arm build and potentially other archs hidden bugs
-	# ERROR: ./lib/atril/3/backends/libpdfdocument.so contains undefined symbols:
-	# 162: 00000000     0 NOTYPE  GLOBAL DEFAULT   UND __aeabi_idivmod
-	# 163: 00000000     0 NOTYPE  GLOBAL DEFAULT   UND __aeabi_idiv
-	local _libgcc_file="$($CC -print-libgcc-file-name)"
-	local _libgcc_path="$(dirname $_libgcc_file)"
-	local _libgcc_name="$(basename $_libgcc_file)"
-	LDFLAGS+=" -L$_libgcc_path -l:$_libgcc_name"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

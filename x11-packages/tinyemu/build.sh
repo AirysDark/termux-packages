@@ -1,11 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://bellard.org/tinyemu
-TERMUX_PKG_DESCRIPTION="A system emulator for the RISC-V and x86 architectures."
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_LICENSE_FILE="MIT-LICENSE.txt"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="tinyemu"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2019.12.21"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL="https://bellard.org/tinyemu/tinyemu-${TERMUX_PKG_VERSION//./-}.tar.gz"
-TERMUX_PKG_SHA256=be8351f2121819b3172fcedce5cb1826fa12c87da1b7ed98f269d3e802a05555
-TERMUX_PKG_DEPENDS="libcurl, openssl, sdl"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

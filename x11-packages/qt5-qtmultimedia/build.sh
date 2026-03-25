@@ -1,38 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.qt.io/
-TERMUX_PKG_DESCRIPTION="Qt 5 Multimedia Library"
-TERMUX_PKG_LICENSE="LGPL-3.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="qt5-qtmultimedia"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="5.15.18"
-TERMUX_PKG_SRCURL="https://download.qt.io/archive/qt/${TERMUX_PKG_VERSION%.*}/${TERMUX_PKG_VERSION}/submodules/qtmultimedia-everywhere-opensource-src-${TERMUX_PKG_VERSION}.tar.xz"
-TERMUX_PKG_SHA256=4c77fb601d10fdffe4a4749f9008a969d778c3bb0e6734bda39e7f46cd11c38c
-# qt5-qtdeclarative is not needed because quick widget requires OpenGL
-TERMUX_PKG_DEPENDS="libc++, qt5-qtbase, pulseaudio, openal-soft, gstreamer, gst-plugins-base, gst-plugins-bad"
-TERMUX_PKG_BUILD_DEPENDS="qt5-qtbase-cross-tools"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_NO_STATICSPLIT=true
 
-termux_step_configure () {
-	"${TERMUX_PREFIX}/opt/qt/cross/bin/qmake" \
-		-spec "${TERMUX_PREFIX}/lib/qt/mkspecs/termux-cross" \
-		GST_VERSION=1.0 \
-		INCLUDEPATH+="${TERMUX_PREFIX}/include/gstreamer-1.0/" \
-		INCLUDEPATH+="${TERMUX_PREFIX}/include/glib-2.0/" \
-		INCLUDEPATH+="${TERMUX_PREFIX}/lib/glib-2.0/include"
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make_install() {
-	make install
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	#######################################################
-	##
-	##  Fixes & cleanup.
-	##
-	#######################################################
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	## Drop QMAKE_PRL_BUILD_DIR because reference the build dir.
-	find "${TERMUX_PREFIX}/lib" -type f -name "libQt5Multimedia*.prl" \
-		-exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' "{}" \;
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	## Remove *.la files.
-	find "${TERMUX_PREFIX}/lib" -iname \*.la -delete
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

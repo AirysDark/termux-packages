@@ -1,14 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://gitlab.freedesktop.org/emersion/wlr-randr
-TERMUX_PKG_DESCRIPTION="Utility to manage outputs of a Wayland compositor"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="@JesusChapman <jesuschapmandev@outlook.com>"
-TERMUX_PKG_VERSION=0.5.0
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://gitlab.freedesktop.org/emersion/wlr-randr/-/archive/v${TERMUX_PKG_VERSION}/wlr-randr-v${TERMUX_PKG_VERSION}.zip
-TERMUX_PKG_SHA256=23382ce43bb7fe0fdca6b09daeec6b320018824c6cdbed5048ff36dc7fcd0fd5
-TERMUX_PKG_DEPENDS="libwayland"
-TERMUX_PKG_BUILD_DEPENDS="libwayland-cross-scanner"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="wlr-randr"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure(){
-	termux_setup_wayland_cross_pkg_config_wrapper
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

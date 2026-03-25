@@ -1,12 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://gitlab.gnome.org/GNOME/gnome-themes-extra
-TERMUX_PKG_DESCRIPTION="This is the version of Adwaita, the standard GNOME theme, for the GTK+ 2/3 toolkit."
-TERMUX_PKG_LICENSE="LGPL-2.1"
-TERMUX_PKG_MAINTAINER="@Yisus7u7"
-TERMUX_PKG_VERSION=3.28
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL="http://deb.debian.org/debian/pool/main/g/gnome-themes-extra/gnome-themes-extra_${TERMUX_PKG_VERSION}.orig.tar.xz"
-TERMUX_PKG_SHA256=7c4ba0bff001f06d8983cfc105adaac42df1d1267a2591798a780bac557a5819
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_NO_STATICSPLIT=true
-TERMUX_PKG_BUILD_DEPENDS="adwaita-icon-theme, gtk2, gtk2-engines-murrine, gtk3, libcairo, glib"
-TERMUX_PKG_AUTO_UPDATE=true
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="gnome-themes-extra"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

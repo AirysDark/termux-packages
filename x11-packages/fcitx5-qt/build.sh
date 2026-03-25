@@ -1,18 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://fcitx-im.org/
-TERMUX_PKG_DESCRIPTION="Fcitx Qt immodule & library"
-TERMUX_PKG_LICENSE="LGPL-2.1"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="fcitx5-qt"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="5.1.13"
-TERMUX_PKG_SRCURL=https://github.com/fcitx/fcitx5-qt/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=74b2c43ca865ec9ede257bcd3bdadafc20f571900cb2440a4488335e4d4e91cc
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
-TERMUX_PKG_DEPENDS="fcitx5, libc++, libwayland, libx11, libxcb, libxkbcommon, qt6-qtbase"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_INSTALL_QT6PLUGINDIR=lib/qt6/plugins
--DENABLE_TEST=OFF
--DENABLE_QT4=OFF
--DENABLE_QT5=OFF
--DENABLE_QT6=ON
--DENABLE_QT6_WAYLAND_WORKAROUND=ON
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

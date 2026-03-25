@@ -1,46 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://linux-nfs.org/
-TERMUX_PKG_DESCRIPTION="Linux NFS userland utilities"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="nfs-utils"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.8.7"
-TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/nfs/nfs-utils-${TERMUX_PKG_VERSION}.tar.bz2
-TERMUX_PKG_SHA256=21d05998edc9954f01c2ce4e16023fd1a70f424d4a5db659b6ee070447d87b8c
-TERMUX_PKG_DEPENDS="keyutils, libblkid, libcap, libdevmapper, libevent, libmount, libnl, libsqlite, libtirpc, libuuid, openldap"
-TERMUX_PKG_BUILD_DEPENDS="libxml2"
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
-ac_cv_lib_resolv___res_querydomain=yes
-libsqlite3_cv_is_recent=yes
---disable-gss
---disable-sbin-override
---with-modprobedir=$TERMUX_PREFIX/lib/modprobe.d
---with-mountfile=$TERMUX_PREFIX/etc/nfsmounts.conf
---with-nfsconfig=$TERMUX_PREFIX/etc/nfs.conf
---with-start-statd=$TERMUX_PREFIX/bin/start-statd
---with-statedir=$TERMUX_PREFIX/var/lib/nfs
-"
-TERMUX_PKG_RM_AFTER_INSTALL="
-lib/udev
-"
 
-termux_step_pre_configure() {
-	autoreconf -fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	CPPFLAGS+=" -D__USE_GNU"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	local _lib="$TERMUX_PKG_BUILDDIR/_lib"
-	rm -rf "${_lib}"
-	mkdir -p "${_lib}"
-	pushd "${_lib}"
-	local f
-	for f in strverscmp versionsort; do
-		$CC $CFLAGS $CPPFLAGS "$TERMUX_PKG_BUILDER_DIR/${f}.c" \
-			-fvisibility=hidden -c -o "./${f}.o"
-	done
-	$AR cru libversionsort.a strverscmp.o versionsort.o
-	echo '!<arch>' > libresolv.a
-	popd
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	LDFLAGS+=" -L${_lib} -l:libversionsort.a"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

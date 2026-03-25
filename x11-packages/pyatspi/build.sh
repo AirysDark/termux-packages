@@ -1,11 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://wiki.gnome.org/Accessibility
-TERMUX_PKG_DESCRIPTION="A python client library for the AT-SPI D-Bus accessibility infrastructure"
-TERMUX_PKG_LICENSE="LGPL-2.0, GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="pyatspi"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.58.2"
-TERMUX_PKG_SRCURL=https://download.gnome.org/sources/pyatspi/${TERMUX_PKG_VERSION%.*}/pyatspi-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=24590e5b60fec8dfb59fcd27d2a90de7034060be318ca3f7770e0f984f1f94e2
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="at-spi2-core, dbus, dbus-python, pygobject, python"
-TERMUX_PKG_SETUP_PYTHON=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}
