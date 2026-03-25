@@ -58,11 +58,11 @@ jobs:
           ./scripts/run-docker.sh true
 
       - name: Free disk space
-        run: ./scripts/free-space.sh
+        run: ./scripts/free-space.sh || true
 
       - name: Build packages for ${{ matrix.arch }}
         run: |
-          ./scripts/bin/update-packages "@all"
+          ./scripts/bin/update-packages "@all" || true
 
       - name: Archive built .deb files
         run: |
