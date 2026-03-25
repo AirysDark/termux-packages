@@ -14,7 +14,7 @@ on:
 
 jobs:
   build-packages:
-    name: Build Termux Packages
+    name: Build Termux Packages (${{ matrix.arch }})
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -22,38 +22,63 @@ jobs:
       fail-fast: false
 
     steps:
+      # -----------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: Setup Termux Build Environment
+      # -----------------------------------------
+      - name: Cache Termux CGCT and partial build artifacts
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.termux/tmp
+            output
+          key: termux-build-${{ matrix.arch }}-${{ hashFiles('packages/**', 'root-packages/**', 'x11-packages/**') }}
+          restore-keys: |
+            termux-build-${{ matrix.arch }}-
+
+      # -----------------------------------------
+      - name: Setup native Termux build environment
         run: |
           chmod +x ./scripts/setup-native-termux.sh
-          ./scripts/setup-native-termux.sh 2>&1 | tee /tmp/termux_build.log
+          ./scripts/setup-native-termux.sh 2>&1 | tee /tmp/setup_native_termux_${{ matrix.arch }}.log
 
+      # -----------------------------------------
       - name: Free disk space
         run: ./scripts/free-space.sh || true
 
+      # -----------------------------------------
       - name: Build packages for ${{ matrix.arch }}
         run: |
-          mkdir -p /tmp/termux_build.log_dir
-          ./scripts/bin/update-packages "@all" 2>&1 | tee -a /tmp/termux_build.log
+          ./scripts/bin/update-packages "@all" 2>&1 | tee /tmp/build_packages_${{ matrix.arch }}.log
 
+      # -----------------------------------------
       - name: Archive built .deb files
         run: |
           mkdir -p artifacts
           find output -type f -name '*.deb' -exec mv {} artifacts/ \;
 
+      # -----------------------------------------
       - name: Upload built packages as artifacts
         uses: actions/upload-artifact@v7
         with:
           name: termux-debs-${{ matrix.arch }}
           path: artifacts/
 
-      - name: Upload Termux build log
+      # -----------------------------------------
+      - name: Upload setup logs
         if: failure() || always()
         uses: actions/upload-artifact@v7
         with:
-          name: termux-build-log-${{ matrix.arch }}
-          path: /tmp/termux_build.log
+          name: setup-native-termux-log-${{ matrix.arch }}
+          path: /tmp/setup_native_termux_${{ matrix.arch }}.log
+
+      # -----------------------------------------
+      - name: Upload build logs
+        if: failure() || always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-packages-log-${{ matrix.arch }}
+          path: /tmp/build_packages_${{ matrix.arch }}.log
