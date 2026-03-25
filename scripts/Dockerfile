@@ -1,8 +1,8 @@
 # -----------------------------
-# Termux Package Builder Dockerfile for CI (AppArmor disabled)
+# Termux Package Builder Dockerfile for CI (Ubuntu 22.04 / LLVM 16)
 # -----------------------------
 
-FROM ubuntu:24.04
+FROM ubuntu:22.04
 
 # -----------------------------
 # Environment setup
@@ -11,6 +11,8 @@ ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV container=docker
 ENV TMPDIR=/tmp
+ENV TERMUX_HOST_LLVM_MAJOR_VERSION=16
+ENV TERMUX_HOST_GCC_VERSION=13
 
 # Prevent systemd tmpfiles warnings
 RUN groupadd -r systemd-journal -g 999 || true \
@@ -35,13 +37,14 @@ COPY ./build/termux_download.sh /tmp/termux-packages/scripts/build/
 RUN apt-get update && \
     apt-get -yq upgrade && \
     apt-get install -yq sudo curl gnupg git lzip tar unzip python3 python3-pip locales jq xz-utils pkg-config && \
+    # Remove default ubuntu user and add builder
     userdel ubuntu || true && \
     useradd -u 1001 -U -m -s /bin/bash builder && \
     echo "builder ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/builder && \
     chmod 0440 /etc/sudoers.d/builder
 
 # -----------------------------
-# Copy AppArmor profile (for reference, no parsing)
+# Copy AppArmor profile (for reference only, no parsing)
 # -----------------------------
 COPY ./apparmor/_custom-termux-package-builder.profile /etc/apparmor.d/_custom-termux-package-builder
 
@@ -68,11 +71,11 @@ USER builder:builder
 WORKDIR /home/builder/termux-packages
 
 # -----------------------------
-# Run setup scripts as builder with safe defaults
+# Run setup scripts as builder
 # -----------------------------
 RUN bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' \
-             TERMUX_HOST_LLVM_MAJOR_VERSION=16 \
-             TERMUX_HOST_GCC_VERSION=13 \
+             TERMUX_HOST_LLVM_MAJOR_VERSION=${TERMUX_HOST_LLVM_MAJOR_VERSION} \
+             TERMUX_HOST_GCC_VERSION=${TERMUX_HOST_GCC_VERSION} \
              TERMUX_PKG_TMPDIR=/tmp \
              /tmp/termux-packages/scripts/setup-ubuntu.sh && \
              /tmp/termux-packages/scripts/setup-cgct.sh"
