@@ -1,19 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://mediaarea.net/en/MediaInfo
-TERMUX_PKG_DESCRIPTION="Library for reading information from media files"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
-TERMUX_PKG_LICENSE_FILE="../../../LICENSE"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libmediainfo"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="26.01"
-TERMUX_PKG_SRCURL=https://github.com/MediaArea/MediaInfoLib/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=941daa01fce4595bd7b56c4d2db166f58e2bb2362dcb9636b952ee29b64db986
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libc++, libcurl, libzen, zlib"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-shared --enable-static --with-libcurl"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	TERMUX_PKG_SRCDIR="${TERMUX_PKG_SRCDIR}/Project/GNU/Library"
-	TERMUX_PKG_BUILDDIR="${TERMUX_PKG_SRCDIR}"
-	cd "${TERMUX_PKG_SRCDIR}"
-	./autogen.sh
-	LDFLAGS+=" $($CC -print-libgcc-file-name)"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

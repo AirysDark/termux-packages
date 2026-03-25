@@ -1,23 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/termux/termux-packages
-TERMUX_PKG_DESCRIPTION="Fake ldd command"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="ldd"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.3"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_SKIP_SRC_EXTRACT=true
-TERMUX_PKG_DEPENDS="bash, binutils"
-TERMUX_PKG_CONFLICTS="binutils (<< 2.39-1)"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	local _READELF="$TERMUX_PREFIX/bin/greadelf"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local ldd="$TERMUX_PREFIX/bin/ldd"
-	mkdir -p "$(dirname "${ldd}")"
-	rm -rf "${ldd}"
-	sed "$TERMUX_PKG_BUILDER_DIR/ldd.in" \
-		-e "s|@ARCH_BITS@|${TERMUX_ARCH_BITS}|g" \
-		-e "s|@READELF@|${_READELF}|g" \
-		> "${ldd}"
-	chmod 0700 "${ldd}"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

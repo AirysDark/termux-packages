@@ -1,33 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://taglib.github.io/
-TERMUX_PKG_DESCRIPTION="A Library for reading and editing the meta-data of several popular audio formats."
-# License: LGPL-2.1, MPL-1.1
-TERMUX_PKG_LICENSE="custom"
-TERMUX_PKG_LICENSE_FILE="COPYING.LGPL, COPYING.MPL"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="taglib"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.2.1"
-TERMUX_PKG_SRCURL="https://github.com/taglib/taglib/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=8d920bfe302c943bab204ad5183fa0ea13cedee7f72f7256b665888de964d081
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libc++, zlib, utf8cpp"
-TERMUX_PKG_BUILD_DEPENDS="boost, boost-headers"
-TERMUX_PKG_BREAKS="taglib-dev"
-TERMUX_PKG_REPLACES="taglib-dev"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_INSTALL_INCLUDEDIR=$TERMUX__PREFIX__INCLUDE_SUBDIR
--DBUILD_SHARED_LIBS=ON
--DWITH_MP4=ON
--DWITH_ASF=ON
--DWITH_DSF=ON
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION=2
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local v=$(sed -En 's/^set\(TAGLIB_SOVERSION_MAJOR\s+([0-9]+).*/\1/p' \
-			CMakeLists.txt)
-	if [ "${v}" != "${_SOVERSION}" ]; then
-		termux_error_exit "SOVERSION guard check failed."
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

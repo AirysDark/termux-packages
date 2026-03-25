@@ -1,69 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.gnu.org/software/parallel/
-TERMUX_PKG_DESCRIPTION="GNU Parallel is a shell tool for executing jobs in parallel using one or more machines"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="parallel"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="20260222"
-TERMUX_PKG_SRCURL=https://mirrors.kernel.org/gnu/parallel/parallel-${TERMUX_PKG_VERSION}.tar.bz2
-TERMUX_PKG_SHA256=c6272a48972a0f2fdd3f39560d698f3c5abd3d8a4de40d52f9772f3a03ae1f48
-TERMUX_PKG_DEPENDS="perl"
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_AUTO_UPDATE=true
-
-termux_pkg_auto_update() {
-	local e=0
-	local api_url="https://mirrors.kernel.org/gnu/parallel"
-	local api_url_r=$(curl -s "${api_url}/")
-	local r1=$(echo "${api_url_r}" | sed -nE 's|<.*>parallel-(.*).tar.bz2<.*>.*|\1|p')
-	local latest_version=$(echo "${r1}" | sed -nE 's|([0-9]+)|\1|p' | tail -n1)
-	if [[ "${latest_version}" == "${TERMUX_PKG_VERSION}" ]]; then
-		echo "INFO: No update needed. Already at version '${TERMUX_PKG_VERSION}'."
-		return
-	fi
-	[[ -z "${api_url_r}" ]] && e=1
-	[[ -z "${r1}" ]] && e=1
-	[[ -z "${latest_version}" ]] && e=1
-
-	if [[ "${e}" != 0 ]]; then
-		cat <<- EOL >&2
-		WARN: Auto update failure!
-		api_url_r=${api_url_r}
-		r1=${r1}
-		latest_version=${latest_version}
-		EOL
-		return
-	fi
-
-	local latest_tbz="${api_url}/parallel-latest.tar.bz2"
-	local tmpdir=$(mktemp -d)
-	curl -so "${tmpdir}/parallel-latest.tar.bz2" "${latest_tbz}"
-	tar -xf "${tmpdir}/parallel-latest.tar.bz2" -C "${tmpdir}"
-	if [[ ! -d "${tmpdir}/parallel-${latest_version}" ]]; then
-		termux_error_exit "
-		ERROR: Latest archive does not contain latest version
-		$(ls -l "${tmpdir}")
-		"
-	fi
-
-	rm -fr "${tmpdir}"
-
-	termux_pkg_upgrade_version "${latest_version}"
-}
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-	install -Dm644 /dev/null "${TERMUX_PREFIX}"/share/bash-completion/completions/parallel
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	mkdir -p "${TERMUX_PREFIX}"/share/zsh/site-functions
-	cat <<- EOF > "${TERMUX_PREFIX}"/share/zsh/site-functions/_parallel
-	#compdef parallel
-	(( $+functions[_comp_parallel] )) ||
-	eval "\$(parallel --shell-completion auto)" &&
-	comp_parallel
-	EOF
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_create_debscripts() {
-	cat <<- EOF > postinst
-	#!${TERMUX_PREFIX}/bin/sh
-	parallel --shell-completion bash > ${TERMUX_PREFIX}/share/bash-completion/completions/parallel
-	EOF
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

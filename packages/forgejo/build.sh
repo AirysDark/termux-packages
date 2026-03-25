@@ -1,54 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://forgejo.org/
-TERMUX_PKG_DESCRIPTION="Forgejo is a self-hosted lightweight software forge."
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="forgejo"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="14.0.3"
-TERMUX_PKG_SRCURL="https://codeberg.org/forgejo/forgejo/archive/v$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=014527242129e328f61ebb46cc5031dbbc9268bd2458c36614f90e97b12f37eb
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="dash, git"
-TERMUX_PKG_CONFFILES="etc/forgejo/app.ini"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_setup_nodejs
-	termux_setup_golang
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make() {
-	export GOPATH=$TERMUX_PKG_BUILDDIR
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	mkdir -p "$GOPATH"/src/forgejo.org
-	cp -a "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/forgejo.org/forgejo
-	cd "$GOPATH"/src/forgejo.org/forgejo
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	go mod init || :
-	go mod tidy
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	# Effectively a backport of https://github.com/lib/pq/commit/6a102c04ac8dc082f1684b0488275575c374cb4c.
-	for f in "$GOPATH"/pkg/mod/github.com/lib/pq@*/user_posix.go; do
-		chmod 0755 "$(dirname "$f")"
-		chmod 0644 "$f"
-		sed -i '/^\/\/ +build /s/ linux / linux,!android /g' "$f"
-	done
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	LDFLAGS=""
-	LDFLAGS+=" -X forgejo.org/forgejo/modules/setting.CustomConf=$TERMUX_PREFIX/etc/forgejo/app.ini"
-	LDFLAGS+=" -X forgejo.org/forgejo/modules/setting.AppWorkPath=$TERMUX_PREFIX/var/lib/forgejo"
-	LDFLAGS+=" -X forgejo.org/forgejo/modules/setting.CustomPath=$TERMUX_PREFIX/var/lib/forgejo"
-	FORGEJO_VERSION=v"$TERMUX_PKG_VERSION" TAGS="bindata sqlite sqlite_unlock_notify" make all
-}
-
-termux_step_make_install() {
-	install -Dm700 \
-		"$GOPATH"/src/forgejo.org/forgejo/gitea \
-		"$TERMUX_PREFIX"/bin/forgejo
-
-	mkdir -p "$TERMUX_PREFIX"/etc/forgejo
-	sed "s%\@TERMUX_PREFIX\@%${TERMUX_PREFIX}%g" \
-		"$TERMUX_PKG_BUILDER_DIR"/app.ini > "$TERMUX_PREFIX"/etc/forgejo/app.ini
-}
-
-termux_step_post_massage() {
-	mkdir -p "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX"/var/lib/forgejo
-	mkdir -p "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX"/var/log/forgejo
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

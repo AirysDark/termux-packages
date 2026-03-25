@@ -1,29 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://lnav.org/
-TERMUX_PKG_DESCRIPTION="An advanced log file viewer for the small-scale"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="lnav"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.13.2"
-TERMUX_PKG_SRCURL=https://github.com/tstack/lnav/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=3501b921c0acb435f85bd2ce589b4d8ba205a87ed855926e65a6ad165431b331
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libandroid-execinfo, libandroid-glob, libandroid-spawn, libandroid-utimes, libarchive, libbz2, libc++, libcurl, libsqlite, libunistring, pcre2, readline, zlib"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---disable-system-paths
---disable-static
---with-pcre2=$TERMUX_PREFIX
-ac_cv_path_CARGO_CMD=
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	# for bundled notcurses repository
-	(
-		cd src/third-party/notcurses
-		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/../notcurses/include-notcurses-ncport.h.patch
-		patch -p1 -i "$TERMUX_PKG_BUILDER_DIR"/../notcurses/src-lib-termdesc.h.patch
-	)
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	autoreconf -fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	CXXFLAGS+=" -DC4_LINUX -Wno-c++11-narrowing"
-	LDFLAGS+=" -landroid-glob -landroid-spawn -landroid-utimes"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

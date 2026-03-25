@@ -1,21 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://esa.github.io/pagmo2/index.html"
-TERMUX_PKG_DESCRIPTION="Scientific library for massively parallel optimization"
-TERMUX_PKG_GROUPS="science"
-TERMUX_PKG_LICENSE="LGPL-3.0, GPL-3.0"
-TERMUX_PKG_LICENSE_FILE="COPYING.lgpl3"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libpagmo"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.19.1"
-TERMUX_PKG_REVISION=5
-TERMUX_PKG_SRCURL="https://github.com/esa/pagmo2/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=ecc180e669fa6bbece959429ac7d92439e89e1fd1c523aa72b11b6c82e414a1d
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libc++, boost, boost-headers, libtbb, eigen, nlopt"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DPAGMO_BUILD_TESTS=OFF
--DPAGMO_BUILD_BENCHMARKS=OFF
--DPAGMO_BUILD_TUTORIALS=OFF
--DPAGMO_WITH_EIGEN3=ON
--DPAGMO_WITH_NLOPT=ON
--DPAGMO_WITH_IPOPT=OFF
--DPAGMO_BUILD_STATIC_LIBRARY=OFF
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

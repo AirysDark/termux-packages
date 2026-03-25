@@ -1,43 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/gotify/server
-TERMUX_PKG_DESCRIPTION="A simple server for sending and receiving messages in real-time per WebSocket."
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="Izumi Sena Sora <info@unordinary.eu.org>"
-TERMUX_PKG_VERSION="2.9.1"
-TERMUX_PKG_SRCURL="https://github.com/gotify/server/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=fcf3abc76d841f1a248272c20251ee6f2dc8ef2d6c21fda9f459f5c919389d15
-TERMUX_PKG_BUILD_DEPENDS="yarn"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="gotify"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
 
-termux_step_make() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	termux_setup_nodejs
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	export YARN_ENABLE_HARDENED_MODE=0
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	local bin="$TERMUX_PKG_BUILDDIR/_bin"
-	mkdir -p "$bin"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	local yarn="$bin/yarn"
-	cat > "$yarn" <<-EOF
-		#!$(command -v sh)
-		exec sh $TERMUX_PREFIX/bin/yarn "\$@"
-		EOF
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	chmod 0755 "$yarn"
-
-	export PATH="$bin:$PATH"
-
-	npm install --global typescript
-
-	(cd ui && yarn install && yarn build)
-
-	export LD_FLAGS="-w -s -X main.Version=${TERMUX_PKG_VERSION} -X main.BuildDate=$(date "+%F-%T") -X main.Commit=${TERMUX_PKG_SHA256} -X main.Mode=prod";
-
-	go build -ldflags="$LD_FLAGS" -o "${TERMUX_PKG_NAME}"
-}
-
-termux_step_make_install() {
-	install -Dm700 "${TERMUX_PKG_NAME}" "${TERMUX_PREFIX}/bin"
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

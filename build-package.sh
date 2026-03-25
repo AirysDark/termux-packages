@@ -279,22 +279,15 @@ source "$TERMUX_SCRIPTDIR/scripts/build/termux_step_handle_host_build.sh"
 # After termux_step_post_get_source() and before termux_step_patch_package()
 # shellcheck source=scripts/build/termux_step_host_build.sh
 source "$TERMUX_SCRIPTDIR/scripts/build/termux_step_host_build.sh"
+# Skip Android NDK toolchains for Linux-only build
+# source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_29.sh"
+# source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_23c.sh"
 
-# Setup a standalone Android NDK toolchain. Called from termux_step_setup_toolchain.
-# shellcheck source=scripts/build/toolchain/termux_setup_toolchain_29.sh
-source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_29.sh"
-
-# Setup a standalone Android NDK 23c toolchain. Called from termux_step_setup_toolchain.
-# shellcheck source=scripts/build/toolchain/termux_setup_toolchain_23c.sh
-source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_23c.sh"
-
-# Setup a standalone Glibc GNU toolchain. Called from termux_step_setup_toolchain.
-# shellcheck source=scripts/build/toolchain/termux_setup_toolchain_gnu.sh
+# Use only GNU/glibc toolchain
 source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_gnu.sh"
 
-# Runs termux_step_setup_toolchain_${TERMUX_NDK_VERSION}. Not to be overridden by packages.
-# shellcheck source=scripts/build/termux_step_setup_toolchain.sh
-source "$TERMUX_SCRIPTDIR/scripts/build/termux_step_setup_toolchain.sh"
+# Skip generic NDK setup
+# source "$TERMUX_SCRIPTDIR/scripts/build/termux_step_setup_toolchain.sh"
 
 # Apply all *.patch files for the package. Not to be overridden by packages.
 # shellcheck source=scripts/build/termux_step_patch_package.sh
@@ -632,36 +625,36 @@ if [[ -n "${TERMUX_PACKAGE_LIBRARY-}" ]]; then
 	esac
 fi
 
-if [[ "${TERMUX_INSTALL_DEPS-false}" = "true" || "${TERMUX_PACKAGE_LIBRARY-bionic}" = "glibc" ]]; then
-	# Setup PGP keys for verifying integrity of dependencies.
-	# Keys are obtained from our keyring package.
-	gpg --list-keys 2C7F29AE97891F6419A9E2CDB0076E490B71616B > /dev/null 2>&1 || {
-		gpg --import "$TERMUX_SCRIPTDIR/packages/termux-keyring/grimler.gpg"
-		gpg --no-tty --command-file <(echo -e "trust\n5\ny") --edit-key 2C7F29AE97891F6419A9E2CDB0076E490B71616B
-	}
-	gpg --list-keys CC72CF8BA7DBFA0182877D045A897D96E57CF20C > /dev/null 2>&1 || {
-		gpg --import "$TERMUX_SCRIPTDIR/packages/termux-keyring/termux-autobuilds.gpg"
-		gpg --no-tty --command-file <(echo -e "trust\n5\ny") --edit-key CC72CF8BA7DBFA0182877D045A897D96E57CF20C
-	}
-	gpg --list-keys 998DE27318E867EA976BA877389CEED64573DFCA > /dev/null 2>&1 || {
-		gpg --import "$TERMUX_SCRIPTDIR/packages/termux-keyring/termux-pacman.gpg"
-		gpg --no-tty --command-file <(echo -e "trust\n5\ny") --edit-key 998DE27318E867EA976BA877389CEED64573DFCA
-	}
-fi
-
-for (( i=0; i < ${#PACKAGE_LIST[@]}; i++ )); do
-	# Following commands must be executed under lock to prevent running
-	# multiple instances of "./build-package.sh".
-	#
-	# To provide a sane environment for each package,
-	# builds are done in an explicit subshell for each.
-	# shellcheck disable=SC2031
-	(
-		if [[ "$TERMUX_BUILD_IGNORE_LOCK" != "true" ]]; then
-			flock -n 5 || termux_error_exit "Another build is already running within same environment."
+		if [[ "${TERMUX_INSTALL_DEPS-false}" = "true" || "${TERMUX_PACKAGE_LIBRARY-bionic}" = "glibc" ]]; then
+			# Setup PGP keys for verifying integrity of dependencies.
+			# Keys are obtained from our keyring package.
+			gpg --list-keys 2C7F29AE97891F6419A9E2CDB0076E490B71616B > /dev/null 2>&1 || {
+				gpg --import "$TERMUX_SCRIPTDIR/packages/termux-keyring/grimler.gpg"
+				gpg --no-tty --command-file <(echo -e "trust\n5\ny") --edit-key 2C7F29AE97891F6419A9E2CDB0076E490B71616B
+			}
+			gpg --list-keys CC72CF8BA7DBFA0182877D045A897D96E57CF20C > /dev/null 2>&1 || {
+				gpg --import "$TERMUX_SCRIPTDIR/packages/termux-keyring/termux-autobuilds.gpg"
+				gpg --no-tty --command-file <(echo -e "trust\n5\ny") --edit-key CC72CF8BA7DBFA0182877D045A897D96E57CF20C
+			}
+			gpg --list-keys 998DE27318E867EA976BA877389CEED64573DFCA > /dev/null 2>&1 || {
+				gpg --import "$TERMUX_SCRIPTDIR/packages/termux-keyring/termux-pacman.gpg"
+				gpg --no-tty --command-file <(echo -e "trust\n5\ny") --edit-key 998DE27318E867EA976BA877389CEED64573DFCA
+			}
 		fi
-		(
-		# Handle 'all' arch:
+
+		for (( i=0; i < ${#PACKAGE_LIST[@]}; i++ )); do
+			# Following commands must be executed under lock to prevent running
+			# multiple instances of "./build-package.sh".
+			#
+			# To provide a sane environment for each package,
+			# builds are done in an explicit subshell for each.
+			# shellcheck disable=SC2031
+			(
+				if [[ "$TERMUX_BUILD_IGNORE_LOCK" != "true" ]]; then
+					flock -n 5 || termux_error_exit "Another build is already running within same environment."
+				fi
+				(
+		# Handle 'all' arch for Linux-only build
 		if [[ "$TERMUX_ON_DEVICE_BUILD" == "false" && -n "${TERMUX_ARCH+x}" && "${TERMUX_ARCH}" == 'all' ]]; then
 			_SELF_ARGS=()
 			[[ "${TERMUX_CLEANUP_BUILT_PACKAGES_ON_LOW_DISK_SPACE:-}" == "true" ]] && _SELF_ARGS+=("-C")
@@ -678,7 +671,8 @@ for (( i=0; i < ${#PACKAGE_LIST[@]}; i++ )); do
 			[[ -n "${TERMUX_PACKAGE_FORMAT:-}" ]] && _SELF_ARGS+=("--format" "$TERMUX_PACKAGE_FORMAT")
 			[[ -n "${TERMUX_PACKAGE_LIBRARY:-}" ]] && _SELF_ARGS+=("--library" "$TERMUX_PACKAGE_LIBRARY")
 
-			for arch in 'aarch64' 'arm' 'i686' 'x86_64'; do
+			# Linux-only architectures
+			for arch in 'x86_64' 'i686'; do
 				env TERMUX_ARCH="$arch" TERMUX_BUILD_IGNORE_LOCK=true ./build-package.sh \
 					"${_SELF_ARGS[@]}" "${PACKAGE_LIST[i]}"
 			done
@@ -726,9 +720,6 @@ for (( i=0; i < ${#PACKAGE_LIST[@]}; i++ )); do
 
 		if [[ "$TERMUX_CONTINUE_BUILD" == "false" ]]; then
 			termux_step_get_dependencies
-			if [[ "$TERMUX_PACKAGE_LIBRARY" == "glibc" ]]; then
-				termux_step_setup_cgct_environment
-			fi
 			termux_step_override_config_scripts
 		fi
 

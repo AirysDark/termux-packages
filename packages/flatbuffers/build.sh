@@ -1,16 +1,33 @@
-# Contributor: @librehat
-TERMUX_PKG_HOMEPAGE=https://github.com/google/flatbuffers
-TERMUX_PKG_DESCRIPTION="Memory Efficient Serialization Library"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="flatbuffers"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="25.12.19-2026-02-06-03fffb2"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL="https://github.com/google/flatbuffers/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=ccbce58684691de1e7d51f5e87786266b37d06ab66e9dfe2d0ec106fe50aace0
-TERMUX_PKG_REPOLOGY_METADATA_VERSION="${TERMUX_PKG_VERSION%%-*}"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libc++"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DFLATBUFFERS_BUILD_SHAREDLIB=ON
--DFLATBUFFERS_BUILD_TESTS=OFF
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

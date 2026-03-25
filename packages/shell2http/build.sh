@@ -1,26 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/msoap/shell2http
-TERMUX_PKG_DESCRIPTION="Executing shell commands via HTTP server"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="Krishna kanhaiya @kcubeterm"
-TERMUX_PKG_VERSION="1.17.0"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/msoap/shell2http/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=17fab67e34e767accfbc59ab504971c704f54d79b57a023e6b5efa5556994624
-TERMUX_PKG_AUTO_UPDATE=true
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="shell2http"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	cd "$TERMUX_PKG_SRCDIR"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	export GOPATH="${TERMUX_PKG_BUILDDIR}"
-	mkdir -p "${GOPATH}/src/github.com/msoap/"
-	cp -a "${TERMUX_PKG_SRCDIR}" "${GOPATH}/src/github.com/msoap/shell2http"
-	cd "${GOPATH}/src/github.com/msoap/shell2http"
-	go get -d -v
-	go build -ldflags "-X 'main.version=$TERMUX_PKG_VERSION'"
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	install -Dm700 -t "$TERMUX_PREFIX"/bin "$GOPATH"/src/github.com/msoap/shell2http/shell2http
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

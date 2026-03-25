@@ -1,32 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://packages.qa.debian.org/f/fakeroot.html
-TERMUX_PKG_DESCRIPTION="Tool for simulating superuser privileges (with tcp ipc)"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="fakeroot"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.37.2"
-TERMUX_PKG_SRCURL=https://deb.debian.org/debian/pool/main/f/fakeroot/fakeroot_${TERMUX_PKG_VERSION}.orig.tar.gz
-TERMUX_PKG_SHA256=0eea60fbe89771b88fcf415c8f2f0a6ccfe9edebbcf3ba5dc0212718d98884db
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-ipc=tcp"
-TERMUX_PKG_BUILD_DEPENDS="libcap"
-
-termux_step_pre_configure() {
-	autoreconf -vfi
-
-	CPPFLAGS+=" -D_ID_T"
-}
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-	ln -sfr "${TERMUX_PREFIX}/lib/libfakeroot-0.so" "${TERMUX_PREFIX}/lib/libfakeroot.so"
-}
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_create_debscripts() {
-	{
-		echo "#!$TERMUX_PREFIX/bin/sh"
-		echo "echo"
-		echo "echo Fakeroot does not give you any real root permissions. This utility is primarily intended to be used for development purposes."
-		echo "echo More info about usage at https://wiki.debian.org/FakeRoot."
-		echo "echo"
-		echo "echo Programs requiring real root permissions will not run under fakeroot. Do not post bug reports about this."
-		echo "echo"
-	} > ./postinst
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,34 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/wg/wrk
-TERMUX_PKG_DESCRIPTION="Modern HTTP benchmarking tool"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="wrk"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=4.2.0
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/wg/wrk/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=e255f696bff6e329f5d19091da6b06164b8d59d62cb9e673625bdcd27fe7bdad
-TERMUX_PKG_DEPENDS="openssl, luajit"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
 
-termux_step_make() {
-	local _ARCH
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	if [ "$TERMUX_ARCH" = "i686" ]; then
-		_ARCH="x86"
-	elif [ "$TERMUX_ARCH" = "x86_64" ]; then
-		_ARCH="x64"
-	elif [ "$TERMUX_ARCH" = "aarch64" ]; then
-		_ARCH="arm64"
-	else
-		_ARCH=$TERMUX_ARCH
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	make WITH_OPENSSL=$TERMUX_PREFIX WITH_LUAJIT=$TERMUX_PREFIX _ARCH=$_ARCH
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	install -Dm700 -t "$TERMUX_PREFIX"/bin wrk
-	install -Dm600 -t "$TERMUX_PREFIX"/share/doc/wrk/examples/ scripts/*.lua
-	install -Dm600 -t "$TERMUX_PREFIX"/share/lua/5.1/ src/wrk.lua
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

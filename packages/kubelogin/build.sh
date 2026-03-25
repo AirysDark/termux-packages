@@ -1,23 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/int128/kubelogin
-TERMUX_PKG_DESCRIPTION="A kubectl plugin for Kubernetes OpenID Connect (OIDC) authentication"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="kubelogin"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.36.0"
-TERMUX_PKG_SRCURL=https://github.com/int128/kubelogin/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=ef351a7231d8bf1f4fccec35598cb0b01d007ff09cb902446f3f53b474c6319c
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
-	cd "$TERMUX_PKG_SRCDIR"
-	mkdir -p "${TERMUX_PKG_BUILDDIR}/src/github.com/int128"
-	cp -a "${TERMUX_PKG_SRCDIR}" "${TERMUX_PKG_BUILDDIR}/src/github.com/int128/kubelogin"
-	cd "${TERMUX_PKG_BUILDDIR}/src/github.com/int128/kubelogin"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	go build -o kubelogin -ldflags "-X main.version=${TERMUX_PKG_VERSION}"
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make_install() {
-	install -Dm700 ${TERMUX_PKG_BUILDDIR}/src/github.com/int128/kubelogin/kubelogin \
-		$TERMUX_PREFIX/bin/kubectl-oidc_login
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

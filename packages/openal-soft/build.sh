@@ -1,28 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://openal-soft.org/
-TERMUX_PKG_DESCRIPTION="Software implementation of the OpenAL API"
-TERMUX_PKG_LICENSE="LGPL-2.0, BSD 3-Clause"
-TERMUX_PKG_LICENSE_FILE="BSD-3Clause, COPYING"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="openal-soft"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.25.1"
-TERMUX_PKG_SRCURL="https://github.com/kcat/openal-soft/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=5f8efe8dfba5e9307a50251ba615ace857c7fa9dddfe34130b83e213d7f7cf24
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_METHOD=repology
-TERMUX_PKG_DEPENDS="libc++"
-TERMUX_PKG_BREAKS="openal-soft-dev"
-TERMUX_PKG_REPLACES="openal-soft-dev"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DALSOFT_UTILS=ON
--DALSOFT_NO_CONFIG_UTIL=ON
--DALSOFT_EXAMPLES=ON
--DALSOFT_TESTS=OFF
--DALSOFT_REQUIRE_OPENSL=ON
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	if [[ "$TERMUX_ON_DEVICE_BUILD" == "false" ]]; then
-		TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DCMAKE_CXX_COMPILER_CLANG_SCAN_DEPS=${TERMUX_STANDALONE_TOOLCHAIN}/bin/clang-scan-deps"
-	fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DOPENSL_LIBRARY=$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/libOpenSLES.so"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

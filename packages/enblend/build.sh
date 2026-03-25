@@ -1,19 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://enblend.sourceforge.net/
-TERMUX_PKG_DESCRIPTION="A tool for compositing images using a Burt&Adelson multiresolution spline"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="enblend"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="4.2.0p20161007"
-TERMUX_PKG_REVISION=8
-TERMUX_PKG_SRCURL="https://dev.gentoo.org/~soap/distfiles/enblend-${TERMUX_PKG_VERSION//p/_p}.tar.xz"
-TERMUX_PKG_SHA256=4fe05af3d697bd6b2797facc8ba5aeabdc91e233156552301f1c7686232ff4c3
-TERMUX_PKG_DEPENDS="gsl, libandroid-glob, libc++, libtiff, libvigra, littlecms"
-TERMUX_PKG_BUILD_DEPENDS="boost, boost-headers, libjpeg-turbo, libpng, zlib"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	autoreconf -fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# Code uses std::unary_function and std::binary_function which is removed in c+11:
-	CXXFLAGS+=" -std=c++98"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	LDFLAGS+=" -landroid-glob"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

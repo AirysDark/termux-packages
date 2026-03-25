@@ -1,55 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://wayland.freedesktop.org/
-TERMUX_PKG_DESCRIPTION="Wayland protocol library"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libwayland"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.24.0"
-TERMUX_PKG_SRCURL=https://gitlab.freedesktop.org/wayland/wayland/-/releases/${TERMUX_PKG_VERSION}/downloads/wayland-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=82892487a01ad67b334eca83b54317a7c86a03a89cfadacfef5211f11a5d0536
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libandroid-support, libexpat, libffi, libxml2"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--Ddocumentation=false
--Dtests=false
-"
-TERMUX_PKG_HOSTBUILD=true
-TERMUX_PKG_EXTRA_HOSTBUILD_CONFIGURE_ARGS="
--Ddocumentation=false
--Ddtd_validation=false
--Dlibraries=false
--Dtests=false
---prefix ${TERMUX_PREFIX}/opt/${TERMUX_PKG_NAME}/cross
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	# Remove this marker all the time in order to prevent this:
-	# No files in subpackage 'libwayland-cross-scanner' when built for
-	# all with package 'libwayland', so the subpackage was not created.
-	# If unexpected, check to make sure the files are where you expect.
-	rm -rf $TERMUX_HOSTBUILD_MARKER
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_host_build() {
-	# Download and unpack and build libexpat for host
-	EXPAT_SRC="$TERMUX_PKG_SRCDIR/expat"
-	EXPAT_PREFIX="$TERMUX_PKG_HOSTBUILD_DIR/expat"
-	(. "$TERMUX_SCRIPTDIR/packages/libexpat/build.sh"; TERMUX_PKG_SRCDIR="$EXPAT_SRC" termux_step_get_source )
-	(
-		cd "$EXPAT_SRC"
-		./configure --prefix="$EXPAT_PREFIX" --without-docbook
-		make install
-	)
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# XXX: termux_setup_meson is not expected to be called in host build
-	export PKG_CONFIG_LIBDIR="$EXPAT_PREFIX/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig"
-	AR=;CC=;CFLAGS=;CPPFLAGS=;CXX=;CXXFLAGS=;LD=;LDFLAGS=;PKG_CONFIG=;STRIP=
-	termux_setup_meson
-	unset AR CC CFLAGS CPPFLAGS CXX CXXFLAGS LD LDFLAGS PKG_CONFIG STRIP PKG_CONFIG_PATH
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	${TERMUX_MESON} setup ${TERMUX_PKG_SRCDIR} . \
-		${TERMUX_PKG_EXTRA_HOSTBUILD_CONFIGURE_ARGS}
-	ninja -j "${TERMUX_PKG_MAKE_PROCESSES}" install
-}
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-termux_step_pre_configure() {
-	termux_setup_wayland_cross_pkg_config_wrapper
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

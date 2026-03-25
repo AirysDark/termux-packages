@@ -1,33 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://github.com/OSGeo/libgeotiff"
-TERMUX_PKG_DESCRIPTION="Library for handling TIFF for georeferenced raster imagery"
-TERMUX_PKG_GROUPS="science"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_LICENSE_FILE="LICENSE"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libgeotiff"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.7.4"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL="https://github.com/OSGeo/libgeotiff/archive/refs/tags/$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=c581ff502c6b1dc012fad1031d95293ea5f5ff250d9502de382aced8c7d28565
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libtiff, proj"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DWITH_TIFF=ON
--DWITH_TOWGS84=ON
--DBUILD_SHARED_LIBS=ON
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION=5
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local e=$(sed -En 's/^libgeotiff_la_LDFLAGS\s*=.*\s+-version-info\s+([0-9]+):([0-9]+):([0-9]+).*/\1-\3/p' \
-			libgeotiff/Makefile.am)
-	if [ ! "${e}" ] || [ "${_SOVERSION}" != "$(( "${e}" ))" ]; then
-		termux_error_exit "SOVERSION guard check failed."
-	fi
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_pre_configure() {
-	TERMUX_PKG_SRCDIR+="/libgeotiff"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

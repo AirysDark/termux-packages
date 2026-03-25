@@ -1,23 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/shenwei356/rush
-TERMUX_PKG_DESCRIPTION="A cross-platform command-line tool for executing jobs in parallel"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="Krishna kanhaiya @kcubeterm"
-TERMUX_PKG_VERSION="0.8.0"
-TERMUX_PKG_SRCURL=https://github.com/shenwei356/rush/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=d8d04a4fd506a2f369ec8753b339364cd7e58749f794d60cf2cbbb2a5833c8ec
-TERMUX_PKG_AUTO_UPDATE=true
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="rush"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	cd "$TERMUX_PKG_SRCDIR"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	export GOPATH="${TERMUX_PKG_BUILDDIR}"
-	mkdir -p "${GOPATH}/src/github.com/shenwei356"
-	cp -a "${TERMUX_PKG_SRCDIR}" "${GOPATH}/src/github.com/shenwei356/rush"
-	cd "${GOPATH}/src/github.com/shenwei356/rush"
-	go get -d -v
-	go install
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	install -Dm700 $TERMUX_PKG_BUILDDIR/bin/*/rush $TERMUX_PREFIX/bin/
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

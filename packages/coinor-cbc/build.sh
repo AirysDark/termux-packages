@@ -1,17 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/coin-or/Cbc
-TERMUX_PKG_DESCRIPTION="An open-source mixed integer linear programming solver"
-TERMUX_PKG_LICENSE="EPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="coinor-cbc"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.10.13"
-TERMUX_PKG_SRCURL=https://github.com/coin-or/Cbc/archive/refs/tags/releases/${TERMUX_PKG_VERSION#*:}.tar.gz
-TERMUX_PKG_SHA256=62fde44dcf6f3d05c5cd291d7435cdd1b7e8acd3c78ec481dd39fe49cbc40399
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_METHOD=repology
-TERMUX_PKG_DEPENDS="coinor-clp, libc++, libcoinor-cgl, libcoinor-osi, libcoinor-utils"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	local _libgcc_file="$($CC -print-libgcc-file-name)"
-	local _libgcc_path="$(dirname $_libgcc_file)"
-	local _libgcc_name="$(basename $_libgcc_file)"
-	LDFLAGS+=" -L$_libgcc_path -l:$_libgcc_name"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

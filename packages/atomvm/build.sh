@@ -1,32 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/bettio/AtomVM
-TERMUX_PKG_DESCRIPTION="The minimal Erlang VM implementation"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="atomvm"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1:0.6.6"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/atomvm/AtomVM/archive/refs/tags/v${TERMUX_PKG_VERSION#*:}.tar.gz
-TERMUX_PKG_SHA256=2a7de9b0ec201d992847d6ebbb444708ac07f210c9fa650d7f677c8ec20df074
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="zlib"
-TERMUX_PKG_HOSTBUILD=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DAVM_BUILD_RUNTIME_ONLY=ON
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_host_build() {
-	termux_setup_cmake
-	cmake "$TERMUX_PKG_SRCDIR" $TERMUX_PKG_EXTRA_CONFIGURE_ARGS
-	make -j $TERMUX_PKG_MAKE_PROCESSES
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_post_configure() {
-	# We need the "PackBEAM" compiled for host.
-	export PATH=$PATH:$TERMUX_PKG_HOSTBUILD_DIR/tools/packbeam
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make_install() {
-	install -Dm700 "$TERMUX_PKG_BUILDDIR"/src/AtomVM \
-		"$TERMUX_PREFIX"/bin/AtomVM
-	install -Dm700 "$TERMUX_PKG_BUILDDIR"/tools/packbeam/PackBEAM \
-		"$TERMUX_PREFIX"/bin/PackBEAM
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

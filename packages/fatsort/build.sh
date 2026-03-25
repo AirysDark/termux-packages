@@ -1,19 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://fatsort.sourceforge.io/
-TERMUX_PKG_DESCRIPTION="A C utility that sorts FAT12, FAT16, FAT32 and exFAT partitions"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="fatsort"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1.6.5.640
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/fatsort/fatsort-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=630ece56d9eb3a55524af0aec3aade7854360eba949172a6cfb4768cb8fbe42e
-TERMUX_PKG_DEPENDS="libiconv"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_MAKE_ARGS="
-MANDIR=$TERMUX_PREFIX/share/man/man1
-SBINDIR=$TERMUX_PREFIX/bin
-"
 
-termux_step_pre_configure() {
-	CFLAGS+=" $CPPFLAGS"
-	LDFLAGS+=" -liconv"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

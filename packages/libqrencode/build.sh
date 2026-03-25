@@ -1,27 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://fukuchi.org/works/qrencode/
-TERMUX_PKG_DESCRIPTION="Fast and compact library for encoding data in a QR Code symbol"
-TERMUX_PKG_LICENSE="GPL-2.0"
-TERMUX_PKG_MAINTAINER="Henrik Grimler @Grimler91"
-TERMUX_PKG_VERSION=4.1.1
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://github.com/fukuchi/libqrencode/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=5385bc1b8c2f20f3b91d258bf8ccc8cf62023935df2d2676b5b67049f31a049c
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libandroid-support, libpng, zlib"
-TERMUX_PKG_BREAKS="libqrencode-dev"
-TERMUX_PKG_REPLACES="libqrencode-dev"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DBUILD_SHARED_LIBS=ON
--DCMAKE_POLICY_VERSION_MINIMUM=3.5
-"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libqrencode"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION=4
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local v=$(echo ${TERMUX_PKG_VERSION#*:} | cut -d . -f 1)
-	if [ "${v}" != "${_SOVERSION}" ]; then
-		termux_error_exit "SOVERSION guard check failed."
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,13 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://xff.cz/megatools/
-TERMUX_PKG_DESCRIPTION="Open-source command line tools and C library (libmega) for accessing Mega.co.nz cloud storage"
-TERMUX_PKG_LICENSE="GPL-2.0"
-TERMUX_PKG_LICENSE_FILE="LICENSE"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="megatools"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1.11.5.20250706
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://xff.cz/megatools/builds/megatools-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=51f78a03748a64b1066ce28a2ca75d98dbef5f00fe9789dc894827f9a913b362
-TERMUX_PKG_DEPENDS="glib, libandroid-support, libcurl, openssl"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--Dsymlinks=true
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

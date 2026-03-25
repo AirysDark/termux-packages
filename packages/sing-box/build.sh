@@ -1,47 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://sing-box.sagernet.org
-TERMUX_PKG_DESCRIPTION="The universal proxy platform"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="sing-box"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
-TERMUX_PKG_MAINTAINER="kay9925@outlook.com"
-TERMUX_PKG_VERSION="1.13.3"
-TERMUX_PKG_SRCURL="https://github.com/SagerNet/sing-box/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=bf8933cd43e2797afcffb47528282e1c1aee078bf5eeda888d80a151fef726e1
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
 
-termux_step_make() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local tags="with_gvisor,with_quic,with_wireguard,with_utls,with_clash_api"
-	local ldflags="\
-	-w -s \
-	-X 'github.com/sagernet/sing-box/constant.Version=${TERMUX_PKG_VERSION}' \
-	"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	export CGO_ENABLED=1
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	go build \
-		-trimpath \
-		-tags "${tags}" \
-		-ldflags="${ldflags}" \
-		-o "${TERMUX_PKG_NAME}" \
-		./cmd/sing-box
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-}
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-termux_step_make_install() {
-	install -Dm700 ./${TERMUX_PKG_NAME} ${TERMUX_PREFIX}/bin
-
-	install -Dm644 /dev/null "${TERMUX_PREFIX}/share/bash-completion/completions/sing-box.bash"
-	install -Dm644 /dev/null "${TERMUX_PREFIX}/share/fish/vendor_completions.d/sing-box.fish"
-	install -Dm644 /dev/null "${TERMUX_PREFIX}/share/zsh/site-functions/_sing-box"
-
-}
-
-termux_step_create_debscripts() {
-	cat <<- EOF > ./postinst
-		#!${TERMUX_PREFIX}/bin/sh
-		sing-box completion bash > ${TERMUX_PREFIX}/share/bash-completion/completions/sing-box.bash
-		sing-box completion fish > ${TERMUX_PREFIX}/share/fish/vendor_completions.d/sing-box.fish
-		sing-box completion zsh > ${TERMUX_PREFIX}/share/zsh/site-functions/_sing-box
-	EOF
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

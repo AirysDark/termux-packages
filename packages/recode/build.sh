@@ -1,17 +1,33 @@
-# Contributor: @s00se
-TERMUX_PKG_HOMEPAGE="https://github.com/pinard/Recode"
-TERMUX_PKG_DESCRIPTION="Charset converter tool and library"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="recode"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="3.7.15"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/rrthomas/recode/releases/download/v${TERMUX_PKG_VERSION}/recode-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=f590407fc51badb351973fc1333ee33111f05ec83a8f954fd8cf0c5e30439806
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libiconv"
-# recode needs to be explicitly linked to avoid:
-# CANNOT LINK EXECUTABLE "recode": cannot locate symbol "libiconv_open"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="LIBS=-liconv"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS+="
-ac_cv_path_HELP2MAN=:
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

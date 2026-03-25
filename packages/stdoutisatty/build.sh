@@ -1,18 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/lilydjwg/stdoutisatty
-TERMUX_PKG_DESCRIPTION="Patch the isatty() calls for colored output in pipeline"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
-TERMUX_PKG_MAINTAINER="@flosnvjx"
-TERMUX_PKG_VERSION=1.0
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/lilydjwg/stdoutisatty/archive/refs/tags/"$TERMUX_PKG_VERSION".tar.gz
-TERMUX_PKG_SHA256=fadc12401cd89e718d7b0127b882cf47335f436ffcc7b83a9fbf557befe5beb2
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_POLICY_VERSION_MINIMUM=3.5
-"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="stdoutisatty"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-	cd "$TERMUX_PKG_SRCDIR"
-	install -Dm600 -t $TERMUX_PREFIX/share/doc/$TERMUX_PKG_NAME README.*
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

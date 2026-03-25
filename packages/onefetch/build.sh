@@ -1,46 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://onefetch.dev/
-TERMUX_PKG_DESCRIPTION="A command-line Git information tool written in Rust"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="onefetch"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.27.1"
-TERMUX_PKG_SRCURL=https://github.com/o2sh/onefetch/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=3a6f82d3da4da62b2e5406bbe307b0afc73cd8fcc4855534886d80ea0121cc03
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_setup_cmake
-	termux_setup_rust
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# Dummy CMake toolchain file to workaround build error:
-	# error: failed to run custom build command for `libz-ng-sys v1.1.9`
-	# ...
-	# CMake Error at /home/builder/.termux-build/_cache/cmake-3.28.3/share/cmake-3.28/Modules/Platform/Android-Determine.cmake:217 (message):
-	# Android: Neither the NDK or a standalone toolchain was found.
-	export TARGET_CMAKE_TOOLCHAIN_FILE="${TERMUX_PKG_BUILDDIR}/android.toolchain.cmake"
-	touch "${TERMUX_PKG_BUILDDIR}/android.toolchain.cmake"
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make() {
-	cargo build \
-		--jobs $TERMUX_PKG_MAKE_PROCESSES \
-		--target $CARGO_TARGET_NAME \
-		--release
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	install -Dm700 target/"${CARGO_TARGET_NAME}"/release/onefetch "$TERMUX_PREFIX"/bin
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	install -Dm644 /dev/null "$TERMUX_PREFIX"/share/bash-completion/completions/onefetch.bash
-	install -Dm644 /dev/null "$TERMUX_PREFIX"/share/zsh/site-functions/_onefetch
-	install -Dm644 /dev/null "$TERMUX_PREFIX"/share/fish/vendor_completions.d/onefetch.fish
-}
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-termux_step_create_debscripts() {
-	cat <<-EOF >./postinst
-		#!${TERMUX_PREFIX}/bin/sh
-		onefetch --generate bash > ${TERMUX_PREFIX}/share/bash-completion/completions/onefetch.bash
-		onefetch --generate zsh > ${TERMUX_PREFIX}/share/zsh/site-functions/_onefetch
-		onefetch --generate fish > ${TERMUX_PREFIX}/share/fish/vendor_completions.d/onefetch.fish
-	EOF
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

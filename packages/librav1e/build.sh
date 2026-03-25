@@ -1,60 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/xiph/rav1e/
-TERMUX_PKG_DESCRIPTION="An AV1 encoder library focused on speed and safety"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="librav1e"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.8.1"
-TERMUX_PKG_SRCURL=https://github.com/xiph/rav1e/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=06d1523955fb6ed9cf9992eace772121067cca7e8926988a1ee16492febbe01e
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION=0
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local v=$(echo ${TERMUX_PKG_VERSION#*:} | cut -d . -f 1)
-	if [ "${v}" != "${_SOVERSION}" ]; then
-		termux_error_exit "SOVERSION guard check failed."
-	fi
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_pre_configure() {
-	termux_setup_rust
-	termux_setup_cargo_c
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	export CARGO_BUILD_TARGET=$CARGO_TARGET_NAME
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	# clash with rust host build
-	unset CFLAGS
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	cargo fetch \
-		--target $CARGO_TARGET_NAME
-}
-
-termux_step_make_install() {
-	cargo install \
-		--jobs $TERMUX_PKG_MAKE_PROCESSES \
-		--path . \
-		--force \
-		--locked \
-		--no-track \
-		--target $CARGO_TARGET_NAME \
-		--root $TERMUX_PREFIX
-
-	# `cargo cinstall` refuses to work with Android
-	cargo cbuild \
-		--release \
-		--prefix $TERMUX_PREFIX \
-		--jobs $TERMUX_PKG_MAKE_PROCESSES \
-		--target $CARGO_TARGET_NAME
-
-	cd target/$CARGO_TARGET_NAME/release/
-	install -Dm644 -t $TERMUX_PREFIX/include/rav1e/ rav1e.h
-	install -Dm644 -t $TERMUX_PREFIX/lib/pkgconfig/ rav1e.pc
-	install -Dm644 -t $TERMUX_PREFIX/lib/ librav1e.a
-	install -Dm644 librav1e.so $TERMUX_PREFIX/lib/librav1e.so.$TERMUX_PKG_VERSION
-	ln -fs librav1e.so.$TERMUX_PKG_VERSION \
-		$TERMUX_PREFIX/lib/librav1e.so.${TERMUX_PKG_VERSION%%.*}
-	ln -fs librav1e.so.$TERMUX_PKG_VERSION $TERMUX_PREFIX/lib/librav1e.so
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

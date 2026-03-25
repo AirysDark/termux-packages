@@ -1,16 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://logging.apache.org/log4cxx/latest_stable/index.html"
-TERMUX_PKG_DESCRIPTION="A logging framework for C++ patterned after Apache log4j"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="liblog4cxx"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.6.1"
-TERMUX_PKG_SRCURL="https://github.com/apache/logging-log4cxx/archive/refs/tags/rel/v$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=096bac3e5a1c6f8622efdd73fd6e71d32ba264b1367d66bde5cbcdd9e2194d15
-TERMUX_PKG_DEPENDS="apr, apr-util, libc++"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DBUILD_SHARED_LIBS=ON
--DBUILD_TESTING=OFF
--DCMAKE_INSTALL_LIBDIR=$TERMUX__PREFIX__LIB_SUBDIR
--DCMAKE_INSTALL_INCLUDEDIR=$TERMUX__PREFIX__INCLUDE_SUBDIR
-"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP="rel/v\d+\.\d+\.\d+"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

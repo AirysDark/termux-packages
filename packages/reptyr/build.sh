@@ -1,13 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://github.com/nelhage/reptyr"
-TERMUX_PKG_DESCRIPTION="Tool for reparenting a running program to a new terminal"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="reptyr"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.10.0
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/nelhage/reptyr/archive/refs/tags/reptyr-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=c6ffbc34a511ac00d072219bda30699e51f2f4eb483cbae9e32e981d49e8b380
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_METHOD=repology
-TERMUX_PKG_BUILD_DEPENDS="bash-completion"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_MAKE_ARGS="PREFIX=$TERMUX_PREFIX"
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

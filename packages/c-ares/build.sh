@@ -1,31 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://c-ares.org/
-TERMUX_PKG_DESCRIPTION="Library for asynchronous DNS requests (including name resolves)"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="c-ares"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.34.6"
-TERMUX_PKG_SRCURL=https://github.com/c-ares/c-ares/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=4358939ff800b13b92f37d5fdda003718101faedfbdee792d6b79ddc1a53d890
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+.\d+.\d+"
-TERMUX_PKG_DEPENDS="resolv-conf"
-TERMUX_PKG_BREAKS="c-ares-dev"
-TERMUX_PKG_REPLACES="c-ares-dev"
-# Build with cmake to install cmake/c-ares/*.cmake files:
-TERMUX_PKG_FORCE_CMAKE=true
-TERMUX_PKG_RM_AFTER_INSTALL="bin/"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_INSTALL_LIBDIR=$TERMUX__PREFIX__LIB_SUBDIR
--DCMAKE_INSTALL_INCLUDEDIR=$TERMUX__PREFIX__INCLUDE_SUBDIR
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION=2
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local e=$(sed -En 's/^\s*SET\s*\(CARES_LIB_VERSIONINFO\s+"?([0-9]+):([0-9]+):([0-9]+).*/\1-\3/p' \
-			CMakeLists.txt)
-	if [ ! "${e}" ] || [ "${_SOVERSION}" != "$(( "${e}" ))" ]; then
-		termux_error_exit "SOVERSION guard check failed."
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,27 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.openimagedenoise.org
-TERMUX_PKG_DESCRIPTION="Intel® Open Image Denoise library"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="oidn"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.4.1"
-TERMUX_PKG_SRCURL="https://github.com/OpenImageDenoise/oidn/releases/download/v$TERMUX_PKG_VERSION/oidn-$TERMUX_PKG_VERSION.src.tar.gz"
-TERMUX_PKG_SHA256=9c7c77ae0d57e004479cddb7aaafd405c2cc745153bed4805413c21be610e17b
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_DEPENDS="libc++, libllvm, libtbb"
-# OIDN supports 64-bit platforms only,
-# see https://github.com/OpenImageDenoise/oidn/#prerequisites.
-TERMUX_PKG_EXCLUDED_ARCHES="arm, i686"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	local ISPC_VERSION=1.30.0
-	local ISPC_URL="https://github.com/ispc/ispc/releases/download/v$ISPC_VERSION/ispc-v$ISPC_VERSION-linux.tar.gz"
-	local ISPC_TARFILE="$TERMUX_PKG_CACHEDIR/$(basename $ISPC_URL)"
-	local ISPC_SHA256=63e7d61037849fa1ed644f0398d21740ee9f880b9bf81f017c65eebe1d42c02b
-	termux_download "$ISPC_URL" "$ISPC_TARFILE" "$ISPC_SHA256"
-	if [[ ! -e "$TERMUX_PKG_CACHEDIR/.placeholder-ispc-v$ISPC_VERSION" ]]; then
-		rm -rf "$TERMUX_PKG_CACHEDIR/ispc-v$ISPC_VERSION-linux"
-		tar -xvf "$ISPC_TARFILE" -C "$TERMUX_PKG_CACHEDIR"
-		touch "$TERMUX_PKG_CACHEDIR/.placeholder-ispc-v$ISPC_VERSION"
-	fi
-	export PATH="$TERMUX_PKG_CACHEDIR/ispc-v$ISPC_VERSION-linux/bin:$PATH"
-	LDFLAGS+=" -llog"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

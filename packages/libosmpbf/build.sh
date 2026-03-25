@@ -1,25 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/openstreetmap/OSM-binary/
-TERMUX_PKG_DESCRIPTION="osmpbf is a Java/C library to read and write OpenStreetMap PBF files"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libosmpbf"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.5.1"
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL=https://github.com/openstreetmap/OSM-binary/archive/refs/tags/v${TERMUX_PKG_VERSION}.zip
-TERMUX_PKG_SHA256=edd98ba252c81372113747a131466f5ba45e0cff97b597e863a26e83943ba84f
-TERMUX_PKG_DEPENDS="libc++, libprotobuf"
-TERMUX_PKG_GROUPS="science"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_setup_protobuf
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	CPPFLAGS+=" -DPROTOBUF_USE_DLLS"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# the error for 32-bit targets if this is not used looks like this:
-	# ld.lld: error: undefined symbol: char const*
-	# absl::lts_20250127::log_internal::MakeCheckOpString<long
-	# long, long long>(long long, long long, char const*)
-	# >>> referenced by osmformat.pb.cc
-	# >>>               osmformat.pb.cc.o:(google::protobuf::RepeatedField<int>::GrowNoAnnotate(bool,
-	# int, int)) in archive osmpbf/libosmpbf.a
-	LDFLAGS+=" $($TERMUX_SCRIPTDIR/packages/libprotobuf/interface_link_libraries.sh)"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

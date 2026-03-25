@@ -1,31 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://ninja-build.org
-TERMUX_PKG_DESCRIPTION="A small build system with a focus on speed"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="ninja"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.13.2"
-TERMUX_PKG_SRCURL=https://github.com/ninja-build/ninja/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=974d6b2f4eeefa25625d34da3cb36bdcebe7fbce40f4c16ac0835fd1c0cbae17
-TERMUX_PKG_DEPENDS="libandroid-spawn, libc++"
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	CXXFLAGS+=" $CPPFLAGS"
-	LDFLAGS+=" -landroid-spawn"
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_configure() {
-	$TERMUX_PKG_SRCDIR/configure.py
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make() {
-	if $TERMUX_ON_DEVICE_BUILD; then
-		$TERMUX_PKG_SRCDIR/configure.py --bootstrap
-	else
-		termux_setup_ninja
-		ninja -j $TERMUX_PKG_MAKE_PROCESSES
-	fi
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	cp ninja $TERMUX_PREFIX/bin
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

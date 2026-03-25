@@ -1,27 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://rephial.org/
-TERMUX_PKG_DESCRIPTION="Dungeon exploration adventure game"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="angband"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="4.2.6"
-TERMUX_PKG_SHA256=64091eb98e1b08c4d69a9ca94802ea797aef09daaaf335e450bc64f80ee56911
-TERMUX_PKG_SRCURL=https://github.com/angband/angband/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_DEPENDS="ncurses"
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---disable-x11
---bindir=$TERMUX_PREFIX/bin
---sysconfdir=$TERMUX_PREFIX/share/angband
-"
-TERMUX_PKG_RM_AFTER_INSTALL="
-share/angband/fonts
-share/angband/icons
-share/angband/sounds
-share/angband/xtra
-"
-TERMUX_PKG_GROUPS="games"
 
-termux_step_pre_configure () {
-	./autogen.sh
-	perl -p -i -e 's|ncursesw5-config|ncursesw6-config|g' configure
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

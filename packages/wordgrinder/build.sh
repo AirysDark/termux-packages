@@ -1,32 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://cowlark.com/wordgrinder/
-TERMUX_PKG_DESCRIPTION="A Unicode-aware character cell word processor"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_LICENSE_FILE="licenses/COPYING.Lua, licenses/COPYING.LuaBitOp, licenses/COPYING.LuaFileSystem, licenses/COPYING.Minizip, licenses/COPYING.Scowl, licenses/COPYING.uthash, licenses/COPYING.wcwidth, licenses/COPYING.WordGrinder, licenses/COPYING.xpattern"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="wordgrinder"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.8
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/davidgiven/wordgrinder/archive/refs/tags/$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=856cbed2b4ccd5127f61c4997a30e642d414247970f69932f25b4b5a81b18d3f
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+\.\d+"
-TERMUX_PKG_DEPENDS="lua53, ncurses, zlib"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_ninja
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# Missing and causes install failure.
-	touch licenses/COPYING.LuaFileSystem
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	make CC=gcc OBJDIR="$PWD/build" "$PWD"/build/lua
-	make OBJDIR="$PWD/build" LUA_PACKAGE=lua53
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	install -Dm700 \
-		"$TERMUX_PKG_SRCDIR"/bin/wordgrinder-lua53-curses-release \
-		"$TERMUX_PREFIX"/bin/wordgrinder
-	install -Dm600 \
-		"$TERMUX_PKG_SRCDIR"/bin/wordgrinder.1 \
-		"$TERMUX_PREFIX"/share/man/man1/
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

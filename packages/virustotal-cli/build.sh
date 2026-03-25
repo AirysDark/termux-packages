@@ -1,29 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/VirusTotal/vt-cli
-TERMUX_PKG_DESCRIPTION="Command line interface for VirusTotal"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="virustotal-cli"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.3.0"
-TERMUX_PKG_SRCURL=https://github.com/VirusTotal/vt-cli/archive/refs/tags/$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=10a6edbbb7c81e6978ac55f65544b916906c9400d596beb2fe54f1093a3f7f98
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_BREAKS="vt-cli"
-TERMUX_PKG_REPLACES="vt-cli"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	export GOPATH=$TERMUX_PKG_BUILDDIR
-	mkdir -p "$GOPATH"/src/github.com/VirusTotal
-	ln -sf "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/github.com/VirusTotal/vt-cli
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	cd "$GOPATH"/src/github.com/VirusTotal/vt-cli
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	go build \
-		-ldflags "-X github.com/VirusTotal/vt-cli/cmd.Version=$TERMUX_PKG_VERSION" \
-		-o "$TERMUX_PREFIX"/bin/vt-cli \
-		./vt/main.go
-}
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-termux_step_make_install() {
-	ln -sfr "$TERMUX_PREFIX"/bin/vt-cli "$TERMUX_PREFIX"/bin/vt
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

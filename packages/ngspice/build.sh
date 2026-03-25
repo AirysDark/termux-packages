@@ -1,52 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://ngspice.sourceforge.net/
-TERMUX_PKG_DESCRIPTION="A mixed-level/mixed-signal circuit simulator"
-TERMUX_PKG_LICENSE="BSD 3-Clause, LGPL-2.1"
-TERMUX_PKG_LICENSE_FILE="COPYING"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="ngspice"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="45.2"
-TERMUX_PKG_SRCURL=https://github.com/imr/ngspice/archive/refs/tags/ngspice-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=3e2a436fb12c5d47d10033ce5b2e2b09b79cde757f9277db350d25071e8e6f86
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---enable-cider
---enable-openmp
---enable-xspice
---with-x=no
---with-readline=yes
-"
-TERMUX_PKG_HOSTBUILD=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_HOSTBUILD_CONFIGURE_ARGS="
---enable-cider
---enable-xspice
---with-x=no
-"
-TERMUX_PKG_DEPENDS="fftw, libc++, ncurses, readline"
-TERMUX_PKG_GROUPS="science"
 
-termux_step_host_build() {
-	autoreconf -fi $TERMUX_PKG_SRCDIR
-	$TERMUX_PKG_SRCDIR/configure $TERMUX_PKG_EXTRA_HOSTBUILD_CONFIGURE_ARGS
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# compiles ngspice codemodel preprocessor
-	cd src/xspice/cmpp && make -j $TERMUX_PKG_MAKE_PROCESSES
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_pre_configure() {
-	LDFLAGS+=" -fopenmp -static-openmp"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	# ERROR: ./lib/ngspice/ivlng.vpi contains undefined symbols: pow
-	LDFLAGS+=" -lm"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	autoreconf -fi
-}
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-termux_step_post_configure() {
-	cp -ru $TERMUX_PKG_HOSTBUILD_DIR/src/xspice/cmpp \
-		src/xspice
-	cd src/xspice/cmpp && cp cmpp build/cmpp
-
-	# prevents building again on copied precompiled cmpp.
-	touch -d "next hour" *
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

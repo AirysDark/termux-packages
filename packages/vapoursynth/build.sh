@@ -1,34 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.vapoursynth.com/
-TERMUX_PKG_DESCRIPTION="Video processing framework with simplicity in mind"
-TERMUX_PKG_LICENSE="LGPL-2.1-or-later"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="vapoursynth"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="73"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL="https://github.com/vapoursynth/vapoursynth/archive/refs/tags/R${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=1bb8ffe31348eaf46d8f541b138f0136d10edaef0c130c1e5a13aa4a4b057280
-TERMUX_PKG_DEPENDS="libzimg, python"
-TERMUX_PKG_PYTHON_COMMON_BUILD_DEPS="Cython"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS=" --disable-x86-asm"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP='R\d{2}(?!-)'
 
-termux_step_pre_configure() {
-	rm -f "$TERMUX_PKG_SRCDIR/setup.py"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	if [[ "$TERMUX_ARCH" == 'aarch64' ]]; then
-		export CFLAGS+=" -march=armv8.1-a"
-		export CXXFLAGS+=" -march=armv8.1-a"
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# Workaround borrowed from https://github.com/termux/termux-packages/pull/22212/files
-	local _libgcc_file _libgcc_path _libgcc_name
-	_libgcc_file="$($CC -print-libgcc-file-name)"
-	_libgcc_path="$(dirname "$_libgcc_file")"
-	_libgcc_name="$(basename "$_libgcc_file")"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	LDFLAGS+=" -L$_libgcc_path -l:$_libgcc_name"
-	LDFLAGS+=" -Wl,-rpath=$TERMUX_PREFIX/lib/vapoursynth"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	./autogen.sh
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

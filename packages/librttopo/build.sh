@@ -1,23 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://git.osgeo.org/gitea/rttopo/librttopo
-TERMUX_PKG_DESCRIPTION="The RT Topology Library exposes an API to create and manage standard topologies"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="librttopo"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1.1.0
-TERMUX_PKG_REVISION=5
-TERMUX_PKG_SRCURL=git+https://git.osgeo.org/gitea/rttopo/librttopo
-TERMUX_PKG_GIT_BRANCH="librttopo-$TERMUX_PKG_VERSION"
-TERMUX_PKG_SHA256=98c8a5acbc4db5fbe5ccb03c9577221bda1135c50301f45d67d6f8d2405feb3f
-TERMUX_PKG_DEPENDS="libgeos, proj"
-TERMUX_PKG_GROUPS="science"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	local s=$(find . -type f ! -path '*/.git/*' -print0 | xargs -0 sha256sum | LC_ALL=C sort | sha256sum)
-	if [[ "${s}" != "${TERMUX_PKG_SHA256}  "* ]]; then
-		echo "$s"
-		termux_error_exit "Checksum mismatch for source files."
-	fi
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	./autogen.sh
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

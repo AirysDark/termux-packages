@@ -1,65 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://sftpgo.com/
-TERMUX_PKG_DESCRIPTION="Full-featured and highly configurable SFTP, HTTP/S, FTP/S and WebDAV server"
-TERMUX_PKG_LICENSE="AGPL-V3"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="sftpgo"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.7.1"
-TERMUX_PKG_SRCURL=https://github.com/drakkan/sftpgo/releases/download/v$TERMUX_PKG_VERSION/sftpgo_v${TERMUX_PKG_VERSION}_src_with_deps.tar.xz
-TERMUX_PKG_SHA256=64b2826af512eb8ce8cd880ce4b9a23897b45515130ea8cc4490fd70a80c812a
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="latest-release-tag"
-TERMUX_PKG_HOSTBUILD=true
 
-termux_extract_src_archive() {
-	local file="$TERMUX_PKG_CACHEDIR/$(basename "${TERMUX_PKG_SRCURL}")"
-	mkdir -p "$TERMUX_PKG_SRCDIR"
-	tar xf "$file" -C "$TERMUX_PKG_SRCDIR" --strip-components=0
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_host_build() {
-	termux_setup_golang
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	cd "$TERMUX_PKG_SRCDIR"
-	go build -mod vendor -o sftpgo
-	mv sftpgo "$TERMUX_PKG_HOSTBUILD_DIR"/sftpgo
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make() {
-	termux_setup_golang
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	local _commit="$(cat VERSION.txt | head -n 2 | tail -n 1)"
-	local _go_ldflags="-s -w"
-	_go_ldflags+=" -X github.com/drakkan/sftpgo/v2/internal/version.commit=${_commit}"
-	_go_ldflags+=" -X github.com/drakkan/sftpgo/v2/internal/version.date=$(date -u +%FT%TZ)"
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	go build -trimpath -ldflags "$_go_ldflags" -mod vendor -o sftpgo
-}
-
-termux_step_make_install() {
-	install -Dm700 -t "$TERMUX_PREFIX"/bin sftpgo
-	install -Dm600 -t "$TERMUX_PREFIX"/etc/sftpgo sftpgo.json
-
-	mkdir -p "$TERMUX_PREFIX"/share/sftpgo/{templates,static,openapi}
-	cp -Rf "$TERMUX_PKG_SRCDIR"/templates/* "$TERMUX_PREFIX"/share/sftpgo/templates
-	cp -Rf "$TERMUX_PKG_SRCDIR"/static/* "$TERMUX_PREFIX"/share/sftpgo/static
-	cp -Rf "$TERMUX_PKG_SRCDIR"/openapi/* "$TERMUX_PREFIX"/share/sftpgo/openapi
-
-	mkdir -p "$TERMUX_PREFIX"/share/bash-completion/completions
-	"$TERMUX_PKG_HOSTBUILD_DIR"/sftpgo gen completion bash > \
-		"$TERMUX_PREFIX"/share/bash-completion/completions/sftpgo
-
-	mkdir -p "$TERMUX_PREFIX"/share/zsh/site-functions
-	"$TERMUX_PKG_HOSTBUILD_DIR"/sftpgo gen completion zsh > \
-		"$TERMUX_PREFIX"/share/zsh/site-functions/_sftpgo
-
-	mkdir -p "$TERMUX_PREFIX"/share/fish/vendor_completions.d
-	"$TERMUX_PKG_HOSTBUILD_DIR"/sftpgo gen completion fish > \
-		"$TERMUX_PREFIX"/share/fish/vendor_completions.d/sftpgo.fish
-
-	mkdir -p "$TERMUX_PREFIX"/share/sftpgo/man/man1
-	"$TERMUX_PKG_HOSTBUILD_DIR"/sftpgo gen man -d "$TERMUX_PREFIX"/share/sftpgo/man/man1
-
-	# for sftpgo.db
-	mkdir -p "$TERMUX_PREFIX"/var/lib/sftpgo
-	touch "$TERMUX_PREFIX"/var/lib/sftpgo/.placeholder
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

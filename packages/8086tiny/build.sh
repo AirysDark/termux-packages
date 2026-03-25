@@ -1,27 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/adriancable/8086tiny
-TERMUX_PKG_DESCRIPTION="A PC XT-compatible emulator/virtual machine"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="8086tiny"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1.25
-TERMUX_PKG_REVISION=5
-# Version tag is unavailable.
-TERMUX_PKG_SRCURL=https://github.com/adriancable/8086tiny/archive/c79ca2a34d96931d55ef724c815b289d0767ae3a.tar.gz
-TERMUX_PKG_SHA256=ede246503a745274430fdee77ba639bc133a2beea9f161bff3f7132a03544bf6
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_DEPENDS="bash, coreutils, ncurses"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	CPPFLAGS+=" -DNO_GRAPHICS"
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make_install() {
-	install -Dm700 8086tiny "$TERMUX_PREFIX"/libexec/8086tiny
-	install -Dm600 bios "$TERMUX_PREFIX"/share/8086tiny/bios.bin
-	install -Dm600 fd.img "$TERMUX_PREFIX"/share/8086tiny/dos.img
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	sed -e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" \
-		-e "s|@PACKAGE_VERSION@|$TERMUX_PKG_VERSION|g" \
-		"$TERMUX_PKG_BUILDER_DIR"/8086tiny.sh > "$TERMUX_PREFIX"/bin/8086tiny
-	chmod 700 "$TERMUX_PREFIX"/bin/8086tiny
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

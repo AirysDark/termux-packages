@@ -1,46 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/svenstaro/miniserve
-TERMUX_PKG_DESCRIPTION="Tool to serve files and dirs over HTTP"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="miniserve"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.33.0"
-TERMUX_PKG_SRCURL=https://github.com/svenstaro/miniserve/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=eacef6128688c02409b0aba34c550a80fa5a714979c6c8e21e20c6a0aa2bc33a
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_setup_rust
-
-	rm -f Makefile
-}
-
 termux_step_post_make_install() {
-	# shell completions
-	install -Dm644 /dev/null "$TERMUX_PREFIX"/share/bash-completion/completions/miniserve
-	install -Dm644 /dev/null "$TERMUX_PREFIX"/share/zsh/site-functions/_miniserve
-	install -Dm644 /dev/null "$TERMUX_PREFIX"/share/fish/vendor_completions.d/miniserve.fish
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# manpage
-	install -Dm644 /dev/null "$TERMUX_PREFIX"/share/man/man1/miniserve.1
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_create_debscripts() {
-	cat <<- EOF > ./postinst
-	#!$TERMUX_PREFIX/bin/sh
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	miniserve --print-completions bash \
-		> "$TERMUX_PREFIX"/share/bash-completion/completions/miniserve
-	miniserve --print-completions zsh \
-		> "$TERMUX_PREFIX"/share/zsh/site-functions/_miniserve
-	miniserve --print-completions fish \
-		> "$TERMUX_PREFIX"/share/fish/vendor_completions.d/miniserve.fish
-	miniserve --print-manpage \
-		> "$TERMUX_PREFIX"/share/man/man1/miniserve.1
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	# Warn user on default behaviour of miniserve.
-	echo
-	echo "WARNING: miniserve follows symlinks in selected directory by default. Consider aliasing it with '--no-symlinks' for safety."
-	echo "See: https://github.com/svenstaro/miniserve/issues/498"
-	echo
-	EOF
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

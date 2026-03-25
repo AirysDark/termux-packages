@@ -1,52 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/cargo-bins/cargo-binstall
-TERMUX_PKG_DESCRIPTION="Tool to fetch and install precompiled musl-based static binaries from the Rust ecosystem"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="cargo-binstall"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.17.8"
-TERMUX_PKG_SRCURL="https://github.com/cargo-bins/cargo-binstall/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=18dbb56919f3503ccb1133192835ddb809a856c7c99212ef4066ef1cbdf08f9e
-TERMUX_PKG_DEPENDS="resolv-conf"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
 
-termux_step_pre_configure() {
-	termux_setup_rust
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	cargo vendor
-	find ./vendor \
-		-mindepth 1 -maxdepth 1 -type d \
-		! -wholename ./vendor/rustls-platform-verifier \
-		! -wholename ./vendor/hickory-resolver \
-		! -wholename ./vendor/camino \
-		! -wholename ./vendor/resolv-conf \
-		! -wholename ./vendor/netdev \
-		-exec rm -rf '{}' \;
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	find vendor/rustls-platform-verifier -type f -print0 | \
-		xargs -0 sed -i \
-		-e 's|"android"|"disabling_this_because_it_is_for_building_an_apk"|g' \
-		-e "s|ANDROID|DISABLING_THIS_BECAUSE_IT_IS_FOR_BUILDING_AN_APK|g" \
-		-e 's|"linux"|"android"|g'
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	find vendor/{hickory-resolver,camino,resolv-conf,netdev} -type f -print0 | \
-		xargs -0 sed -i \
-		-e "s|/etc|$TERMUX_PREFIX/etc|g"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	cat >> Cargo.toml <<-EOF
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-		[patch.crates-io]
-		rustls-platform-verifier = { path = "./vendor/rustls-platform-verifier" }
-		hickory-resolver = { path = "./vendor/hickory-resolver" }
-		camino = { path = "./vendor/camino" }
-		resolv-conf = { path = "./vendor/resolv-conf" }
-		netdev = { path = "./vendor/netdev" }
-	EOF
-}
-
-termux_step_make() {
-	cargo build --jobs "$TERMUX_PKG_MAKE_PROCESSES" --target "$CARGO_TARGET_NAME" --release
-}
-
-termux_step_make_install() {
-	install -Dm700 -t "$TERMUX_PREFIX/bin" "target/$CARGO_TARGET_NAME/release/$TERMUX_PKG_NAME"
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

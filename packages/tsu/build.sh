@@ -1,28 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/cswl/tsu
-TERMUX_PKG_DESCRIPTION="A su wrapper for Termux"
-TERMUX_PKG_LICENSE="ISC"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="tsu"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=8.6.0
-TERMUX_PKG_REVISION=1
-_COMMIT=800b448becafb0186eecc366c50442ed9f8bb944
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_SRCURL=git+https://github.com/cswl/tsu
-TERMUX_PKG_GIT_BRANCH=v8
 
-termux_step_post_get_source() {
-	git fetch --unshallow
-	git checkout $_COMMIT
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make() {
-	python3 ./extract_usage.py
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make_install() {
-	# There is no install.sh script in the repository for now
-	mkdir -p "$TERMUX_PREFIX/bin"
-	install -Dm755 tsu "$TERMUX_PREFIX/bin"
-	# sudo - is an included addon in tsu now
-	ln -sf "$TERMUX_PREFIX/bin/tsu" "$TERMUX_PREFIX/bin/sudo"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

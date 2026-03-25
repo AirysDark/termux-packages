@@ -1,39 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://curl.se/docs/caextract.html
-TERMUX_PKG_DESCRIPTION="Common CA certificates"
-TERMUX_PKG_LICENSE="MPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="ca-certificates"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1:2025.12.02"
-TERMUX_PKG_SRCURL=https://curl.se/ca/cacert-$(sed 's/\./-/g' <<< ${TERMUX_PKG_VERSION:2}).pem
-TERMUX_PKG_SHA256=f1407d974c5ed87d544bd931a278232e13925177e239fca370619aba63c757b4
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_SKIP_SRC_EXTRACT=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	local CERTDIR=$TERMUX_PREFIX/etc/tls
-	local CERTFILE=$CERTDIR/cert.pem
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	mkdir -p $CERTDIR
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	termux_download $TERMUX_PKG_SRCURL \
-		$CERTFILE \
-		$TERMUX_PKG_SHA256
-	touch $CERTFILE
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	# Build java keystore which is split out into a ca-certificates-java subpackage:
-	local KEYUTIL_JAR=$TERMUX_PKG_CACHEDIR/keyutil-0.4.0.jar
-	termux_download \
-		https://github.com/use-sparingly/keyutil/releases/download/0.4.0/keyutil-0.4.0.jar \
-		$KEYUTIL_JAR \
-		18f1d2c82839d84949b1ad015343c509e81ef678c24db6112acc6c0761314610
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	local JAVA_KEYSTORE_DIR=$TERMUX_PREFIX/lib/jvm/java-17-openjdk/lib/security
-	mkdir -p $JAVA_KEYSTORE_DIR
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	java -jar $KEYUTIL_JAR \
-		--import \
-		--new-keystore $JAVA_KEYSTORE_DIR/jssecacerts \
-		--password changeit \
-		--force-new-overwrite \
-		--import-pem-file $CERTFILE
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

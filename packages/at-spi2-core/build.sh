@@ -1,43 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://wiki.gnome.org/Accessibility
-TERMUX_PKG_DESCRIPTION="Assistive Technology Service Provider Interface (AT-SPI)"
-TERMUX_PKG_LICENSE="LGPL-2.1"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="at-spi2-core"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.60.0"
-TERMUX_PKG_SRCURL=https://download.gnome.org/sources/at-spi2-core/${TERMUX_PKG_VERSION%.*}/at-spi2-core-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=80e50c1a97d8fd660a3fadb02ca35876df881c266d3d6108fc5b4c113614cb99
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="dbus, glib, libx11, libxi, libxtst"
-TERMUX_PKG_BUILD_DEPENDS="g-ir-scanner, libxml2"
-TERMUX_PKG_PROVIDES="at-spi2-atk, atk"
-TERMUX_PKG_REPLACES="at-spi2-atk (<< 2.46.0), atk (<< 2.46.0), libatk"
-TERMUX_PKG_BREAKS="at-spi2-atk (<< 2.46.0), atk (<< 2.46.0), libatk"
-TERMUX_PKG_VERSIONED_GIR=false
-TERMUX_PKG_DISABLE_GIR=false
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--Ddbus_daemon=$TERMUX_PREFIX/bin/dbus-daemon
--Dintrospection=enabled
--Dx11=enabled
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_setup_gir
-	termux_setup_glib_cross_pkg_config_wrapper
-	termux_setup_python_pip
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	export TERMUX_MESON_ENABLE_SOVERSION=1
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_post_massage() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION_GUARD_FILES=(
-		'lib/libatk-1.0.so.0'
-		'lib/libatk-bridge-2.0.so.0'
-		'lib/libatspi.so.0'
-	)
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	local f
-	for f in "${_SOVERSION_GUARD_FILES[@]}"; do
-		[ -e "${f}" ] || termux_error_exit "SOVERSION guard check failed."
-	done
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,16 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://gitlab.inria.fr/gf2x/gf2x"
-TERMUX_PKG_DESCRIPTION="A library for multiplying polynomials over the binary field"
-TERMUX_PKG_GROUPS="science"
-# Using file:'toom-gpl.c' enforces GPL license
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libgf2x"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.3.0"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL="https://gitlab.inria.fr/gf2x/gf2x/-/archive/gf2x-$TERMUX_PKG_VERSION/gf2x-gf2x-$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=11bcf98b620c60c2ee3b4460b02b7be741f14cfdc26b542f22c92950926575e0
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP='\d+\.\d+\.\d+(?!rc)'
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	autoreconf -fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

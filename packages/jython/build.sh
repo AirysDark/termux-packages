@@ -1,31 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.jython.org/
-TERMUX_PKG_DESCRIPTION="Python for the Java Platform"
-TERMUX_PKG_LICENSE="custom"
-TERMUX_PKG_LICENSE_FILE="LICENSE.txt"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="jython"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.7.4"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/jython/jython/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=36a4bab0cf02eb6c5169d7e818531f321e276f17111833540db7d19150d3e5b2
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_DEPENDS="openjdk-21"
-TERMUX_PKG_BUILD_DEPENDS="ant"
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_RM_AFTER_INSTALL="
-opt/jython/bin/jython_regrtest.bat
-opt/jython/bin/jython.exe
-opt/jython/bin/jython.py
-"
 
-termux_step_make() {
-	sh $TERMUX_PREFIX/bin/ant
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make_install() {
-	rm -rf $TERMUX_PREFIX/opt/jython
-	mkdir -p $TERMUX_PREFIX/opt/jython
-	cp -a $TERMUX_PKG_SRCDIR/dist/* $TERMUX_PREFIX/opt/jython/
-	ln -sfr $TERMUX_PREFIX/opt/jython/bin/jython $TERMUX_PREFIX/bin/jython
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

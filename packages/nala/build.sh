@@ -1,48 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://gitlab.com/volian/nala
-TERMUX_PKG_DESCRIPTION="Commandline frontend for the apt package manager"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="nala"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.16.0"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://gitlab.com/volian/nala/-/archive/v${TERMUX_PKG_VERSION}/nala-v${TERMUX_PKG_VERSION}.tar.bz2
-TERMUX_PKG_SHA256=49e384aa3b94597d09c61b7accc41d1cf10cb6beea85d4620c80c28d7cdc4d5f
-TERMUX_PKG_DEPENDS="python-apt, python-pip"
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
-TERMUX_PKG_PYTHON_COMMON_BUILD_DEPS="poetry"
-TERMUX_PKG_PYTHON_TARGET_DEPS="anyio, httpx, jsbeautifier, pexpect, python-debian, rich, tomli, typer, typing-extensions"
-TERMUX_PKG_PYTHON_RUNTIME_DEPS="nala, python-debian"
-
-termux_step_pre_configure() {
-	rm -rf nala/__init__.py.orig
-}
 
 termux_step_post_make_install() {
-	# from nala_build.py
-	for file in docs/*.rst; do
-		pandoc "${file}" --output="${file%.*}" --standalone \
-			--variable=header:"Nala User Manual" \
-			--variable=footer:"${TERMUX_PKG_VERSION}" \
-			--variable=date:"$(date -d @${SOURCE_DATE_EPOCH})" \
-			--variable=section:8 \
-			--from rst --to man
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-		install -Dm600 -t "$TERMUX_PREFIX"/share/man/man8/ "${file%.*}"
-	done
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	install -Dm600 -t $TERMUX_PREFIX/etc/nala debian/nala.conf
-	install -Dm600 debian/nala.fish "$TERMUX_PREFIX"/share/fish/vendor_completions.d/nala.fish
-	install -Dm600 debian/bash-completion "$TERMUX_PREFIX"/share/bash-completion/completions/nala
-	install -Dm600 debian/_nala "$TERMUX_PREFIX"/share/zsh/site-functions/_nala
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_create_debscripts() {
-	cat <<- EOF > ./postinst
-	#!$TERMUX_PREFIX/bin/sh
-	mkdir -p $TERMUX_PREFIX/var/lib/nala
-	mkdir -p $TERMUX_PREFIX/var/log/nala
-	mkdir -p $TERMUX_PREFIX/var/lock
-	EOF
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

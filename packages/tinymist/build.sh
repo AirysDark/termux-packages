@@ -1,53 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://myriad-dreamin.github.io/tinymist
-TERMUX_PKG_DESCRIPTION="An integrated language service for Typst"
-TERMUX_PKG_LICENSE="Apache-2.0"
-TERMUX_PKG_MAINTAINER="Joshua Kahn <tom@termux.dev>"
-TERMUX_PKG_VERSION="0.14.10"
-TERMUX_PKG_SRCURL=https://github.com/Myriad-Dreamin/tinymist/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=215c08d8a10ff51e15711f0684eafc85d119dc98db57f4f47ec7bf5987ea681e
-TERMUX_PKG_DEPENDS="openssl"
-TERMUX_PKG_BREAKS="typst-lsp"
-TERMUX_PKG_REPLACES="typst-lsp"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="tinymist"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXCLUDED_ARCHES="i686"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP='\d+\.\d+\.\d+'
 
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	# We're not shipping the VS Code plugin
-	rm -rf .vscode
-	termux_setup_rust
-	unset CFLAGS # clash with rust host build
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	: "${CARGO_HOME:=$HOME/.cargo}"
-	export CARGO_HOME
-	export OPENSSL_NO_VENDOR=1
-	export PKG_CONFIG_ALL_DYNAMIC=1
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	cargo fetch --locked --target "$CARGO_TARGET_NAME"
-}
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-termux_step_make() {
-	cargo build \
-		--jobs "$TERMUX_PKG_MAKE_PROCESSES" \
-		--target "$CARGO_TARGET_NAME" \
-		--release
-}
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-termux_step_make_install() {
-	install -Dm700 -t "$TERMUX_PREFIX/bin" target/"${CARGO_TARGET_NAME}"/release/tinymist
-
-	mkdir -p "${TERMUX_PREFIX}/share/elvish/lib"
-	mkdir -p "${TERMUX_PREFIX}/share/zsh/site-functions"
-	mkdir -p "${TERMUX_PREFIX}/share/nushell/vendor/autoload"
-	mkdir -p "${TERMUX_PREFIX}/share/fish/vendor_completions.d"
-	mkdir -p "${TERMUX_PREFIX}/share/bash-completion/completions"
-	cargo run --bin tinymist -- completion     zsh > "${TERMUX_PREFIX}/share/zsh/site-functions/_tinymist"
-	cargo run --bin tinymist -- completion    bash > "${TERMUX_PREFIX}/share/bash-completion/completions/tinymist"
-	cargo run --bin tinymist -- completion    fish > "${TERMUX_PREFIX}/share/fish/vendor_completions.d/tinymist.fish"
-	cargo run --bin tinymist -- completion  elvish > "${TERMUX_PREFIX}/share/elvish/lib/tinymist.elv"
-	cargo run --bin tinymist -- completion nushell > "${TERMUX_PREFIX}/share/nushell/vendor/autoload/tinymist.nu"
-	# there are currently no completions for typlite
-	# and despite `clap_mangen` being present there is currently no manpages
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

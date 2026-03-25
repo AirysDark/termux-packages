@@ -1,15 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/coin-or/CoinUtils
-TERMUX_PKG_DESCRIPTION="An open-source collection of classes and helper functions for COIN-OR projects"
-TERMUX_PKG_LICENSE="EPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libcoinor-utils"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1:2.11.11
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/coin-or/CoinUtils/archive/refs/tags/releases/${TERMUX_PKG_VERSION#*:}.tar.gz
-TERMUX_PKG_SHA256=27da344479f38c82112d738501643dcb229e4ee96a5f87d4f406456bdc1b2cb4
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_METHOD=repology
-TERMUX_PKG_DEPENDS="libc++"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	LDFLAGS+=" $($CC -print-libgcc-file-name)"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

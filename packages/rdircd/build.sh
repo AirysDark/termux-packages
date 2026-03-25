@@ -1,36 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/mk-fg/reliable-discord-client-irc-daemon
-TERMUX_PKG_DESCRIPTION="A daemon that allows using a personal Discord account through an IRC client"
-TERMUX_PKG_LICENSE="WTFPL"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="rdircd"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-_COMMIT=026f1aef9857ae6ce06bfb00860898e6113adfc0
-TERMUX_PKG_VERSION=2023.02.07
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL=git+https://github.com/mk-fg/reliable-discord-client-irc-daemon
-TERMUX_PKG_SHA256=c2cc88d6e1616d27f6f7849d536ba7613c7f13f0d16cac6022f9b1952ad537e2
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_GIT_BRANCH=master
-TERMUX_PKG_DEPENDS="python, python-pip"
-TERMUX_PKG_PYTHON_TARGET_DEPS="aiohttp"
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	git fetch --unshallow
-	git checkout $_COMMIT
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local version="$(git log -1 --format=%cs | sed 's/-/./g')"
-	if [ "$version" != "$TERMUX_PKG_VERSION" ]; then
-		echo -n "ERROR: The specified version \"$TERMUX_PKG_VERSION\""
-		echo " is different from what is expected to be: \"$version\""
-		return 1
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	local s=$(find . -type f ! -path '*/.git/*' -print0 | xargs -0 sha256sum | LC_ALL=C sort | sha256sum)
-	if [[ "${s}" != "${TERMUX_PKG_SHA256}  "* ]]; then
-		termux_error_exit "Checksum mismatch for source files."
-	fi
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	install -Dm700 -t $TERMUX_PREFIX/bin rdircd
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

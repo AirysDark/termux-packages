@@ -1,17 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.agwa.name/projects/git-crypt/
-TERMUX_PKG_DESCRIPTION="Enables transparent encryption and decryption of files for a git repository"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="git-crypt"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.8.0
-TERMUX_PKG_SRCURL=https://www.agwa.name/projects/git-crypt/downloads/git-crypt-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=540d424f87bed7994a4551a8c24b16e50d3248a5b7c3fd8ceffe94bfd4af0ad9
-TERMUX_PKG_DEPENDS="git, libc++, openssl"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS=" -DCMAKE_BUILD_TYPE=Release -Dbuild_parse=yes -Dbuild_xmlparser=yes"
-TERMUX_PKG_EXTRA_MAKE_ARGS="ENABLE_MAN=yes"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	# https://github.com/AGWA/git-crypt/issues/232
-	CPPFLAGS+=" -DOPENSSL_API_COMPAT=0x30000000L"
-	CXXFLAGS+=" $CPPFLAGS"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

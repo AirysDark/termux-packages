@@ -1,30 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://libsodium.org/
-TERMUX_PKG_DESCRIPTION="Network communication, cryptography and signaturing library"
-TERMUX_PKG_LICENSE="ISC"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libsodium"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.0.21"
-TERMUX_PKG_SRCURL=https://github.com/jedisct1/libsodium/archive/refs/tags/${TERMUX_PKG_VERSION}-RELEASE.tar.gz
-TERMUX_PKG_SHA256=42e0ca94faaec901f4fbeda84b1b94b18f5309c360c66345cf52a7ab515b245b
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE=latest-release-tag
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+\.\d+\.\d+(?=-RELEASE)"
-TERMUX_PKG_BREAKS="libsodium-dev"
-TERMUX_PKG_REPLACES="libsodium-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION=26
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local e=$(sed -En 's/^SODIUM_LIBRARY_VERSION=([0-9]+):([0-9]+):([0-9]+).*/\1-\3/p' \
-				configure.ac)
-	if [ ! "${e}" ] || [ "${_SOVERSION}" != "$(( "${e}" ))" ]; then
-		termux_error_exit "SOVERSION guard check failed."
-	fi
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_pre_configure() {
-	if [ "$TERMUX_ARCH" = "aarch64" ]; then
-		export CFLAGS_ARMCRYPTO="-march=armv8-a+crypto+aes"
-	fi
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

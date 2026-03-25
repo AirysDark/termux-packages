@@ -1,24 +1,33 @@
-# X11 package
-TERMUX_PKG_HOMEPAGE=https://xcb.freedesktop.org/
-TERMUX_PKG_DESCRIPTION="XML-XCB protocol descriptions"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="xcb-proto"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.17.0"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-$TERMUX_PKG_VERSION.tar.xz
-TERMUX_PKG_SHA256=2c1bacd2110f4799f74de6ebb714b94cf6f80fb112316b1219480fd22562148c
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_CONFLICTS="xcbproto"
-TERMUX_PKG_REPLACES="xcbproto"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
-PYTHON=/usr/bin/python3
-am_cv_python_pythondir=$TERMUX_PYTHON_HOME/site-packages
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-	# We are using Ubuntu's host python for installing the package which may be of
-	# different major version. Python bytecode isn't compatible across versions.
-	# So get rid of it
-	rm -r "$TERMUX_PREFIX/lib/python3.13/site-packages/xcbgen/__pycache__/"
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

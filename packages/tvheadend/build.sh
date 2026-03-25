@@ -1,35 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://tvheadend.org/"
-TERMUX_PKG_DESCRIPTION="TV streaming server for Linux and Android supporting DVB-S, DVB-S2 and other formats."
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="tvheadend"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
-TERMUX_PKG_MAINTAINER="Aditya Alok <alok@termux.org>"
-TERMUX_PKG_VERSION=4.2.8
-TERMUX_PKG_REVISION=12
-TERMUX_PKG_SRCURL="https://github.com/tvheadend/tvheadend/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=1aef889373d5fad2a7bd2f139156d4d5e34a64b6d38b87b868a2df415f01f7ad
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
-TERMUX_PKG_DEPENDS="dbus, libandroid-execinfo, libdvbcsa, libiconv, openssl, tvheadend-data, zlib"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---enable-android
---enable-pngquant
---enable-dvbcsa
---disable-libav
---disable-hdhomerun_static
---disable-ffmpeg_static
---disable-avahi
---nowerror
-"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	termux_setup_cmake
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	CFLAGS=" -I$TERMUX_PKG_BUILDDIR/src $CFLAGS $CPPFLAGS -fcommon"
-	LDFLAGS+=" -landroid-execinfo"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	# Arm does not support mmx and sse2 instructions, still checks return true
-	if [ "${TERMUX_ARCH}" = "arm" ] || [ "${TERMUX_ARCH}" = "aarch64" ]; then
-		patch -p1 <"${TERMUX_PKG_BUILDER_DIR}/disable-mmx-sse2"
-	fi
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

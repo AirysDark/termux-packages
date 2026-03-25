@@ -1,28 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/jtyr/gbt
-TERMUX_PKG_DESCRIPTION="Highly configurable prompt builder for Bash and ZSH written in Go"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="gbt"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=2.0.0
-TERMUX_PKG_REVISION=6
-TERMUX_PKG_SRCURL=https://github.com/jtyr/gbt/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=b324695dc432e8e22bc257f7a6ec576f482ec418fb9c9a8301f47bfdf7766998
-TERMUX_PKG_AUTO_UPDATE=true
-_COMMIT=29dc3dac6c06518073a8e879d2b6ec65291ddab2
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	cd $TERMUX_PKG_SRCDIR
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	termux_setup_golang
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	export GOPATH=$HOME/go
-	mkdir -p $GOPATH/{bin,pkg,src/github.com/jtyr}
-	ln -fs $TERMUX_PKG_SRCDIR $GOPATH/src/github.com/jtyr/gbt
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	go mod init gbt
-	go mod tidy
-	go build -ldflags="-s -w -X main.version=$TERMUX_PKG_VERSION -X main.build=${_COMMIT::6}" -o $TERMUX_PREFIX/bin/gbt github.com/jtyr/gbt/cmd/gbt
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	mkdir -p $TERMUX_PREFIX/{doc/gbt,share/gbt}
-	cp -r $TERMUX_PKG_SRCDIR/{sources,themes} $TERMUX_PREFIX/share/gbt/
-	cp -r $TERMUX_PKG_SRCDIR/{LICENSE,README.md} $TERMUX_PREFIX/doc/gbt/
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

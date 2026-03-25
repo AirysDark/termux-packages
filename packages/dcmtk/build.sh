@@ -1,34 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://dicom.offis.de/dcmtk"
-TERMUX_PKG_DESCRIPTION="A collection of libraries and applications implementing large parts the DICOM standard"
-TERMUX_PKG_GROUPS="science"
-TERMUX_PKG_LICENSE="BSD 3-Clause"
-TERMUX_PKG_LICENSE_FILE="COPYRIGHT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="dcmtk"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="3.7.0"
-TERMUX_PKG_SRCURL="https://github.com/DCMTK/dcmtk/archive/refs/tags/DCMTK-$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=5bb3ec8317dc465788bed2ca789e76d03ae5848c9381cce3b14c1a3f8b6aca56
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_DEPENDS="libc++, libiconv, libpng, libtiff, libxml2, openssl, zlib"
-# As of 3.6.9, libsndfile and openjpeg are detected but not linked against
-TERMUX_PKG_BUILD_DEPENDS="libsndfile, openjpeg"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DDCMTK_NO_TRY_RUN=ON
--DDCMTK_ICONV_FLAGS_ANALYZED=ON
--DDCMTK_FIXED_ICONV_CONVERSION_FLAGS=ON
--DBUILD_SHARED_LIBS=ON
--DDCMTK_WITH_ICONV=ON
--DDCMTK_WITH_ICU=OFF
--DDCMTK_WITH_XML=ON
--DDCMTK_WITH_PNG=ON
--DDCMTK_WITH_OPENJPEG=ON
--DDCMTK_WITH_OPENSSL=ON
--DDCMTK_WITH_SNDFILE=ON
--DDCMTK_WITH_TIFF=ON
--DDCMTK_WITH_ZLIB=ON
--DANDROID_TEMPORARY_FILES_LOCATION=$TERMUX_PREFIX/tmp
-"
 
-termux_step_pre_configure() {
-	cp "$TERMUX_PKG_BUILDER_DIR/arith.h/$TERMUX_ARCH.h" "$TERMUX_PKG_SRCDIR/config/include/dcmtk/config/arith.h"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

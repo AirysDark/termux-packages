@@ -1,14 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.fetchmail.info/
-TERMUX_PKG_DESCRIPTION="A remote-mail retrieval utility"
-TERMUX_PKG_LICENSE="GPL-2.0"
-TERMUX_PKG_LICENSE_FILE="COPYING"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="fetchmail"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="6.6.2"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://sourceforge.net/projects/fetchmail/files/branch_${TERMUX_PKG_VERSION:0:3}/fetchmail-$TERMUX_PKG_VERSION.tar.xz
-TERMUX_PKG_SHA256=a5109295ec3319e0e45edd009d2d977042a8326ab52c6a817a82fa987103e4f3
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="openssl"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-ssl=$TERMUX_PREFIX"
-TERMUX_PKG_RM_AFTER_INSTALL="lib/python${TERMUX_PYTHON_VERSION}/site-packages/__pycache__"
-TERMUX_PKG_PYTHON_COMMON_BUILD_DEPS="wheel"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

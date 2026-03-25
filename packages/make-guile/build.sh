@@ -1,46 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.gnu.org/software/make/
-TERMUX_PKG_DESCRIPTION="Tool to control the generation of non-source files from source files"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="make-guile"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-# Update both make and make-guile to the same version in one PR.
-TERMUX_PKG_VERSION=4.4.1
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://mirrors.kernel.org/gnu/make/make-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=dd16fb1d67bfab79a72f5e8390735c49e3e8e70b4945a15ab1f81ddb78658fb3
-TERMUX_PKG_DEPENDS="guile"
-TERMUX_PKG_BREAKS="make-dev"
-TERMUX_PKG_REPLACES="make-dev"
-# Prevent linking against libelf:
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_lib_elf_elf_begin=no"
-# Prevent linking against libiconv:
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" am_cv_func_iconv=no"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-# make-guile:
-TERMUX_PKG_CONFLICTS="make"
-TERMUX_PKG_PROVIDES="make"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --with-guile"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	if [ "$TERMUX_ARCH" = arm ]; then
-		# Fix issue with make on arm hanging at least under cmake:
-		# https://github.com/termux/termux-packages/issues/2983
-		TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_pselect=no"
-	fi
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make() {
-	# Allow to bootstrap make if building on device without make installed.
-	if $TERMUX_ON_DEVICE_BUILD && [ -z "$(command -v make)" ]; then
-		./build.sh
-	else
-		make -j $TERMUX_PKG_MAKE_PROCESSES
-	fi
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	if $TERMUX_ON_DEVICE_BUILD && [ -z "$(command -v make)" ]; then
-		./make -j 1 install
-	else
-		make -j 1 install
-	fi
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

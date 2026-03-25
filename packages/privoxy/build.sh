@@ -1,49 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.privoxy.org
-TERMUX_PKG_DESCRIPTION="Non-caching web proxy with advanced filtering capabilities"
-TERMUX_PKG_LICENSE="GPL-2.0-or-later"
-TERMUX_PKG_LICENSE_FILE="LICENSE, LICENSE.GPLv3"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="privoxy"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=4.0.0
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/project/ijbswa/Sources/$TERMUX_PKG_VERSION%20%28stable%29/privoxy-$TERMUX_PKG_VERSION-stable-src.tar.gz
-TERMUX_PKG_SHA256=c08e2ba0049307017bf9d8a63dd2a0dfb96aa0cdeb34ae007776e63eba62a26f
-# Termux-services adds the run scripts to TERMUX_PKG_CONFFILES. Those ones can
-# not be copied in termux_step_post_massage so setup special variable for that
-DEFAULT_CONFFILES="\
-etc/privoxy/config
-etc/privoxy/match-all.action
-etc/privoxy/trust
-etc/privoxy/user.action
-etc/privoxy/user.filter
-etc/privoxy/default.action
-etc/privoxy/default.filter"
-TERMUX_PKG_CONFFILES=$DEFAULT_CONFFILES
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---sysconfdir=$TERMUX_PREFIX/etc/privoxy
-"
-TERMUX_PKG_DEPENDS="pcre2, zlib"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_SERVICE_SCRIPT=("privoxy"
-"if [ -f \"$TERMUX_ANDROID_HOME/.config/privoxy/config\" ]; then \
-CONFIG=\"$TERMUX_ANDROID_HOME/.config/privoxy/config\"; else \
-CONFIG=\"$TERMUX_PREFIX/etc/privoxy/config\"; fi\n\
-exec privoxy --no-daemon \$CONFIG 2>&1")
 
-termux_step_pre_configure() {
-	# Certain packages are not safe to build on device because their
-	# build.sh script deletes specific files in $TERMUX_PREFIX.
-	if $TERMUX_ON_DEVICE_BUILD; then
-		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
-	fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	autoheader
-	autoconf
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_post_massage() {
-	# copy default config files
-	for f in $DEFAULT_CONFFILES; do
-		cp "$TERMUX_PKG_SRCDIR/$(basename $f)" \
-			"$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/$f"
-	done
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

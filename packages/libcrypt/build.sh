@@ -1,18 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://michael.dipperstein.com/crypt/
-TERMUX_PKG_DESCRIPTION="A crypt(3) implementation"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libcrypt"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.2
-TERMUX_PKG_REVISION=6
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_SKIP_SRC_EXTRACT=true
-TERMUX_PKG_DEPENDS="openssl"
-TERMUX_PKG_BREAKS="libcrypt-dev"
-TERMUX_PKG_REPLACES="libcrypt-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	$CC $CFLAGS $CPPFLAGS $LDFLAGS -Wall -Wextra -fPIC -shared $TERMUX_PKG_BUILDER_DIR/crypt3.c -lcrypto -o $TERMUX_PREFIX/lib/libcrypt.so
-	mkdir -p $TERMUX_PREFIX/include/
-	cp $TERMUX_PKG_BUILDER_DIR/crypt.h $TERMUX_PREFIX/include/
-	cp $TERMUX_PKG_BUILDER_DIR/LICENSE $TERMUX_PKG_SRCDIR/
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

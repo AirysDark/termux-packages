@@ -1,57 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://grafana.com/
-TERMUX_PKG_DESCRIPTION="The open-source platform for monitoring and observability"
-TERMUX_PKG_LICENSE="AGPL-V3"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="grafana"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1:12.3.3"
-TERMUX_PKG_SRCURL=git+https://github.com/grafana/grafana
-TERMUX_PKG_BUILD_DEPENDS="yarn"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_MAKE_ARGS="SPEC_TARGET= MERGED_SPEC_TARGET="
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_UPDATE_TAG_TYPE=latest-release-tag
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+\.\d+\.\d+"
 
-termux_step_post_get_source() {
-	termux_setup_golang
-	go work vendor
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	termux_setup_nodejs
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	export YARN_ENABLE_HARDENED_MODE=0
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	local bin="$TERMUX_PKG_BUILDDIR/_bin"
-	mkdir -p "$bin"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	local yarn="$bin/yarn"
-	cat > "$yarn" <<-EOF
-		#!$(command -v sh)
-		exec sh $TERMUX_PREFIX/bin/yarn "\$@"
-		EOF
-	chmod 0755 "$yarn"
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	export PATH="$bin:$PATH"
-
-	NODE_OPTIONS+=" --max-old-space-size=6000"
-	NODE_OPTIONS+=" --openssl-legacy-provider"
-}
-
-termux_step_make() {
-	GO_BUILD_FLAGS="-goos=$(go env GOOS) -goarch=$(go env GOARCH) -cc=$(go env CC)" \
-		GOOS=linux GOARCH=amd64 \
-		make "$TERMUX_PKG_EXTRA_MAKE_ARGS" build-go
-	make "$TERMUX_PKG_EXTRA_MAKE_ARGS" deps-js
-	# get rid of unnecessary things during build to not run out of storage
-	rm -r .yarn/cache node_modules/@storybook
-	make "$TERMUX_PKG_EXTRA_MAKE_ARGS" build-js
-}
-
-termux_step_make_install() {
-	install -Dm700 -t "$TERMUX_PREFIX"/bin bin/*/grafana-server bin/*/grafana-cli bin/*/grafana
-	local sharedir="$TERMUX_PREFIX/share/grafana"
-	mkdir -p "$sharedir"
-	for d in conf public; do
-		cp -rT $d "$sharedir"/$d
-	done
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

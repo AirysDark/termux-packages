@@ -1,33 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://libwpg.sourceforge.net/
-TERMUX_PKG_DESCRIPTION="Library for importing and converting Corel WordPerfect(tm) Graphics images."
-TERMUX_PKG_LICENSE="LGPL-2.1"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libwpg"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.3.4"
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL="https://downloads.sourceforge.net/libwpg/libwpg-${TERMUX_PKG_VERSION}.tar.xz"
-TERMUX_PKG_SHA256=b55fda9440d1e070630eb2487d8b8697cf412c214a27caee9df69cec7c004de3
-TERMUX_PKG_DEPENDS="libwpd, perl, librevenge"
-TERMUX_PKG_BUILD_DEPENDS="boost"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	local _libgcc_file="$($CC -print-libgcc-file-name)"
-	local _libgcc_path="$(dirname $_libgcc_file)"
-	local _libgcc_name="$(basename $_libgcc_file)"
-	LDFLAGS+=" -L$_libgcc_path -l:$_libgcc_name"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	autoreconf -fi
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_post_massage() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION_GUARD_FILES="
-lib/libwpg-0.3.so
-"
-	local f
-	for f in ${_SOVERSION_GUARD_FILES}; do
-		if [ ! -e "${f}" ]; then
-			termux_error_exit "SOVERSION guard check failed."
-		fi
-	done
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

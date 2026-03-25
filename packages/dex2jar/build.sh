@@ -1,23 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/pxb1988/dex2jar
-TERMUX_PKG_DESCRIPTION="Tools to work with android .dex and java .class files"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="dex2jar"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.4"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/pxb1988/dex2jar/releases/download/v${TERMUX_PKG_VERSION}/dex-tools-v${TERMUX_PKG_VERSION}.zip
-TERMUX_PKG_SHA256=ee7c45eb3c1d2474a6145d8d447e651a736a22d9664b6d3d3be5a5a817dda23a
-TERMUX_PKG_DEPENDS="openjdk-21"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
 
-termux_step_make_install() {
-	rm -rf ./bin/*.bat
-	rm -rf ./*.bat
-	mkdir -p $TERMUX_PREFIX/opt/dex2jar
-	cp -r ./* $TERMUX_PREFIX/opt/dex2jar
-	ln -sfr $TERMUX_PREFIX/opt/dex2jar/bin/dex-tools $TERMUX_PREFIX/bin/d2j-run
-	cd $TERMUX_PREFIX/opt/dex2jar/
-	for i in *.sh; do
-		ln -sfr $TERMUX_PREFIX/opt/dex2jar/$i $TERMUX_PREFIX/bin/${i%%.sh}
-	done
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

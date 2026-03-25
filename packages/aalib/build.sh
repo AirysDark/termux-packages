@@ -1,31 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://sourceforge.net/projects/aa-project/
-TERMUX_PKG_DESCRIPTION="A portable ASCII art graphic library"
-TERMUX_PKG_LICENSE="LGPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="aalib"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1.4rc5
-TERMUX_PKG_REVISION=13
-TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/sourceforge/aa-project/aalib-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=fbddda9230cf6ee2a4f5706b4b11e2190ae45f5eda1f0409dc4f99b35e0a70ee
-TERMUX_PKG_DEPENDS="ncurses"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---infodir=$TERMUX_PREFIX/share/info
---mandir=$TERMUX_PREFIX/share/man
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	local _bin=$TERMUX_PKG_BUILDDIR/_wrapper/bin
-	mkdir -p $_bin
-	local _cc=$(basename $CC)
-	cat <<-EOF > $_bin/$_cc
-		#!$(command -v sh)
-		_shared=
-		for f in "\$@"; do
-			case "\$f" in
-				-shared ) _shared=1 ;;
-			esac
-		done
-		exec "$(command -v $_cc)" "\$@" \${_shared:+-Wl,-rpath=$TERMUX_PREFIX/lib}
-	EOF
-	chmod 0700 $_bin/$_cc
-	export PATH=$_bin:$PATH
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

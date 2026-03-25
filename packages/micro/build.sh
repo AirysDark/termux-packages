@@ -1,28 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://micro-editor.github.io/
-TERMUX_PKG_DESCRIPTION="Modern and intuitive terminal-based text editor"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="micro"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.0.15"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="latest-release-tag"
-TERMUX_PKG_SRCURL=git+https://github.com/zyedidia/micro
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	return
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make_install() {
-	termux_setup_golang
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	export GOPATH=$TERMUX_PKG_BUILDDIR
-	local MICRO_SRC=$GOPATH/src/github.com/zyedidia/micro
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	cd "$TERMUX_PKG_SRCDIR"
-	mkdir -p "$MICRO_SRC"
-	cp -R . "$MICRO_SRC"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	cd "$MICRO_SRC"
-	sed -zEi 's/VERSION = \$\(.+\\\n.+\)/VERSION = '"$TERMUX_PKG_VERSION"'/gm' Makefile
-	make build
-	mv micro "$TERMUX_PREFIX/bin/micro"
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,34 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://classic.yarnpkg.com/lang/en/
-TERMUX_PKG_DESCRIPTION="Fast, reliable, and secure dependency management"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="yarn"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.22.22"
-TERMUX_PKG_SRCURL=https://yarnpkg.com/downloads/${TERMUX_PKG_VERSION}/yarn-v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=88268464199d1611fcf73ce9c0a6c4d44c7d5363682720d8506f6508addf36a0
-TERMUX_PKG_DEPENDS="nodejs | nodejs-lts"
-TERMUX_PKG_ANTI_BUILD_DEPENDS="nodejs, nodejs-lts"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_AUTO_UPDATE=true
 
-termux_pkg_auto_update() {
-	local api_url="https://api.github.com/repos/yarnpkg/yarn/git/refs/tags"
-	local latest_refs_tags=$(curl -s "${api_url}" | jq .[].ref | sed -ne "s|.*v\(.*\)\"|\1|p")
-	if [[ -z "${latest_refs_tags}" ]]; then
-		echo "WARN: Unable to get latest refs tags from upstream. Try again later." >&2
-		return
-	fi
-	local latest_version=$(echo "${latest_refs_tags}" | sort -V | tail -n1)
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	termux_pkg_upgrade_version "${latest_version}"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }
-
-termux_step_make_install() {
-	cp -r . ${TERMUX_PREFIX}/share/yarn/
-	ln -fs ../share/yarn/bin/yarn ${TERMUX_PREFIX}/bin/yarn
-	ln -fs ../share/yarn/bin/yarn ${TERMUX_PREFIX}/bin/yarnpkg
-}
-
-# Termux will not package yarn-berry
-# https://github.com/termux/termux-packages/issues/19407
-# https://github.com/yarnpkg/berry/discussions/5629#discussioncomment-6593555

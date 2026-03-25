@@ -1,18 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://libgd.github.io/
-TERMUX_PKG_DESCRIPTION="GD is an open source code library for the dynamic creation of images by programmers"
-TERMUX_PKG_LICENSE="custom"
-TERMUX_PKG_LICENSE_FILE="COPYING"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libgd"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1:2.3.3"
-TERMUX_PKG_REVISION=7
-TERMUX_PKG_SRCURL="https://github.com/libgd/libgd/releases/download/gd-${TERMUX_PKG_VERSION:2}/libgd-${TERMUX_PKG_VERSION:2}.tar.gz"
-TERMUX_PKG_SHA256=dd3f1f0bb016edcc0b2d082e8229c822ad1d02223511997c80461481759b1ed2
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_METHOD=repology
-TERMUX_PKG_DEPENDS="fontconfig, freetype, libavif, libheif, libiconv, libjpeg-turbo, libpng, libtiff, libwebp, zlib"
-TERMUX_PKG_BREAKS="libgd-dev"
-TERMUX_PKG_REPLACES="libgd-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-# Disable vpx support for now, look at https://github.com/gagern/libgd/commit/d41eb72cd4545c394578332e5c102dee69e02ee8
-# for enabling:
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--without-vpx --without-x"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

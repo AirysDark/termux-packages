@@ -1,27 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://rclone.org/
-TERMUX_PKG_DESCRIPTION="rsync for cloud storage"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="rclone"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.73.3"
-TERMUX_PKG_SRCURL=https://github.com/rclone/rclone/releases/download/v${TERMUX_PKG_VERSION}/rclone-v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=608dde134e02a429b95ae566d638e514a9a658d0d69c35812069cf1c1b8f24af
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	cd $TERMUX_PKG_SRCDIR
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	termux_setup_golang
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	mkdir -p .gopath/src/github.com/rclone
-	ln -sf "$PWD" .gopath/src/github.com/rclone/rclone
-	export GOPATH="$PWD/.gopath"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	go build -v -ldflags "-X github.com/rclone/rclone/fs.Version=v${TERMUX_PKG_VERSION}-termux" -tags noselfupdate -o rclone
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	# XXX: Fix read-only files which prevents removal of src dir.
-	chmod u+w -R .
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	cp rclone $TERMUX_PREFIX/bin/rclone
-	mkdir -p $TERMUX_PREFIX/share/man/man1/
-	cp rclone.1 $TERMUX_PREFIX/share/man/man1/
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,49 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://developer.android.com/tools/help/index.html
-TERMUX_PKG_DESCRIPTION="Command which takes in Java class files and converts them to format executable by Dalvik VM"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="dx"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1:1.16
-TERMUX_PKG_REVISION=7
-TERMUX_PKG_SRCURL=https://github.com/termux/distfiles/releases/download/2021.01.04/dx-android-${TERMUX_PKG_VERSION:2}.jar
-TERMUX_PKG_SHA256=b9b7917267876b74c8ff6707e7a576c93b6dfe8cacc4f1cc791d606bcbbb7bd5
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_SKIP_SRC_EXTRACT=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	termux_download "$TERMUX_PKG_SRCURL" \
-		"$TERMUX_PKG_CACHEDIR/dx-${TERMUX_PKG_VERSION:2}.jar" \
-		"$TERMUX_PKG_SHA256"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	install -Dm600 "$TERMUX_PKG_CACHEDIR/dx-${TERMUX_PKG_VERSION:2}.jar" \
-		"$TERMUX_PREFIX"/share/dex/dx.jar
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	cat <<- EOF > "$TERMUX_PREFIX"/bin/dx
-	#!${TERMUX_PREFIX}/bin/sh
-	exec dalvikvm \
-		-Xcompiler-option --compiler-filter=speed \
-		-Xmx256m \
-		-cp ${TERMUX_PREFIX}/share/dex/dx.jar \
-		dx.dx.command.Main "\$@"
-	EOF
-	chmod 700 "$TERMUX_PREFIX"/bin/dx
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	cat <<- EOF > "$TERMUX_PREFIX"/bin/dx-merge
-	#!${TERMUX_PREFIX}/bin/sh
-	exec dalvikvm \
-		-Xcompiler-option --compiler-filter=speed \
-		-Xmx256m \
-		-cp ${TERMUX_PREFIX}/share/dex/dx.jar \
-		dx.dx.merge.DexMerger "\$@"
-	EOF
-	chmod 700 "$TERMUX_PREFIX"/bin/dx-merge
-}
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-termux_step_create_debscripts() {
-	cat <<- EOF > ./postinst
-	#!${TERMUX_PREFIX}/bin/bash
-	rm -f $TERMUX_PREFIX/share/dex/oat/*/dx.{art,oat,odex,vdex} >/dev/null 2>&1
-	chmod -w $TERMUX_PREFIX/share/dex/dx.jar
-	exit 0
-	EOF
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

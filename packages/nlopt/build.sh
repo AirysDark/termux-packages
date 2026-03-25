@@ -1,20 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://nlopt.readthedocs.io/
-TERMUX_PKG_DESCRIPTION="Library for nonlinear optimization"
-TERMUX_PKG_LICENSE="LGPL-2.1, MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="nlopt"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.10.1"
-TERMUX_PKG_SRCURL=https://github.com/stevengj/nlopt/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=30d13ce16da119db3e987784f7864e35a562ec62c186352fae55cd003e6c58ff
-TERMUX_PKG_DEPENDS="libc++"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DNLOPT_CXX=ON
--DNLOPT_FORTRAN=OFF
--DNLOPT_JAVA=OFF
--DNLOPT_PYTHON=OFF
--DNLOPT_OCTAVE=OFF
--DNLOPT_MATLAB=OFF
--DNLOPT_GUILE=OFF
--DNLOPT_SWIG=OFF
--DNLOPT_TESTS=OFF
-"
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

@@ -1,25 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.lysator.liu.se/~nisse/nettle/
-TERMUX_PKG_DESCRIPTION="Cryptographic library that is designed to fit easily in more or less any context"
-TERMUX_PKG_LICENSE="GPL-2.0, LGPL-3.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libnettle"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="4.0+really3.10.2"
-TERMUX_PKG_SRCURL="https://mirrors.kernel.org/gnu/nettle/nettle-${TERMUX_PKG_VERSION#*really}.tar.gz"
-TERMUX_PKG_SHA256=fe9ff51cb1f2abb5e65a6b8c10a92da0ab5ab6eaf26e7fc2b675c45f1fb519b5
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_DEPENDS="libgmp"
-TERMUX_PKG_BREAKS="libnettle-dev"
-TERMUX_PKG_REPLACES="libnettle-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_massage() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION_GUARD_FILES=(
-		'lib/libhogweed.so.6'
-		'lib/libnettle.so.8'
-	)
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local f
-	for f in "${_SOVERSION_GUARD_FILES[@]}"; do
-		[ -e "${f}" ] || termux_error_exit "SOVERSION guard check failed."
-	done
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

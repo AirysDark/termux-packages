@@ -1,12 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://codemadness.org/sfeed-simple-feed-parser.html"
-TERMUX_PKG_DESCRIPTION="Shell-script/crontab oriented feed aggregator and parser utility (curses-based reader included)"
-TERMUX_PKG_LICENSE="ISC"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="sfeed"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.3"
-TERMUX_PKG_SRCURL="https://codemadness.org/releases/sfeed/sfeed-$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=a1daa0ecbe0b77e7540de8d9781d9645e0c068135e1767a54fdc6c380c0c48b7
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="ncurses"
-TERMUX_PKG_RECOMMENDS="curl"
-TERMUX_PKG_SUGGESTS="lynx, termux-tools"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

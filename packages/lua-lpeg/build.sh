@@ -1,41 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.inf.puc-rio.br/~roberto/lpeg
-TERMUX_PKG_DESCRIPTION="Pattern-matching library for Lua 5.4"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="Joshua Kahn <tom@termux.dev>"
-TERMUX_PKG_VERSION=1.1.0
-TERMUX_PKG_REVISION=4
-TERMUX_PKG_SRCURL=https://www.inf.puc-rio.br/~roberto/lpeg/lpeg-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=4b155d67d2246c1ffa7ad7bc466c1ea899bbc40fef0257cc9c03cecbaed4352a
-TERMUX_PKG_BUILD_DEPENDS="lua51, lua52, lua53, lua54, lua55"
-TERMUX_PKG_DEPENDS="lua55"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="lua-lpeg"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	declare -ag LUA=('5.1' '5.2' '5.3' '5.4' '5.5')
-	for lua in "${LUA[@]}"; do
-		cp -r "${TERMUX_PKG_SRCDIR}" "${TERMUX_PKG_BUILDDIR}/lpeg-${lua//./}"
-	done
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make() {
-	for lua in "${LUA[@]}"; do
-		cd "${TERMUX_PKG_BUILDDIR}/lpeg-${lua//./}" || :
-		make \
-			CC="$CC" \
-			CFLAGS="$CFLAGS -fPIC -I$TERMUX_PREFIX/include/lua$lua" \
-			LDFLAGS="$LDFLAGS -L$TERMUX_PREFIX/lib/lua/$lua -llua$lua" \
-			LUADIR="$TERMUX_PREFIX/include/lua/$lua" LUAVER="$lua"
-	done
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make_install() {
-	sed -Ei 's|"(lp.+\.h)"|"lpeg/\1"|' "${TERMUX_PKG_SRCDIR}"/*.h
-	install -Dm600 -t "${TERMUX_PREFIX}/include/lpeg" "${TERMUX_PKG_SRCDIR}"/*.h
-	for lua in "${LUA[@]}"; do
-		install -Dm600 lpeg-"${lua//./}"/liblpeg.so "$TERMUX_PREFIX/lib/liblpeg-$lua".so
-		mkdir -p "${TERMUX_PREFIX}/lib/lua/$lua"
-		ln -s "${TERMUX_PREFIX}/lib/liblpeg-$lua.so" "${TERMUX_PREFIX}/lib/lua/$lua/lpeg.so"
-		install -Dm600 lpeg-"${lua//./}"/re.lua "$TERMUX_PREFIX/share/lua/$lua"/re.lua
-	done
-	# make liblpeg-5.5.so the default one
-	ln -s "${TERMUX_PREFIX}/lib/liblpeg-5.5.so" "${TERMUX_PREFIX}/lib/liblpeg.so"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

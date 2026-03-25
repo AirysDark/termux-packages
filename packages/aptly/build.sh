@@ -1,41 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.aptly.info
-TERMUX_PKG_DESCRIPTION="A Swiss Army knife for Debian repository management"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="aptly"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.6.2"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/aptly-dev/aptly/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=cadfabda2a59f397adfe6f9ce3c9ddc6fe4c6052f0e03a300ba1f22d7cf0e09a
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
-	export GOPATH=$TERMUX_PKG_BUILDDIR
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	mkdir -p "$GOPATH"/src/github.com/aptly-dev/
-	cp -a "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/github.com/aptly-dev/aptly
-	cd "$GOPATH"/src/github.com/aptly-dev/aptly
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	go mod tidy
-	go mod vendor
-	go generate
-	go build -ldflags "-s -w" -trimpath -o build/aptly
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	install -Dm700 \
-		"$GOPATH"/src/github.com/aptly-dev/aptly/build/aptly \
-		"$TERMUX_PREFIX"/bin/aptly
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	install -Dm600 \
-		"$TERMUX_PKG_SRCDIR"/man/aptly.1 \
-		"$TERMUX_PREFIX"/share/man/man1/aptly.1
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	install -Dm600 \
-		"$TERMUX_PKG_SRCDIR"/completion.d/aptly \
-		"$TERMUX_PREFIX"/share/bash-completion/completions/aptly
-
-	install -Dm600 \
-		"$TERMUX_PKG_SRCDIR"/completion.d/_aptly \
-		"$TERMUX_PREFIX"/share/zsh/site-functions/_aptly
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,25 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://snowballstem.org/
-TERMUX_PKG_DESCRIPTION="Snowball compiler and stemming algorithms"
-TERMUX_PKG_LICENSE="BSD 3-Clause"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libstemmer"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="3.0.1"
-TERMUX_PKG_SRCURL="https://github.com/snowballstem/snowball/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=80ac10ce40dc4fcfbfed8d085c457b5613da0e86a73611a3d5527d044a142d60
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	install -Dm700 -t $TERMUX_PREFIX/bin stemwords
-	install -Dm600 -t $TERMUX_PREFIX/include include/libstemmer.h
-	install -Dm600 -t $TERMUX_PREFIX/lib libstemmer.a
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local f
-	for f in libstemmer.so*; do
-		if test -L "${f}"; then
-			ln -sf "$(readlink "${f}")" $TERMUX_PREFIX/lib/"${f}"
-		else
-			install -Dm600 -t $TERMUX_PREFIX/lib "${f}"
-		fi
-	done
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

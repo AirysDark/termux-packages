@@ -1,49 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/yt-dlp/yt-dlp
-TERMUX_PKG_DESCRIPTION="A youtube-dl fork with additional features and fixes"
-TERMUX_PKG_LICENSE="Unlicense"
-TERMUX_PKG_MAINTAINER="Joshua Kahn <tom@termux.dev>"
-TERMUX_PKG_VERSION="2026.03.17"
-TERMUX_PKG_SRCURL=https://github.com/yt-dlp/yt-dlp/archive/refs/tags/$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=924483986441d8a1e669a0e4371d753a9256ce4bdc06032394ccb7b793342434
-TERMUX_PKG_DEPENDS="libc++, libexpat, openssl, python, python-brotli, python-pip, python-pycryptodomex"
-TERMUX_PKG_RECOMMENDS="ffmpeg, yt-dlp-ejs"
-TERMUX_PKG_PYTHON_COMMON_BUILD_DEPS="hatchling, wheel"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="python-yt-dlp"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_HOSTBUILD=true
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_PROVIDES='yt-dlp'
-TERMUX_PKG_CONFFILES="etc/yt-dlp/config"
 
-termux_step_host_build() {
-	cp -Rf $TERMUX_PKG_SRCDIR ./
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	( cd src && make completions )
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make() {
-	:
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	# Install library
-	pip install . --prefix=$TERMUX_PREFIX -vv --no-build-isolation --no-deps
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	# Install completions
-	install -Dm600 $TERMUX_PKG_HOSTBUILD_DIR/src/completions/bash/yt-dlp \
-		-t "$TERMUX_PREFIX"/share/bash-completion/completions
-	install -Dm600 $TERMUX_PKG_HOSTBUILD_DIR/src/completions/zsh/_yt-dlp \
-		-t "$TERMUX_PREFIX"/share/zsh/site-functions
-	install -Dm600 $TERMUX_PKG_HOSTBUILD_DIR/src/completions/fish/yt-dlp.fish \
-		-t "$TERMUX_PREFIX"/share/fish/completions
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	# Install config file
-	if (( TERMUX_ARCH_BITS == 32 )); then
-		mkdir -p "$TERMUX_PREFIX/etc/yt-dlp"
-		cat <<- EOF > "$TERMUX_PREFIX/etc/yt-dlp/config"
-		# yt-dlp-ejs defaults to using Deno as the JS runtime,
-		# Deno doesn't currently have 32 bit build support.
-		# So use Node instead on '$TERMUX_ARCH'.
-		--js-runtimes node
-		EOF
-	fi
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

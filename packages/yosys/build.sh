@@ -1,25 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://yosyshq.net/yosys/
-TERMUX_PKG_DESCRIPTION="A framework for RTL synthesis tools"
-TERMUX_PKG_LICENSE="ISC"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="yosys"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.63"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=git+https://github.com/YosysHQ/yosys
-TERMUX_PKG_GIT_BRANCH="v$TERMUX_PKG_VERSION"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+\.\d+(.\d+)?"
-TERMUX_PKG_DEPENDS="graphviz, libandroid-glob, libandroid-spawn, libc++, libffi, ncurses, readline, tcl, zlib, python"
-TERMUX_PKG_BUILD_DEPENDS="flex"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_MAKE_ARGS="PREFIX=$TERMUX_PREFIX ENABLE_PYOSYS=0 PYOSYS_USE_UV=0"
 
-termux_step_pre_configure() {
-	export LIBS="-Wl,-rpath=$TERMUX_PREFIX/lib -landroid-glob -landroid-spawn"
-	export PATH="$TERMUX_PKG_TMPDIR:$PATH"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	echo "#!$(readlink /proc/$$/exe)" > "$TERMUX_PKG_TMPDIR/python3-config"
-	echo "exec \"$TERMUX_PREFIX/bin/python3-config\" \"\$@\"" >> "$TERMUX_PKG_TMPDIR/python3-config"
-	chmod +x "$TERMUX_PKG_TMPDIR/python3-config"
-	ln -sf "$(command -v $STRIP)" "$TERMUX_PKG_TMPDIR/strip"
-	rm "$TERMUX_PKG_SRCDIR"/{setup.py,pyproject.toml}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

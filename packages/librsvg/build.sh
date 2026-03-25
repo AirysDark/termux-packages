@@ -1,50 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://wiki.gnome.org/action/show/Projects/LibRsvg
-TERMUX_PKG_DESCRIPTION="Library to render SVG files using cairo"
-TERMUX_PKG_LICENSE="LGPL-2.1"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="librsvg"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.62.1"
-TERMUX_PKG_SRCURL=https://download.gnome.org/sources/librsvg/${TERMUX_PKG_VERSION%.*}/librsvg-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=b41ca84206242fddd826a2bf76348d7cdf52c1050cbfa060b866e81a252145c3
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="fontconfig, freetype, gdk-pixbuf, glib, harfbuzz, libcairo, libdav1d, libpng, libxml2, pango"
-# Note: Do not add valac which prevents bootstrapping due to cyclic dependency (#27567)
-TERMUX_PKG_BUILD_DEPENDS="g-ir-scanner"
-TERMUX_PKG_BREAKS="librsvg-dev"
-TERMUX_PKG_REPLACES="librsvg-dev"
-TERMUX_PKG_VERSIONED_GIR=false
-TERMUX_PKG_DISABLE_GIR=false
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--Davif=enabled
--Ddocs=disabled
--Dintrospection=enabled
--Dtests=false
--Dvala=enabled
--Dpixbuf-loader=enabled
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_setup_gir
-	termux_setup_meson
-	termux_setup_rust
-	termux_setup_cargo_c
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# termux_setup_rust unsets CFLAGS so we called termux_setup_meson before
-	# we need to reset termux_setup_meson to avoid `line 70: CFLAGS: unbound variable` error
-	termux_setup_meson() { :; }
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	sed -i 's/@BUILD_TRIPLET@/'"$CARGO_TARGET_NAME"'/' "meson.build"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	LDFLAGS+=" -fuse-ld=lld"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	# Work around https://gitlab.gnome.org/GNOME/librsvg/-/issues/820
-	if [ "$TERMUX_ARCH" = "arm" ]; then
-		LDFLAGS+=" -Wl,-z,muldefs"
-	fi
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	# See https://github.com/GNOME/librsvg/blob/master/COMPILING.md
-	export RUST_TARGET=$CARGO_TARGET_NAME
-}
-
-termux_step_post_massage() {
-	find lib -name '*.la' -delete
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

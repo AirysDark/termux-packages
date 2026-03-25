@@ -1,13 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://bitbucket.org/mpyne/game-music-emu/wiki/Home
-TERMUX_PKG_DESCRIPTION="A collection of video game music file emulators"
-TERMUX_PKG_LICENSE="LGPL-2.1"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="game-music-emu"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.6.4"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/libgme/game-music-emu/releases/download/${TERMUX_PKG_VERSION}/libgme-${TERMUX_PKG_VERSION}-src.tar.gz
-TERMUX_PKG_SHA256=6f94eac735d86bca998a7ce1170d007995191ef6d4388345a0dc5ffa1de0bafa
-TERMUX_PKG_DEPENDS="libc++, zlib"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DGME_YM2612_EMU=Nuked
--DENABLE_UBSAN=OFF
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

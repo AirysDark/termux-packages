@@ -1,41 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://irssi.org/
-TERMUX_PKG_DESCRIPTION="Terminal based IRC client"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="irssi"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.4.5"
-TERMUX_PKG_REVISION=4
-TERMUX_PKG_SRCURL="https://github.com/irssi/irssi/releases/download/$TERMUX_PKG_VERSION/irssi-$TERMUX_PKG_VERSION.tar.xz"
-TERMUX_PKG_SHA256=72a951cb0ad622785a8962801f005a3a412736c7e7e3ce152f176287c52fe062
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="glib, libandroid-glob, libiconv, libotr, ncurses, openssl, perl, utf8proc"
-TERMUX_PKG_BREAKS="irssi-dev"
-TERMUX_PKG_REPLACES="irssi-dev"
-TERMUX_MESON_PERL_CROSS_FILE=$TERMUX_PKG_TMPDIR/meson-perl-cross-$TERMUX_ARCH.txt
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--Dfhs-prefix=$TERMUX_PREFIX
---cross-file $TERMUX_MESON_PERL_CROSS_FILE
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_configure() {
-	termux_step_configure_meson
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	LDFLAGS+=" -landroid-glob"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# Make build log less noisy.
-	CFLAGS+=" -Wno-compound-token-split-by-macro"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	local perl_version=$(. $TERMUX_SCRIPTDIR/packages/perl/build.sh; echo $TERMUX_PKG_VERSION)
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	cat <<- MESON_PERL_CROSS >$TERMUX_MESON_PERL_CROSS_FILE
-	[properties]
-	perl_version = '$perl_version'
-	perl_ccopts = ['-I$TERMUX_PREFIX/include', '-D_LARGEFILE_SOURCE', '-D_FILE_OFFSET_BITS=64', '-I$TERMUX_PREFIX/lib/perl5/$perl_version/${TERMUX_ARCH}-android/CORE']
-	perl_ldopts = ['-Wl,-E', '-I$TERMUX_PREFIX/include', '-L$TERMUX_PREFIX/lib/perl5/$perl_version/${TERMUX_ARCH}-android/CORE', '-lperl', '-lm', '-ldl']
-	perl_archname = '${TERMUX_ARCH}-android'
-	perl_installsitearch = '$TERMUX_PREFIX/lib/perl5/site_perl/$perl_version/${TERMUX_ARCH}-android'
-	perl_installvendorarch = ''
-	perl_inc = ['$TERMUX_PREFIX/lib/perl5/site_perl/$perl_version/${TERMUX_ARCH}-android', '$TERMUX_PREFIX/lib/perl5/site_perl/$perl_version', '$TERMUX_PREFIX/lib/perl5/$perl_version/${TERMUX_ARCH}-android', '$TERMUX_PREFIX/lib/perl5/$perl_version']
-	MESON_PERL_CROSS
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

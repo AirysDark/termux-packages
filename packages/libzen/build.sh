@@ -1,21 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://mediaarea.net/en/MediaInfo
-TERMUX_PKG_DESCRIPTION="ZenLib C++ utility library"
-TERMUX_PKG_LICENSE="ZLIB"
-TERMUX_PKG_LICENSE_FILE="../../../License.txt"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libzen"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.4.41
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://mediaarea.net/download/source/libzen/${TERMUX_PKG_VERSION}/libzen_${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=aad6c25bffcc695828e4d36700243a19a0d9503fbe57d38a2fbfa302fb34df2f
-TERMUX_PKG_DEPENDS="libandroid-support, libc++"
-TERMUX_PKG_BUILD_DEPENDS="libandroid-glob"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-shared --enable-static"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	TERMUX_PKG_SRCDIR="${TERMUX_PKG_SRCDIR}/Project/GNU/Library"
-	TERMUX_PKG_BUILDDIR="${TERMUX_PKG_SRCDIR}"
-	cd "${TERMUX_PKG_SRCDIR}" || return
-	./autogen.sh
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	LDFLAGS+=" $($CC -print-libgcc-file-name)"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

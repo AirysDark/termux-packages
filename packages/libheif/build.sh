@@ -1,37 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/strukturag/libheif
-TERMUX_PKG_DESCRIPTION="HEIF (HEIC/AVIF) image encoding and decoding library"
-TERMUX_PKG_LICENSE="LGPL-3.0, MIT"
-TERMUX_PKG_LICENSE_FILE="COPYING"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libheif"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.21.2"
-TERMUX_PKG_SRCURL=https://github.com/strukturag/libheif/releases/download/v${TERMUX_PKG_VERSION}/libheif-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=75f530b7154bc93e7ecf846edfc0416bf5f490612de8c45983c36385aa742b42
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="gdk-pixbuf, glib, libaom, libc++, libdav1d, libde265, librav1e, libx265"
-TERMUX_PKG_BUILD_DEPENDS="libaom-static"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DENABLE_PLUGIN_LOADING=OFF
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	# SOVERSION suffix is needed for SONAME of shared libs to avoid conflict
-	# with system ones (in /system/lib64 or /system/lib):
-	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DCMAKE_SYSTEM_NAME=Linux"
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_post_massage() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION_GUARD_FILES="lib/libheif.so.1"
-	local f
-	for f in ${_SOVERSION_GUARD_FILES}; do
-		if [ ! -e "${f}" ]; then
-			termux_error_exit "SOVERSION guard check failed."
-		fi
-	done
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# Check if SONAME is properly set:
-	if ! readelf -d lib/libheif.so | grep -q '(SONAME).*\[libheif\.so\.'; then
-		termux_error_exit "SONAME for libheif.so is not properly set."
-	fi
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

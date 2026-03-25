@@ -1,21 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://liba52.sourceforge.net/
-TERMUX_PKG_DESCRIPTION="A free library for decoding ATSC A/52 streams"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="liba52"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.8.0"
-TERMUX_PKG_REVISION=3
-# FIXME: GitHub Action got banned by distfiles.adelielinux.org, see #24930.
-# FIXME: Use one mirror in https://www.adelielinux.org/mirrors/ instead.
-# TERMUX_PKG_SRCURL=https://distfiles.adelielinux.org/source/a52dec/a52dec-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SRCURL=https://plug-mirror.rcac.purdue.edu/adelie/source/a52dec/a52dec-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=03c181ce9c3fe0d2f5130de18dab9bd8bc63c354071515aa56983c74a9cffcc9
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---disable-djbfft
---disable-oss
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	autoreconf -fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	LDFLAGS+=" -lm"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

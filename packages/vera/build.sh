@@ -1,24 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://bitbucket.org/verateam/vera
-TERMUX_PKG_DESCRIPTION="A programmable tool for verification, analysis and transformation of C++ source code"
-TERMUX_PKG_LICENSE="BSL-1.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="vera"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.3.0"
-TERMUX_PKG_REVISION=9
-TERMUX_PKG_SRCURL="https://github.com/verateam/vera/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=32d1d29be8ec96556fa0935d908d2627daffbf117abd1aa639f5a1c64ae10ceb
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
-TERMUX_PKG_DEPENDS="boost, libc++, tcl"
-TERMUX_PKG_BUILD_DEPENDS="boost-headers"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_POLICY_VERSION_MINIMUM=3.5
--DVERA_LUA=OFF
--DVERA_PYTHON=OFF
--DVERA_USE_SYSTEM_BOOST=ON
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_configure() {
-	if [ "$TERMUX_PKG_CMAKE_BUILD" = "Ninja" ]; then
-		sed -i 's:[^ ]*/src/vera++ :true :g' build.ninja
-	fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

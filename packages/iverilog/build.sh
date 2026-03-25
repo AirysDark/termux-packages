@@ -1,37 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://iverilog.icarus.com/
-TERMUX_PKG_DESCRIPTION="Icarus Verilog compiler and simulation tool"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="iverilog"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=12.0
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/steveicarus/iverilog/archive/refs/tags/v${TERMUX_PKG_VERSION/./_}.tar.gz
-TERMUX_PKG_SHA256=a68cb1ef7c017ef090ebedb2bc3e39ef90ecc70a3400afb4aa94303bc3beaa7d
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+_\d+"
-TERMUX_PKG_DEPENDS="libbz2, libc++, readline, zlib"
-TERMUX_PKG_BREAKS="iverilog-dev"
-TERMUX_PKG_REPLACES="iverilog-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	LDFLAGS+=" -lm"
-	aclocal
-	autoconf
-	export CFLAGS+=" -fcommon"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local _BUILD_LIB=$TERMUX_PKG_BUILDDIR/_build/lib
-	mkdir -p "$_BUILD_LIB"
-	for l in bz2 termcap; do
-		echo '!<arch>' > "$_BUILD_LIB/lib${l}.a"
-	done
-	export LDFLAGS_FOR_BUILD+=" -L$_BUILD_LIB"
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_post_configure() {
-	find . -name Makefile -print0 | xargs -0 -n 1 sed -i \
-		-e 's:@EXTRALIBS@::g' \
-		-e 's:@MINGW32@:no:g' \
-		-e 's:@PICFLAG@:-fPIC:g' \
-		-e 's:@install_suffix@::g' \
-		-e 's:@rdynamic@:-rdynamic:g' \
-		-e 's:@shared@:-shared:g'
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

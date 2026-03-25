@@ -1,13 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://think-async.com/Asio"
-TERMUX_PKG_DESCRIPTION="Cross-platform C++ library for network and low-level I/O programming"
-TERMUX_PKG_LICENSE="BSL-1.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libasio"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.36.0"
-TERMUX_PKG_SRCURL="https://downloads.sourceforge.net/project/asio/asio/${TERMUX_PKG_VERSION}%20%28Stable%29/asio-${TERMUX_PKG_VERSION}.zip"
-TERMUX_PKG_SHA256=e4613701d74113dbc691f53aaf29266147b3d55249fa046c74a57a2c9ed2fb27
-TERMUX_PKG_BUILD_DEPENDS="boost, boost-headers, openssl"
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	autoreconf -fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

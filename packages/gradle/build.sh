@@ -1,24 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://gradle.org/
-TERMUX_PKG_DESCRIPTION="Powerful build system for the JVM"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="gradle"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1:9.4.1"
-TERMUX_PKG_SRCURL=https://services.gradle.org/distributions/gradle-${TERMUX_PKG_VERSION:2}-bin.zip
-TERMUX_PKG_SHA256=2ab2958f2a1e51120c326cad6f385153bb11ee93b3c216c5fccebfdfbb7ec6cb
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="openjdk-21"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
 
-termux_step_make_install() {
-	rm -f ./bin/*.bat
-	rm -rf $TERMUX_PREFIX/opt/gradle
-	mkdir -p $TERMUX_PREFIX/opt/gradle
-	cp -r ./* $TERMUX_PREFIX/opt/gradle/
-	for i in $TERMUX_PREFIX/opt/gradle/bin/*; do
-		if [ ! -f "$i" ]; then
-			continue
-		fi
-		ln -sfr $i $TERMUX_PREFIX/bin/$(basename $i)
-	done
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,16 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/KhronosGroup/SPIRV-LLVM-Translator
-TERMUX_PKG_DESCRIPTION="SPIR-V LLVM Translator"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="spirv-llvm-translator"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="21.1.5"
-TERMUX_PKG_SRCURL=https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=704fb1d0244a688b97decafbb51deb11774a081d5ef31652245a2527b658e0a7
-TERMUX_PKG_DEPENDS="libc++, libllvm (<< $TERMUX_LLVM_NEXT_MAJOR_VERSION)"
-TERMUX_PKG_BUILD_DEPENDS="libllvm-static, spirv-headers, spirv-tools"
-TERMUX_PKG_NO_STATICSPLIT=true
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP="21.\d+\.\d+"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DBASE_LLVM_VERSION=${TERMUX_LLVM_VERSION}
--DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=${TERMUX_PREFIX}
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

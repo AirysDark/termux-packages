@@ -1,25 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/agnostic-apollo/tudo
-TERMUX_PKG_DESCRIPTION="A wrapper script to drop to the supported shells or execute shell script files or their text passed as an argument as the Termux app (u<userid>_a<appid>) user in the Termux app"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="@agnostic-apollo"
-TERMUX_PKG_VERSION="1.2.0"
-TERMUX_PKG_SRCURL=https://github.com/agnostic-apollo/tudo/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=359e3e405eab4059339d6c46589210fd8f1a017549dcba93e4d836066a4721dd
-TERMUX_PKG_DEPENDS="bash"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="tudo"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_EXTRA_MAKE_ARGS="TUDO_PKG__VERSION=${TERMUX_PKG_VERSION} TUDO_PKG__ARCH=${TERMUX_ARCH} \
-TERMUX__NAME=${TERMUX__NAME} TERMUX__LNAME=${TERMUX__LNAME} \
-TERMUX_APP__NAME=${TERMUX_APP__NAME} \
-TERMUX_APP__PACKAGE_NAME=${TERMUX_APP__PACKAGE_NAME} TERMUX_APP__DATA_DIR=${TERMUX_APP__DATA_DIR} \
-TERMUX__ROOTFS=${TERMUX__ROOTFS} TERMUX__HOME=${TERMUX__HOME} TERMUX__PREFIX=${TERMUX__PREFIX} \
-TERMUX_ENV__S_ROOT=${TERMUX_ENV__S_ROOT} \
-TERMUX_ENV__SS_TERMUX=${TERMUX_ENV__SS_TERMUX} TERMUX_ENV__S_TERMUX=${TERMUX_ENV__S_TERMUX} \
-TERMUX_ENV__SS_TERMUX_APP=${TERMUX_ENV__SS_TERMUX_APP} TERMUX_ENV__S_TERMUX_APP=${TERMUX_ENV__S_TERMUX_APP}"
 
-termux_step_install_license() {
-	mkdir -p "$TERMUX_PREFIX/share/doc/$TERMUX_PKG_NAME/licenses"
-	cp -af "$TERMUX_PKG_SRCDIR/LICENSE" "$TERMUX_PREFIX/share/doc/$TERMUX_PKG_NAME/copyright"
-	cp -af "$TERMUX_PKG_SRCDIR/licenses/"* "$TERMUX_PREFIX/share/doc/$TERMUX_PKG_NAME/licenses/"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

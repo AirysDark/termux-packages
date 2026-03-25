@@ -1,14 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://libtins.github.io
-TERMUX_PKG_DESCRIPTION="High-level, multiplatform C++ network packet sniffing and crafting library."
-TERMUX_PKG_LICENSE="BSD 2-Clause"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libtins"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="4.5"
-TERMUX_PKG_REVISION=4
-TERMUX_PKG_SRCURL="https://github.com/mfontanini/libtins/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=6ff5fe1ada10daef8538743dccb9c9b3e19d05d028ffdc24838e62ff3fc55841
-TRRMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libc++, libpcap, openssl"
-TERMUX_PKG_BUILD_DEPENDS="boost, boost-headers"
-TERMUX_PKG_BREAKS="libtins-dev"
-TERMUX_PKG_REPLACES="libtins-dev"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

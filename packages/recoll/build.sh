@@ -1,33 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.recoll.org/
-TERMUX_PKG_DESCRIPTION="Full-text search for your desktop"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="recoll"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.43.13"
-TERMUX_PKG_SRCURL="https://www.recoll.org/recoll-${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=140bf1e4fc51299f60dad580dffd64733e1d06fb14c6f752e2a34d4d70540c19
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="aspell, file, jsoncpp,  libc++, libiconv, libxapian, libxml2, libxslt, zlib"
-TERMUX_PKG_PYTHON_COMMON_BUILD_DEPS="wheel"
-# -Dext4-birthtime=false disables the use of the statx syscall
-# it is also set to false by default at time of writing,
-# but set it explicitly because Termux previously
-# had a patch forcibly disabling the use of the statx syscall in recoll
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--Dpython-chm=false
--Dpython-aspell=false
--Daspell=true
--Dx11mon=false
--Dqtgui=false
--Dsystemd=false
--Dext4-birthtime=false
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_setup_python_pip
-	rm -f CMakeLists.txt
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	LDFLAGS+=" $($CC -print-libgcc-file-name)"
-	CXXFLAGS+=" -fPIC"
-	CPPFLAGS+=" -I${TERMUX_PREFIX}/include/python${TERMUX_PYTHON_VERSION}/"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

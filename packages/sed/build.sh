@@ -1,26 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.gnu.org/software/sed/
-TERMUX_PKG_DESCRIPTION="GNU stream editor for filtering/transforming text"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="sed"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=4.9
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://mirrors.kernel.org/gnu/sed/sed-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=6e226b732e1cd739464ad6862bd1a1aba42d7982922da7a53519631d24975181
-TERMUX_PKG_ESSENTIAL=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_GROUPS="base-devel"
 
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
-ac_cv_func_nl_langinfo=no
-ac_cv_header_langinfo_h=no
-am_cv_langinfo_codeset=no
-gl_cv_func_setlocale_works=yes
-"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	CFLAGS+=" -D__USE_FORTIFY_LEVEL=2"
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_post_configure() {
-	touch -d "next hour" $TERMUX_PKG_SRCDIR/doc/sed.1
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

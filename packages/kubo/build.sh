@@ -1,38 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://ipfs.io/
-TERMUX_PKG_DESCRIPTION="A peer-to-peer hypermedia distribution protocol"
-TERMUX_PKG_LICENSE="MIT, Apache-2.0"
-TERMUX_PKG_LICENSE_FILE="LICENSE, LICENSE-APACHE, LICENSE-MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="kubo"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.40.1"
-TERMUX_PKG_SRCURL="https://github.com/ipfs/kubo/releases/download/v${TERMUX_PKG_VERSION}/kubo-source.tar.gz"
-TERMUX_PKG_SHA256=3ba9921432a3d43753306860e50e8bd2188b5bd094c94abdbb2173f578e69b8b
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_SUGGESTS="termux-services"
-TERMUX_PKG_SERVICE_SCRIPT=("ipfs" "[ ! -d \"${TERMUX_ANDROID_HOME}/.ipfs\" ] && ipfs init --empty-repo 2>&1 && ipfs config --json Swarm.EnableRelayHop false 2>&1 && ipfs config --json Swarm.EnableAutoRelay true 2>&1; exec ipfs daemon --enable-namesys-pubsub 2>&1")
-TERMUX_PKG_CONFLICTS="ipfs"
-TERMUX_PKG_REPLACES="ipfs"
-TERMUX_PKG_PROVIDES="ipfs"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	export GOPATH=${TERMUX_PKG_BUILDDIR}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	mkdir -p "${GOPATH}/src/github.com/ipfs"
-	cp -a "${TERMUX_PKG_SRCDIR}" "${GOPATH}/src/github.com/ipfs/kubo"
-	cd "${GOPATH}/src/github.com/ipfs/kubo"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	# TODO: remove this once the upstream package is updated to suport go 1.26
-	go mod edit -replace github.com/cockroachdb/swiss=github.com/cockroachdb/swiss@b0f6560
-	go mod tidy
-	go mod vendor
-	make build
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	# Fix folders without write permissions preventing which fails repeating builds:
-	cd "$TERMUX_PKG_BUILDDIR"
-	find . -type d -exec chmod u+w {} \;
-}
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-termux_step_make_install() {
-	install -Dm700 -t "$TERMUX_PREFIX"/bin "${TERMUX_PKG_BUILDDIR}/src/github.com/ipfs/kubo/cmd/ipfs/ipfs"
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,22 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.duktape.org/
-TERMUX_PKG_DESCRIPTION="An embeddable Javascript engine with a focus on portability and compact footprint"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libduktape"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=2.7.0
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://github.com/svaarala/duktape/releases/download/v$TERMUX_PKG_VERSION/duktape-$TERMUX_PKG_VERSION.tar.xz
-TERMUX_PKG_SHA256=90f8d2fa8b5567c6899830ddef2c03f3c27960b11aca222fa17aa7ac613c2890
-TERMUX_PKG_REPLACES="duktape (<< 2.3.0-1), libduktape-dev"
-TERMUX_PKG_BREAKS="duktape (<< 2.3.0-1), libduktape-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	# Add missing NEEDED on libm.so
-	sed -i 's/duktape\.c/& -lm/' Makefile.sharedlibrary
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	make -f Makefile.sharedlibrary CC="${CC}" GXX="${CXX}" INSTALL_PREFIX="${TERMUX_PREFIX}" install
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	make -f Makefile.cmdline CC="${CC}" GXX="${CXX}" INSTALL_PREFIX="${TERMUX_PREFIX}" duk
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	install duk "${TERMUX_PREFIX}"/bin
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

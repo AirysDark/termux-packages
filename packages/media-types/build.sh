@@ -1,20 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://pagure.io/mailcap
-TERMUX_PKG_DESCRIPTION="List of standard media types and their usual file extension"
-TERMUX_PKG_LICENSE="Public Domain"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="media-types"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="14.0.0"
-TERMUX_PKG_SRCURL=https://salsa.debian.org/debian/media-types/-/archive/debian/${TERMUX_PKG_VERSION}/media-types-debian-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=55224557676d1d073b1c39ab9c26acfaab7ffe52bd1f6e013e652955da8850bb
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE=newest-tag
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_BREAKS="mime-support"
-TERMUX_PKG_REPLACES="mime-support"
-TERMUX_PKG_PROVIDES="mime-support"
-TERMUX_PKG_CONFFILES="etc/mime.types"
-# etc/mime.types was previously in mutt:
-TERMUX_PKG_CONFLICTS="mutt (<< 1.8.3-1)"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	install -Dm600 "$TERMUX_PKG_SRCDIR/mime.types" "$TERMUX_PREFIX/etc/mime.types"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

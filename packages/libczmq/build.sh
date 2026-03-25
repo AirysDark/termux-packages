@@ -1,17 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://zeromq.org/
-TERMUX_PKG_DESCRIPTION="High-level C binding for ZeroMQ"
-TERMUX_PKG_LICENSE="MPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libczmq"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=4.2.1
-TERMUX_PKG_REVISION=4
-TERMUX_PKG_SRCURL=https://github.com/zeromq/czmq/releases/download/v${TERMUX_PKG_VERSION}/czmq-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=5d720a204c2a58645d6f7643af15d563a712dad98c9d32c1ed913377daa6ac39
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="liblz4, libuuid, libzmq"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-drafts=no"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	CFLAGS+=" -DCZMQ_HAVE_ANDROID=1"
-	LDFLAGS+=" -llog"
-	autoconf
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

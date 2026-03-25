@@ -1,34 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/xo/usql
-TERMUX_PKG_DESCRIPTION="A universal command-line interface for SQL databases"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="@flipee"
-TERMUX_PKG_VERSION="0.21.1"
-TERMUX_PKG_SRCURL=https://github.com/xo/usql/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=a7a091ad595dc2be79150f8d73aaf561731ef8459d62fe0ade7226a647b7133b
-TERMUX_PKG_AUTO_UPDATE=true
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="usql"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local tags="most no_adodb no_duckdb"
-	if [ "${TERMUX_ARCH}" = "arm" ] || [ "${TERMUX_ARCH}" = "i686" ]; then
-		tags="$tags no_netezza no_chai"
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# TODO: remove this once the upstream package is updated to suport go 1.26
-	go mod edit -replace github.com/cockroachdb/swiss=github.com/cockroachdb/swiss@b0f6560
-	go mod tidy
-	go build \
-		-trimpath \
-		-tags="$tags" \
-		-ldflags="-X github.com/xo/usql/text.CommandName=usql
-		-X github.com/xo/usql/text.CommandVersion=$TERMUX_PKG_VERSION" \
-		-o usql
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	install -Dm755 "$TERMUX_PKG_SRCDIR/usql" -t "$TERMUX_PREFIX/bin"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	install -Dm644 "$TERMUX_PKG_SRCDIR/README.md" -t "$TERMUX_PREFIX/share/doc/usql"
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,27 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://hg.mozilla.org/projects/nspr
-TERMUX_PKG_DESCRIPTION="Netscape Portable Runtime (NSPR)"
-TERMUX_PKG_LICENSE="MPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libnspr"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="4.38.2"
-TERMUX_PKG_SRCURL=https://archive.mozilla.org/pub/nspr/releases/v${TERMUX_PKG_VERSION}/src/nspr-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=e4092faeab77bdc9b32db1113e4215948ee768e26c4666db3b5a60b35f2c9105
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_HOSTBUILD=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	TERMUX_PKG_SRCDIR+="/nspr"
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	CPPFLAGS+=" -DANDROID"
-	LDFLAGS+=" -llog"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	if [ $TERMUX_ARCH_BITS -eq 64 ]; then
-		TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --enable-64bit"
-	fi
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	TERMUX_PKG_EXTRA_MAKE_ARGS+="
-		NSINSTALL=$TERMUX_PKG_HOSTBUILD_DIR/config/nsinstall
-		NOW=$TERMUX_PKG_HOSTBUILD_DIR/config/now
-		"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

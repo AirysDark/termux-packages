@@ -1,32 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://www.clifford.at/stfl
-TERMUX_PKG_DESCRIPTION="Structured Terminal Forms Language/Library"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="stfl"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.24
-TERMUX_PKG_REVISION=7
-# Using newsboat patched fork:
-# https://github.com/newsboat/stfl
-# Awaiting newsboat switching away from stfl, after which this package can be dropped:
-# https://github.com/newsboat/newsboat/issues/232
-TERMUX_PKG_SRCURL=https://github.com/newsboat/stfl/archive/c2c10b8a50fef613c0aacdc5d06a0fa610bf79e9.zip
-TERMUX_PKG_SHA256=dd912547e64f9fab5dab82731f4acea061f3bdc038dad374e0b82bf32722b729
-TERMUX_PKG_DEPENDS="libandroid-support, libiconv, ncurses"
-TERMUX_PKG_BREAKS="stfl-dev"
-TERMUX_PKG_REPLACES="stfl-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure(){
-	# mkmf.rb can't find header files for ruby at /usr/lib/ruby/include/ruby.h
-	sed -i 's/FOUND_RUBY = 1/FOUND_RUBY = 0/g' Makefile.cfg
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# /usr/bin/ld: ../libstfl.a(public.o): Relocations in generic ELF (EM: 183)
-	# /usr/bin/ld: ../libstfl.a: error adding symbols: file in wrong format
-	sed -i 's/FOUND_PERL5 = 1/FOUND_PERL5 = 0/g' Makefile.cfg
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	CPPFLAGS+=" -DNCURSES_WIDECHAR"
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_configure() {
-	CC+=" $CPPFLAGS"
-	export LDLIBS="-liconv"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

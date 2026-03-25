@@ -1,21 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://cldr.unicode.org/
-TERMUX_PKG_DESCRIPTION="Unicode Common Locale Data Repository"
-TERMUX_PKG_LICENSE="custom"
-TERMUX_PKG_LICENSE_FILE="LICENSE"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="unicode-cldr"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="48.1"
-TERMUX_PKG_SRCURL="https://unicode.org/Public/cldr/$TERMUX_PKG_VERSION/cldr-common-$TERMUX_PKG_VERSION.zip"
-TERMUX_PKG_SHA256=c691e94f217486fed259871429ae71cc4855e8a7f22b1586eb6eb52262c9c307
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-# Extract like libncnn
-termux_extract_src_archive() {
-	local file="$TERMUX_PKG_CACHEDIR/$(basename "$TERMUX_PKG_SRCURL")"
-	mkdir -p "$TERMUX_PKG_SRCDIR"
-	unzip -q "$file" -d "$TERMUX_PKG_SRCDIR"
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make_install() {
-	install -dm755 "$TERMUX_PREFIX/share/$TERMUX_PKG_NAME"
-	cp -Rf "$TERMUX_PKG_SRCDIR"/common/* "$TERMUX_PREFIX/share/$TERMUX_PKG_NAME/"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

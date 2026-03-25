@@ -1,27 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://android.googlesource.com/platform/frameworks/base/+/main/native/android
-TERMUX_PKG_DESCRIPTION="Stub libandroid.so for non-Android certified environment"
-TERMUX_PKG_LICENSE="NCSA"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libandroid-stub"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-# Version should be equal to TERMUX_NDK_{VERSION_NUM,REVISION} in
-# scripts/properties.sh
-TERMUX_PKG_VERSION=29
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_CONFLICTS="libandroid"
-TERMUX_PKG_REPLACES="libandroid"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_SKIP_SRC_EXTRACT=true
-TERMUX_PKG_API_LEVEL=28
 
-termux_step_make() {
-	local stub
-	for stub in android mediandk OpenSLES; do
-		"${CC}" -shared -fPIC \
-			-o "${TERMUX_PREFIX}/lib/lib${stub}.so" \
-			"${TERMUX_PKG_BUILDER_DIR}/lib${stub}-wrapper.c" \
-			$CFLAGS $LDFLAGS \
-			-Wno-deprecated-declarations \
-			-Wl,--no-use-android-relr-tags \
-			-Wl,--pack-dyn-relocs=android
-	done
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

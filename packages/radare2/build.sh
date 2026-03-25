@@ -1,34 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.radare.org/
-TERMUX_PKG_DESCRIPTION="UNIX-like reverse engineering framework and command-line toolset"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="radare2"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="6.1.2"
-TERMUX_PKG_SRCURL=https://github.com/radareorg/radare2/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=f0677266eeb505bec4df12961cbb2adb92cf8202ff3dab05690bcb24c4bf5c52
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libuv"
-TERMUX_PKG_BREAKS="radare2-dev"
-TERMUX_PKG_REPLACES="radare2-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-compiler=termux-host"
 
-termux_step_pre_configure() {
-	# Certain packages are not safe to build on device because their
-	# build.sh script deletes specific files in $TERMUX_PREFIX.
-	if $TERMUX_ON_DEVICE_BUILD; then
-		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
-	fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# Unset CPPFLAGS to avoid -I$TERMUX_PREFIX/include. This is because
-	# radare2 build will put its own -I flags after ours, which causes
-	# problems due to name clashes (binutils header files).
-	unset CPPFLAGS
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# If this variable is not set, then build will fail on linking with 'pthread'
-	export ANDROID=1
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	export OBJCOPY=$TERMUX_HOST_PLATFORM-objcopy
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	# Remove old libs which may mess with new build:
-	rm -f $TERMUX_PREFIX/lib/libr_*
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

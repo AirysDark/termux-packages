@@ -1,17 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/termux/termux-packages
-TERMUX_PKG_DESCRIPTION="A metapackage that provides commonly used treesitter parsers"
-TERMUX_PKG_LICENSE="Public Domain"
-TERMUX_PKG_MAINTAINER="Joshua Kahn <tom@termux.dev>"
-TERMUX_PKG_VERSION=0.1.0
-TERMUX_PKG_SKIP_SRC_EXTRACT=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_METAPACKAGE=true
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="tree-sitter-parsers"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-# List of default parsers shipped with Neovim:
-# https://github.com/neovim/neovim/blob/master/runtime/doc/treesitter.txt
-# e.g. Neovim's `:h treesitter-parsers` help tag
-TERMUX_PKG_DEPENDS="tree-sitter-c, tree-sitter-lua, tree-sitter-markdown, tree-sitter-query, tree-sitter-vimdoc, tree-sitter-vim"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-# Installed by default but considered optional to the metapackage.
-TERMUX_PKG_RECOMMENDS="tree-sitter-bash, tree-sitter-css, tree-sitter-go, tree-sitter-html, tree-sitter-latex, tree-sitter-java, tree-sitter-javascript, tree-sitter-json, tree-sitter-python, tree-sitter-regex, tree-sitter-rust, tree-sitter-sql, tree-sitter-toml, tree-sitter-xml, tree-sitter-yaml"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

@@ -1,34 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/pipeseroni/pipes.sh
-TERMUX_PKG_DESCRIPTION="Animated pipes terminal screensaver"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="pipes.sh"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-_COMMIT=581792d4e0ea51e15889ba14a85db1bc9727b83d
-TERMUX_PKG_VERSION=2018.04.22
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=git+https://github.com/pipeseroni/pipes.sh
-TERMUX_PKG_SHA256=d28a4f49acf31fd5a2d18684d6b6f7a8fca735d98919149e32ce65598091a9b6
-TERMUX_PKG_GIT_BRANCH=master
-TERMUX_PKG_DEPENDS="bash, ncurses-utils"
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	git fetch --unshallow
-	git checkout $_COMMIT
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local version="$(git log -1 --format=%cs | sed 's/-/./g')"
-	if [ "$version" != "$TERMUX_PKG_VERSION" ]; then
-		echo -n "ERROR: The specified version \"$TERMUX_PKG_VERSION\""
-		echo " is different from what is expected to be: \"$version\""
-		return 1
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	local s=$(find . -type f ! -path '*/.git/*' -print0 | xargs -0 sha256sum | LC_ALL=C sort | sha256sum)
-	if [[ "${s}" != "${TERMUX_PKG_SHA256}  "* ]]; then
-		termux_error_exit "Checksum mismatch for source files."
-	fi
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	cd "$TERMUX_PKG_SRCDIR"
-	make install PREFIX=$TERMUX_PREFIX
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,29 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://dartsim.github.io/"
-TERMUX_PKG_DESCRIPTION="Dynamic Animation and Robotics Toolkit"
-TERMUX_PKG_GROUPS="science"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
-TERMUX_PKG_MAINTAINER="Pooya Moradi <pvonmoradi@gmail.com>"
-TERMUX_PKG_VERSION="6.16.7"
-TERMUX_PKG_SRCURL="https://github.com/dartsim/dart/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=7c8c76126db31046c1d5e40267645e3a78199c1b88ae4f6346b18b97eee000dd
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_EXCLUDED_ARCHES="arm, i686"
-# FIXME add ipopt, nlopt, snopt  after a proper FORTRAN compiler is
-# added (hence LAPACK)
-# FIXME why pagmo is not detected by build system?
-# FIXME add urdfdom
-TERMUX_PKG_DEPENDS="libc++, eigen, assimp, libccd, libfcl, fmt, libspdlog, libbullet, libode, libpagmo, octomap, libtinyxml2"
-TERMUX_PKG_BUILD_DEPENDS="octomap-static"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libdart"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DDART_VERBOSE=ON
--DBUILD_SHARED_LIBS=ON
--DDART_ENABLE_SIMD=OFF
--DDART_BUILD_GUI_OSG=OFF
--DDART_BUILD_DARTPY=OFF
--DDART_CODECOV=OFF
--DDART_FAST_DEBUG=OFF
--DDART_FORCE_COLORED_OUTPUT=OFF
--DDART_DOWNLOAD_DEPENDENT_PACKAGES=OFF
--DDART_TREAT_WARNINGS_AS_ERRORS=OFF
-"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

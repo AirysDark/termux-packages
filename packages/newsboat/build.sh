@@ -1,27 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://newsboat.org/
-TERMUX_PKG_DESCRIPTION="RSS/Atom feed reader for the text console"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="newsboat"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.43"
-TERMUX_PKG_SRCURL=https://newsboat.org/releases/${TERMUX_PKG_VERSION}/newsboat-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=325107b8a5fa4c432c9f85490dbf4fe61699d239fec161e34b3383345f7d37f5
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="json-c, libandroid-glob, libandroid-support, libc++, libcurl, libiconv, libsqlite, libxml2, ncurses, stfl"
-TERMUX_PKG_BUILD_DEPENDS="openssl"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-# TERMUX_PKG_RM_AFTER_INSTALL="share/locale"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_lib_bsd_main=no"
-TERMUX_PKG_CONFLICTS=newsbeuter
-TERMUX_PKG_REPLACES=newsbeuter
 
-termux_step_pre_configure() {
-	termux_setup_rust
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	LDFLAGS+=" -liconv"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	export CXX_FOR_BUILD=g++
-	export CXXFLAGS_FOR_BUILD="-O2"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	# Used by newsboat Makefile:
-	export CARGO_BUILD_TARGET=$CARGO_TARGET_NAME
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,10 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://libpipeline.nongnu.org/
-TERMUX_PKG_DESCRIPTION="C library for manipulating pipelines of subprocesses in a flexible and convenient way"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libpipeline"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1.5.8
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://download.savannah.nongnu.org/releases/libpipeline/libpipeline-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=1b1203ca152ccd63983c3f2112f7fe6fa5afd453218ede5153d1b31e11bb8405
-TERMUX_PKG_BREAKS="libpipeline-dev"
-TERMUX_PKG_REPLACES="libpipeline-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

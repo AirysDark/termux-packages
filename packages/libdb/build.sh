@@ -1,27 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.oracle.com/database/berkeley-db
-TERMUX_PKG_DESCRIPTION="The Berkeley DB embedded database system (library)"
-TERMUX_PKG_LICENSE="AGPL-V3"
-# We override TERMUX_PKG_SRCDIR termux_step_pre_configure so need to do
-# this hack to be able to find the license file.
-TERMUX_PKG_LICENSE_FILE="../LICENSE"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libdb"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=18.1.40
-TERMUX_PKG_REVISION=5
-TERMUX_PKG_SRCURL=https://fossies.org/linux/misc/db-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=0cecb2ef0c67b166de93732769abdeba0555086d51de1090df325e18ee8da9c8
-TERMUX_PKG_DEPENDS="libc++"
-TERMUX_PKG_BREAKS="libdb-dev"
-TERMUX_PKG_REPLACES="libdb-dev"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---enable-hash
---enable-smallbuild
---enable-compat185
-db_cv_atomic=gcc-builtin
---enable-cxx
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	TERMUX_PKG_SRCDIR=$TERMUX_PKG_SRCDIR/dist
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	LDFLAGS+=" $($CC -print-libgcc-file-name)"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

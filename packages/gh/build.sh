@@ -1,44 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://cli.github.com/
-TERMUX_PKG_DESCRIPTION="GitHub’s official command line tool"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="Krishna kanhaiya @kcubeterm"
-TERMUX_PKG_VERSION="2.88.1"
-TERMUX_PKG_SRCURL=https://github.com/cli/cli/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=79b9d8b6f45771188bcbe7de23e0300827b33454b811881522e20f6b48bb6e4c
-TERMUX_PKG_RECOMMENDS="openssh"
-TERMUX_PKG_AUTO_UPDATE=true
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="gh"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	cd "$TERMUX_PKG_SRCDIR"
-	(
-		unset GOOS GOARCH CGO_LDFLAGS
-		unset CC CXX CFLAGS CXXFLAGS LDFLAGS
-		go run ./cmd/gen-docs --man-page --doc-path $TERMUX_PREFIX/share/man/man1/
-	)
-	export GOPATH=$TERMUX_PKG_BUILDDIR
-	mkdir -p "$GOPATH"/src/github.com/cli/
-	mkdir -p "$TERMUX_PREFIX"/share/doc/gh
-	cp -a "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/github.com/cli/cli
-	cd "$GOPATH"/src/github.com/cli/cli/cmd/gh
-	go get -d -v
-	go build -ldflags="-X github.com/cli/cli/v${TERMUX_PKG_VERSION%%.*}/internal/build.Version=$TERMUX_PKG_VERSION"
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make_install() {
-	install -Dm700 -t "$TERMUX_PREFIX"/bin "$GOPATH"/src/github.com/cli/cli/cmd/gh/gh
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	install -Dm644 /dev/null "$TERMUX_PREFIX"/share/bash-completion/completions/gh.bash
-	install -Dm644 /dev/null "$TERMUX_PREFIX"/share/zsh/site-functions/_gh
-	install -Dm644 /dev/null "$TERMUX_PREFIX"/share/fish/vendor_completions.d/gh.fish
-}
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-termux_step_create_debscripts() {
-	cat <<-EOF >./postinst
-		#!${TERMUX_PREFIX}/bin/sh
-		gh completion -s bash > ${TERMUX_PREFIX}/share/bash-completion/completions/gh.bash
-		gh completion -s zsh > ${TERMUX_PREFIX}/share/zsh/site-functions/_gh
-		gh completion -s fish > ${TERMUX_PREFIX}/share/fish/vendor_completions.d/gh.fish
-	EOF
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

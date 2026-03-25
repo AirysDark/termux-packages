@@ -1,24 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://gts.sourceforge.net/
-TERMUX_PKG_DESCRIPTION="Provides useful functions to deal with 3D surfaces meshed with interconnected triangles"
-TERMUX_PKG_LICENSE="LGPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libgts"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.7.6"
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL="https://downloads.sourceforge.net/project/gts/gts/${TERMUX_PKG_VERSION}/gts-${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=059c3e13e3e3b796d775ec9f96abdce8f2b3b5144df8514eda0cc12e13e8b81e
-TERMUX_PKG_DEPENDS="glib"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_HOSTBUILD=true
 
-termux_step_host_build() {
-	# predicates_init executable generates predicates_init.h
-	$TERMUX_PKG_SRCDIR/configure
-	make -C src predicates_init
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-# prevents error
-# /bin/bash: line 1: ./predicates_init: cannot execute binary file: Exec format error
-# during repeated builds
-termux_step_pre_configure() {
-	rm -rf "$TERMUX_HOSTBUILD_MARKER"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,46 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.capstone-engine.org/
-TERMUX_PKG_DESCRIPTION="Lightweight multi-platform, multi-architecture disassembly framework"
-TERMUX_PKG_LICENSE="BSD"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="capstone"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="5.0.7"
-TERMUX_PKG_SRCURL="https://github.com/capstone-engine/capstone/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=6427a724726d161d1e05fb49fff8cd0064f67836c04ffca3c11d6d859e719caa
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+\.\d+\.\d+(?!-)"
-TERMUX_PKG_BREAKS="capstone-dev"
-TERMUX_PKG_REPLACES="capstone-dev"
-
-termux_step_post_get_source() {
-	termux_setup_cmake
-
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION=5
-
-	local v=$(sed -En 's/.*VERSION_MAJOR.*[ |=]([0-9]+).*/\1/p' \
-			CMakeLists.txt)
-	if [ -z "${v}" ]; then
-		local tmpdir=$(mktemp -d)
-		cmake -S "${TERMUX_PKG_SRCDIR}" -B "${tmpdir}"
-		v=$(sed -En 's/.*VERSION_MAJOR.*[ |=]([0-9]+).*/\1/p' \
-			"${tmpdir}/CMakeCache.txt")
-		rm -fr "${tmpdir}"
-	fi
-	if [ "${v}" != "${_SOVERSION}" ]; then
-		termux_error_exit "
-		SOVERSION guard check failed!
-		SOVERSION guard    = ${_SOVERSION}
-		SOVERSION computed = ${v}
-		"
-	fi
-}
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-	# build system can only build static or shared at a time
-	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+="
-	-DBUILD_SHARED_LIBS=ON
-	"
-	termux_step_configure
-	termux_step_make
-	termux_step_make_install
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

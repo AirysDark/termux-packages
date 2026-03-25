@@ -1,32 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://android.googlesource.com/platform/bionic/+/refs/heads/master/libm/upstream-netbsd/lib/libm/complex
-TERMUX_PKG_DESCRIPTION="A shared library providing libm complex math functions"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libandroid-complex-math"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.2"
-TERMUX_PKG_SKIP_SRC_EXTRACT=true
-TERMUX_PKG_AUTO_UPDATE=false
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-# https://android.googlesource.com/platform/bionic/+/9ee6adb003eb5a9855ff6c47f9c150b415a11299
-# https://android.googlesource.com/platform/bionic/+/refs/tags/android-8.1.0_r81/libm/upstream-netbsd/lib/libm/complex/
-# https://android.googlesource.com/platform/bionic/+/main/libm/libm.map.txt
-# https://android.googlesource.com/platform/bionic/+/main/docs/status.md#libm
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-# Use the full NetBSD implementation as is from Android O
-# instead of matching the latest Android implementation which is a mix of FreeBSD and NetBSD
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_pre_configure() {
-	CPPFLAGS+=" -D__USE_GNU"
-	CFLAGS+=" -fPIC"
-	LDFLAGS+=" -lm"
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make() {
-	$CC $CFLAGS $CPPFLAGS -c $TERMUX_PKG_BUILDER_DIR/upstream-netbsd/lib/libm/complex/*.c
-	$CC $CFLAGS -shared $LDFLAGS -o libandroid-complex-math.so *.o
-	$AR cru libandroid-complex-math.a *.o
-	cp -f $TERMUX_PKG_BUILDER_DIR/LICENSE $TERMUX_PKG_SRCDIR/
-}
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-termux_step_make_install() {
-	install -Dm644 -t $TERMUX_PREFIX/lib libandroid-complex-math.{a,so}
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

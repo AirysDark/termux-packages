@@ -1,31 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.tarsnap.com/spiped.html
-TERMUX_PKG_DESCRIPTION="a utility for creating symmetrically encrypted and authenticated pipes between socket addresses"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="spiped"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.6.4"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/Tarsnap/spiped/archive/refs/tags/$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=e094d8a3408e0689936be00743d1a9818b5d7a9faf6a34fcb44388a40c92bf05
-TERMUX_PKG_DEPENDS="openssl"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
 
-termux_step_pre_configure() {
-	if [[ "${TERMUX_ARCH}" == "arm" ]]; then
-		# armv8 specific features check also enables them for armv7. But why?
-		patch -p1 --silent <"${TERMUX_PKG_BUILDER_DIR}"/disable_armv8_specific_features.diff
-	fi
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make() {
-	CFLAGS+=" $CPPFLAGS"
-	env LDADD_EXTRA="$LDFLAGS" \
-		make -j "$TERMUX_PKG_MAKE_PROCESSES" BINDIR="$TERMUX_PREFIX/bin" \
-		MAN1DIR="$TERMUX_PREFIX/share/man/man1"
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_make_install() {
-	make install BINDIR="$TERMUX_PREFIX/bin" \
-		MAN1DIR="$TERMUX_PREFIX/share/man/man1"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

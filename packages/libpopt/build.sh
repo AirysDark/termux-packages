@@ -1,16 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.linuxfromscratch.org/blfs/view/svn/general/popt.html
-TERMUX_PKG_DESCRIPTION="Library for parsing cmdline parameters"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libpopt"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1.19
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL=http://ftp.rpm.org/popt/releases/popt-1.x/popt-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=c25a4838fc8e4c1c8aacb8bd620edb3084a3d63bf8987fdad3ca2758c63240f9
-TERMUX_PKG_DEPENDS="libandroid-glob"
-TERMUX_PKG_BREAKS="libpopt-dev"
-TERMUX_PKG_REPLACES="libpopt-dev"
-TERMUX_PKG_RM_AFTER_INSTALL="lib/libpopt.la"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	LDFLAGS+=" -landroid-glob"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,28 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/mypaint/libmypaint
-TERMUX_PKG_DESCRIPTION="MyPaint brush engine library"
-TERMUX_PKG_LICENSE="ISC"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libmypaint"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1.6.1
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://github.com/mypaint/libmypaint/releases/download/v${TERMUX_PKG_VERSION}/libmypaint-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=741754f293f6b7668f941506da07cd7725629a793108bb31633fb6c3eae5315f
-TERMUX_PKG_DEPENDS="glib, json-c"
-TERMUX_PKG_BUILD_DEPENDS="g-ir-scanner"
-TERMUX_PKG_DISABLE_GIR=false
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---enable-introspection
---with-glib
-ac_cv_func_bind_textdomain_codeset=yes
-ac_cv_search_dgettext=yes
-gt_cv_func_dgettext_libc=yes
-gt_cv_func_ngettext_libc=yes
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_setup_gir
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_post_configure() {
-	# What is this?
-	find . -name Makefile | xargs -n 1 sed -i 's/ yes -lm/ -lm/g'
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,24 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.jetbrains.com/lp/mono/
-TERMUX_PKG_DESCRIPTION="A free and open-source typeface for developers"
-TERMUX_PKG_LICENSE="OFL-1.1"
-TERMUX_PKG_LICENSE_FILE="OFL.txt"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="ttf-jetbrains-mono"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=2.304
-TERMUX_PKG_SRCURL=https://github.com/JetBrains/JetBrainsMono/releases/download/v$TERMUX_PKG_VERSION/JetBrainsMono-$TERMUX_PKG_VERSION.zip
-TERMUX_PKG_SHA256=6f6376c6ed2960ea8a963cd7387ec9d76e3f629125bc33d1fdcd7eb7012f7bbf
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-# The original "termux_extract_src_archive" always strips away fonts/webfonts
-# but the fonts we want are in fonts/ttf
-termux_extract_src_archive() {
-	local file="$TERMUX_PKG_CACHEDIR/$(basename "$TERMUX_PKG_SRCURL")"
-	mkdir -p "$TERMUX_PKG_SRCDIR"
-	unzip -q "$file" -d "$TERMUX_PKG_SRCDIR"
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make_install() {
-	## Install fonts.
-	mkdir -p "$TERMUX_PREFIX/share/fonts/TTF"
-	cp fonts/ttf/*.ttf "$TERMUX_PREFIX/share/fonts/TTF/"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

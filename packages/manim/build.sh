@@ -1,14 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://manim.community
-TERMUX_PKG_DESCRIPTION="A community-maintained Python framework for creating mathematical animations"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="Nguyen Khanh @nguynkhn"
-TERMUX_PKG_VERSION="0.20.1"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL="https://github.com/ManimCommunity/manim/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=384791b838ae5a6f408dcf4eb86e7fe04957fd2910fb26038690457a44204caf
-TERMUX_PKG_DEPENDS="cmake, ffmpeg, libcairo, pango, xorgproto, python-numpy, python-pillow, python-pip, pycairo, python-scipy, python-skia-pathops"
-TERMUX_PKG_SUGGESTS="texlive-installer"
-TERMUX_PKG_PYTHON_COMMON_BUILD_DEPS="poetry"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="manim"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_EXCLUDED_ARCHES="arm, i686"
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

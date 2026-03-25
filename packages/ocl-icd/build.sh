@@ -1,31 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/OCL-dev/ocl-icd
-TERMUX_PKG_DESCRIPTION="OpenCL ICD Loader"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="ocl-icd"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.3.4"
-TERMUX_PKG_SRCURL=https://github.com/OCL-dev/ocl-icd/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=1a302b71b7304cca5a36f69d017b1af2b762cc4c2dd1c0c0e2fc1933db25c9cc
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_NO_STATICSPLIT=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---enable-custom-layerdir=${TERMUX_PREFIX}/etc/OpenCL/layers
---enable-custom-vendordir=${TERMUX_PREFIX}/etc/OpenCL/vendors
---enable-official-khronos-headers
-"
-
-termux_step_pre_configure() {
-	./bootstrap
-}
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-	mkdir -p "${TERMUX_PREFIX}/lib"
-	ln -fs libOpenCL.so "${TERMUX_PREFIX}/lib/libOpenCL.so.1"
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }
-
-# https://www.khronos.org/registry/OpenCL/specs/2.2/html/OpenCL_ICD_Installation.html
-# Intepreting this as providing library "libOpenCL.so" with SONAME "libOpenCL.so" on Android
-
-# https://github.com/termux/termux-packages/issues/7510
-# Removed handling of PREFIX/etc/OpenCL/vendors to match Desktop Linux ocl-icd behaviour
-# Removed creation of android.icd as it never worked without modifying LD_LIBRARY_PATH on Android
-# Driver packages (eg: clvk) should be the one handling the items above

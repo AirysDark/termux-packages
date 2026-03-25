@@ -1,16 +1,33 @@
-TERMUX_PKG_HOMEPAGE="http://chipmunk2d.net"
-TERMUX_PKG_DESCRIPTION="A fast and lightweight 2D game physics library"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libchipmunk"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="7.0.3"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL="https://github.com/slembcke/Chipmunk2D/archive/refs/tags/Chipmunk-$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=1e6f093812d6130e45bdf4cb80280cb3c93d1e1833d8cf989d554d7963b7899a
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+\.\d+\.\d+"
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
-TERMUX_PKG_EXCLUDED_ARCHES="arm"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DBUILD_SHARED=ON
--DBUILD_STATIC=OFF
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

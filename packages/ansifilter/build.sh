@@ -1,19 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://www.andre-simon.de/doku/ansifilter/en/ansifilter.php
-TERMUX_PKG_DESCRIPTION="Strip or convert ANSI codes into HTML, (La)Tex, RTF, or BBCode"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="ansifilter"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.22"
-TERMUX_PKG_SRCURL=git+https://gitlab.com/saalen/ansifilter
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_GIT_BRANCH="$TERMUX_PKG_VERSION"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_DEPENDS="libc++"
-TERMUX_PKG_EXTRA_MAKE_ARGS="
-DESTDIR=${TERMUX_PREFIX}
-PREFIX=
-"
 
-termux_step_pre_configure() {
-	# dont build Qt GUI
-	rm $TERMUX_PKG_SRCDIR/CMakeLists.txt
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

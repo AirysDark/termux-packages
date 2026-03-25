@@ -1,36 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://restic.net/
-TERMUX_PKG_DESCRIPTION="Fast, secure, efficient backup program"
-TERMUX_PKG_LICENSE="BSD"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="restic"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.18.1"
-TERMUX_PKG_SRCURL=https://github.com/restic/restic/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=4b8e2b6cb20e9707e14b9b9d92ddb6f2e913523754e1f123e2e6f3321e67f7ca
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_SUGGESTS="openssh, rclone, restic-server"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	export GOPATH=$TERMUX_PKG_BUILDDIR
-	mkdir -p "$GOPATH"/src/github.com/restic
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	ln -sf "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/github.com/restic/restic
-	cd "$GOPATH"/src/github.com/restic/restic
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	(
-		# Separately building for host so we can generate manpages.
-		unset GOOS GOARCH CGO_LDFLAGS
-		unset CC CXX CFLAGS CXXFLAGS LDFLAGS
-		go build -ldflags "-X 'main.version=${TERMUX_PKG_VERSION}'" ./cmd/...
-		./restic generate --man doc/man
-		rm -f ./restic
-	)
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	go build -ldflags "-X 'main.version=${TERMUX_PKG_VERSION}'" ./cmd/...
-}
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-termux_step_make_install() {
-	cd "$GOPATH"/src/github.com/restic/restic
-	install -Dm700 restic "$TERMUX_PREFIX"/bin/restic
-	install -Dm600 -t "$TERMUX_PREFIX/share/man/man1/" doc/man/*.1
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,64 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://boost.org
-TERMUX_PKG_DESCRIPTION="Free peer-reviewed portable C++ source libraries"
-TERMUX_PKG_LICENSE="BSL-1.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="boost"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-# Never forget to always bump revision of reverse dependencies and rebuild them
-# when bumping version.
-TERMUX_PKG_VERSION="1:1.90.0"
-TERMUX_PKG_REVISION=1
-_VERSION="${TERMUX_PKG_VERSION:2}"
-TERMUX_PKG_SRCURL="https://archives.boost.io/release/${_VERSION}/source/boost_${_VERSION//./_}.tar.bz2"
-TERMUX_PKG_SHA256=49551aff3b22cbc5c5a9ed3dbc92f0e23ea50a0f7325b0d198b705e8ee3fc305
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_DEPENDS="libc++, libbz2, libiconv, liblzma, zlib, libandroid-wordexp"
-# Although python is a build dependency, boost needs to be rebuilt when major
-# versions of python are updated to ensure that CMake's find_package detects
-# Boost.Python as python version is hardcoded into it
-TERMUX_PKG_BUILD_DEPENDS="python"
-TERMUX_PKG_BREAKS="libboost-python (<= 1.65.1-2), boost-dev"
-TERMUX_PKG_REPLACES="libboost-python (<= 1.65.1-2), boost-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install() {
-	CXXFLAGS+=" -std=c++14"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	rm $TERMUX_PREFIX/lib/libboost* -f
-	rm $TERMUX_PREFIX/include/boost -rf
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	CC= CXX= LDFLAGS= CXXFLAGS= ./bootstrap.sh
-	echo "using clang : $TERMUX_ARCH : $CXX : <linkflags>-L$TERMUX_PREFIX/lib ; " >>project-config.jam
-	echo "using python : ${TERMUX_PYTHON_VERSION} : $TERMUX_PREFIX/bin/python3 : $TERMUX_PREFIX/include/python${TERMUX_PYTHON_VERSION} : $TERMUX_PREFIX/lib ;" >>project-config.jam
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	if [ "$TERMUX_ARCH" = arm ] || [ "$TERMUX_ARCH" = aarch64 ]; then
-		BOOSTARCH=arm
-		BOOSTABI=aapcs
-	elif [ "$TERMUX_ARCH" = i686 ] || [ "$TERMUX_ARCH" = x86_64 ]; then
-		BOOSTARCH=x86
-		BOOSTABI=sysv
-	fi
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	if [ "$TERMUX_ARCH" = x86_64 ] || [ "$TERMUX_ARCH" = aarch64 ]; then
-		BOOSTAM=64
-	elif [ "$TERMUX_ARCH" = i686 ] || [ "$TERMUX_ARCH" = arm ]; then
-		BOOSTAM=32
-	fi
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	./b2 target-os=android -j${TERMUX_PKG_MAKE_PROCESSES} \
-		define=BOOST_FILESYSTEM_DISABLE_STATX \
-		include=$TERMUX_PREFIX/include \
-		toolset=clang-$TERMUX_ARCH \
-		--prefix="$TERMUX_PREFIX" \
-		-q \
-		--without-stacktrace \
-		--disable-icu \
-		-sNO_ZSTD=1 \
-		cxxflags="$CXXFLAGS" \
-		linkflags="$LDFLAGS" \
-		architecture="$BOOSTARCH" \
-		abi="$BOOSTABI" \
-		address-model="$BOOSTAM" \
-		boost.locale.icu=off \
-		binary-format=elf \
-		threading=multi \
-		install
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

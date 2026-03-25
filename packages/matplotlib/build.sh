@@ -1,61 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://matplotlib.org/
-TERMUX_PKG_DESCRIPTION="A comprehensive library for creating static, animated, and interactive visualizations in Python"
-TERMUX_PKG_LICENSE="custom"
-TERMUX_PKG_LICENSE_FILE="\
-LICENSE/LICENSE
-LICENSE/LICENSE_AMSFONTS
-LICENSE/LICENSE_BAKOMA
-LICENSE/LICENSE_CARLOGO
-LICENSE/LICENSE_COLORBREWER
-LICENSE/LICENSE_COURIERTEN
-LICENSE/LICENSE_JSXTOOLS_RESIZE_OBSERVER
-LICENSE/LICENSE_QT4_EDITOR
-LICENSE/LICENSE_SOLARIZED
-LICENSE/LICENSE_STIX
-LICENSE/LICENSE_YORICK"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="matplotlib"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="3.10.8"
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL="https://github.com/matplotlib/matplotlib/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=dbc50c7b15bb8d7dbe51a27a58322ed73f09291772d9e3184f03f11c576693f7
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="freetype, libc++, patchelf, ninja, python, python-contourpy, python-numpy, python-pillow, python-pip"
-_NUMPY_VERSION=$(. $TERMUX_SCRIPTDIR/packages/python-numpy/build.sh; echo $TERMUX_PKG_VERSION)
-TERMUX_PKG_PYTHON_COMMON_BUILD_DEPS="build, 'meson-python>=0.13.1', wheel, 'numpy==$_NUMPY_VERSION', 'pybind11>=2.6.0', 'setuptools>=64', 'setuptools_scm>=7'"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-TERMUX_MESON_WHEEL_CROSSFILE="$TERMUX_PKG_TMPDIR/wheel-cross-file.txt"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---cross-file $TERMUX_MESON_WHEEL_CROSSFILE
--Dsystem-freetype=true
-"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	if $TERMUX_ON_DEVICE_BUILD; then
-		termux_error_exit "Package '$TERMUX_PKG_NAME' is not available for on-device builds."
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# error: non-constant-expression cannot be narrowed from type 'unsigned int' to 'int' in initializer list [-Wc++11-narrowing]
-	CXXFLAGS+=" -Wno-c++11-narrowing"
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_configure() {
-	termux_setup_meson
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	cp -f $TERMUX_MESON_CROSSFILE $TERMUX_MESON_WHEEL_CROSSFILE
-	sed -i 's|^\(\[binaries\]\)$|\1\npython = '\'$(command -v python)\''|g' \
-		$TERMUX_MESON_WHEEL_CROSSFILE
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	termux_step_configure_meson
-}
-
-termux_step_make() {
-	pushd $TERMUX_PKG_SRCDIR
-	python -m build -w -n -x --config-setting builddir=$TERMUX_PKG_BUILDDIR .
-	popd
-}
-
-termux_step_make_install() {
-	local _pyv="${TERMUX_PYTHON_VERSION/./}"
-	local _whl="matplotlib-$TERMUX_PKG_VERSION-cp$_pyv-cp$_pyv-android_$TERMUX_ARCH.whl"
-	pip install --no-deps --prefix=$TERMUX_PREFIX --force-reinstall $TERMUX_PKG_SRCDIR/dist/$_whl
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

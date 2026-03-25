@@ -1,23 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/haiwen/libsearpc
-TERMUX_PKG_DESCRIPTION="A simple C language RPC framework (mainly for seafile)"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libsearpc"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1:3.2.0
-TERMUX_PKG_REVISION=8
-TERMUX_PKG_SRCURL=https://github.com/haiwen/libsearpc/archive/refs/tags/v${TERMUX_PKG_VERSION:2}.tar.gz
-TERMUX_PKG_SHA256=cd00197fcc40b45b1d5e892b2d08dfa5947f737e0d80f3ef26419334e75b0bff
-TERMUX_PKG_DEPENDS="glib, libjansson, python"
-TERMUX_PKG_BREAKS="libsearpc-dev"
-TERMUX_PKG_REPLACES="libsearpc-dev"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---enable-compile-demo=no
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	./autogen.sh
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure() {
-	termux_setup_python_pip
-	export PYTHON="cross-python"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

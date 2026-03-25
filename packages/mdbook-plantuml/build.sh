@@ -1,39 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/sytsereitsma/mdbook-plantuml
-TERMUX_PKG_DESCRIPTION="mdBook preprocessor to render PlantUML code blocks as images in your book"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="mdbook-plantuml"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.8.0
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL=git+https://github.com/sytsereitsma/mdbook-plantuml
-TERMUX_PKG_DEPENDS="openssl"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_setup_rust
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	: "${CARGO_HOME:=$HOME/.cargo}"
-	export CARGO_HOME
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	cargo vendor
-	find ./vendor \
-		-mindepth 1 -maxdepth 1 -type d \
-		! -wholename ./vendor/traitobject \
-		-exec rm -rf '{}' \;
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	patch --silent -p1 \
-		-d ./vendor/traitobject/ \
-		< "$TERMUX_PKG_BUILDER_DIR"/traitobject-rust-1.87.diff
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	echo "" >> Cargo.toml
-	echo '[patch.crates-io]' >> Cargo.toml
-	echo 'traitobject = { path = "./vendor/traitobject" }' >> Cargo.toml
-}
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-termux_step_make() {
-	termux_setup_rust
-	cargo build --jobs $TERMUX_PKG_MAKE_PROCESSES --target $CARGO_TARGET_NAME --release
-}
-
-termux_step_make_install() {
-	install -Dm700 -t $TERMUX_PREFIX/bin target/${CARGO_TARGET_NAME}/release/mdbook-plantuml
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

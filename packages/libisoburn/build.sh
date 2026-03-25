@@ -1,15 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://dev.lovelyhq.com/libburnia
-TERMUX_PKG_DESCRIPTION="Frontend for libraries libburn and libisofs"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libisoburn"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1.5.6
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://files.libburnia-project.org/releases/libisoburn-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=2b80a6f73dd633a5d243facbe97a15e5c9a07644a5e1a242c219b9375a45f71b
-TERMUX_PKG_DEPENDS="libburn, libisofs, readline"
-TERMUX_PKG_CONFLICTS="xorriso"
-TERMUX_PKG_BREAKS="libisoburn-dev"
-TERMUX_PKG_REPLACES="libisoburn-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-# We don't have tk.
-TERMUX_PKG_RM_AFTER_INSTALL="bin/xorriso-tcltk"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

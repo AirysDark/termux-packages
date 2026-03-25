@@ -1,9 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/swiftlang/swift-llbuild
-TERMUX_PKG_DESCRIPTION="A low-level build system, used by the Swift Package Manager"
-TERMUX_PKG_LICENSE="Apache-2.0, NCSA"
-TERMUX_PKG_MAINTAINER="@finagolfin"
-TERMUX_PKG_VERSION=6.2.1
-TERMUX_PKG_SRCURL=https://github.com/swiftlang/swift-llbuild/archive/refs/tags/swift-${TERMUX_PKG_VERSION}-RELEASE.tar.gz
-TERMUX_PKG_SHA256=fdc26af47b53779776f1294f674886c774636ef0b0b1b2c2ed90f9626bd018ed
-TERMUX_PKG_DEPENDS="libc++, libandroid-spawn, libsqlite"
-TERMUX_PKG_NO_STATICSPLIT=true
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="llbuild"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

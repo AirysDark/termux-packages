@@ -1,33 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://thrift.apache.org
-TERMUX_PKG_DESCRIPTION="Scalable cross-language services framework for IPC/RPC"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="thrift"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.22.0"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL="https://downloads.apache.org/thrift/${TERMUX_PKG_VERSION}/thrift-${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=794a0e455787960d9f27ab92c38e34da27e8deeda7a5db0e59dc64a00df8a1e5
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_METHOD=repology
-TERMUX_PKG_DEPENDS="libc++, openssl"
-TERMUX_PKG_BUILD_DEPENDS="boost, boost-headers"
-# cmake options are copied from https://github.com/apache/arrow/blob/main/cpp/cmake_modules/ThirdpartyToolchain.cmake
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DBUILD_COMPILER=OFF
--DBUILD_EXAMPLES=OFF
--DBUILD_SHARED_LIBS=ON
--DBUILD_TUTORIALS=OFF
--DWITH_AS3=OFF
--DWITH_CPP=ON
--DWITH_C_GLIB=OFF
--DWITH_JAVA=OFF
--DWITH_JAVASCRIPT=OFF
--DWITH_LIBEVENT=OFF
--DWITH_NODEJS=OFF
--DWITH_PYTHON=OFF
--DWITH_QT5=OFF
--DWITH_ZLIB=OFF
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	rm configure
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

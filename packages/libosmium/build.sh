@@ -1,17 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://osmcode.org/libosmium/
-TERMUX_PKG_DESCRIPTION="Library for reading from and writing to OSM files in XML and PBF formats"
-TERMUX_PKG_LICENSE="BSL-1.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libosmium"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.23.0"
-TERMUX_PKG_SRCURL="https://github.com/osmcode/libosmium/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=2e7a4ab34a80843490a1d673811d600e5445e6d39a0cfc42609d0861eba24669
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_BUILD_DEPENDS="boost, boost-headers, liblz4, libprotozero"
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_GROUPS="science"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_POLICY_VERSION_MINIMUM=3.5
--DINSTALL_UTFCPP=ON
--DBUILD_EXAMPLES=OFF
--DBUILD_DATA_TESTS=OFF
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

@@ -1,16 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.gpsbabel.org/
-TERMUX_PKG_DESCRIPTION="GPS file conversion plus transfer to/from GPS units"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="gpsbabel"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-# 1.4.4 is the last version that does not require Qt dependency.
-TERMUX_PKG_VERSION=1.4.4
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL=https://github.com/gpsbabel/gpsbabel/archive/refs/tags/gpsbabel_${TERMUX_PKG_VERSION//./_}.tar.gz
-TERMUX_PKG_SHA256=22860e913f093aa9124e295d52d1d4ae1afccaa67ed6bed6f1f8d8b0a45336d1
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_UPDATE_METHOD=repology
-TERMUX_PKG_DEPENDS="libexpat"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	TERMUX_PKG_SRCDIR+=/gpsbabel
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

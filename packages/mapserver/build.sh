@@ -1,37 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://mapserver.org/
-TERMUX_PKG_DESCRIPTION="MapServer is CGI-based platform for publishing spatial data and interactive mapping applications to the web"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="mapserver"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_LICENSE_FILE="LICENSE.md"
-TERMUX_PKG_VERSION=8.2.2
-TERMUX_PKG_REVISION=4
-TERMUX_PKG_SRCURL="https://download.osgeo.org/mapserver/mapserver-${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=47d8ee4bd12ddd2f04b24aa84c6e58f8e6990bcd5c150ba42e22f30ad30568e4
-TERMUX_PKG_DEPENDS="freetype, gdal, libc++, libcairo, libcurl, libgeos, libiconv, libjpeg-turbo, libpng, libprotobuf-c, libxml2, proj"
-TERMUX_PKG_BREAKS="mapserver-dev"
-TERMUX_PKG_REPLACES="mapserver-dev"
-TERMUX_PKG_GROUPS="science"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_CXX_STANDARD=14
--DWITH_GDAL=ON
--DWITH_GEOS=ON
--DWITH_OGR=ON
--DWITH_PROJ=ON
--DWITH_POSTGIS=OFF
--DWITH_KML=ON
--DWITH_WCS=ON
--DWITH_SOS=ON
--DWITH_WMS=ON
--DWITH_CLIENT_WMS=ON
--DWITH_WFS=ON
--DWITH_CLIENT_WFS=ON
--DWITH_THREAD_SAFETY=OFF
--DWITH_FCGI=OFF
--DWITH_CAIRO=ON
--DWITH_CURL=ON
--DWITH_MYSQL=OFF
--DWITH_FRIBIDI=OFF
--DWITH_HARFBUZZ=OFF
--DWITH_GIF=OFF
--DWITH_EXEMPI=OFF
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

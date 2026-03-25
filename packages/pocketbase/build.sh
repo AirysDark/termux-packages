@@ -1,30 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/pocketbase/pocketbase
-TERMUX_PKG_DESCRIPTION="An open source Go backend"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="pocketbase"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.36.7"
-TERMUX_PKG_SRCURL="https://github.com/pocketbase/pocketbase/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=10fec6613a3aa63ddd41a6ec1cfe4200f73d5c6038fd7396b3a7965bcc87a260
-TERMUX_PKG_DEPENDS="resolv-conf"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
 
-termux_step_make() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	mkdir ./gopath
-	export GOPATH="$PWD/gopath"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	cd "$TERMUX_PKG_SRCDIR/examples/base"
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	export GOBUILD=CGO_ENABLED=0
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	go build \
-		-trimpath \
-		-o "pocketbase.bin" \
-		main.go
-}
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-termux_step_make_install() {
-	install -m700 examples/base/pocketbase.bin "${TERMUX_PREFIX}"/bin/pocketbase
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

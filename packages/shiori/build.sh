@@ -1,36 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/go-shiori/shiori
-TERMUX_PKG_DESCRIPTION="Simple bookmark manager built with Go"
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="Krishna Kanhaiya @kcubeterm"
-TERMUX_PKG_VERSION="1.8.0"
-TERMUX_PKG_SRCURL=https://github.com/go-shiori/shiori/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=e172010728b5d8142100a402b5b2d065471920b6bcc1b742ba9755f3be26ff2e
-TERMUX_PKG_AUTO_UPDATE=true
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="shiori"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	export GOPATH=$TERMUX_PKG_BUILDDIR
-	mkdir -p "$GOPATH"/src/github.com/go-shiori/
-	cp -a "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/github.com/go-shiori/shiori
-	cd "$GOPATH"/src/github.com/go-shiori/shiori/
-	go get -d -v
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# https://github.com/termux/termux-packages/issues/18395
-	# https://gitlab.com/cznic/libc/-/blob/master/libc_linux.go
-	if [[ "${TERMUX_ARCH_BITS}" == "32" ]]; then
-		local libc_version=$(grep modernc.org/libc go.mod | awk '{print $2}')
-		go mod edit -replace "modernc.org/libc@${libc_version}=./libc"
-		rm -fr libc
-		cp --no-preserve=mode,ownership -fr "${GOPATH}/pkg/mod/modernc.org/libc@${libc_version}" libc
-		sed -e "s|unix.SYS_GETEUID|unix.SYS_GETEUID32|" -i ./libc/libc_linux.go
-	fi
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	go build
-}
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-termux_step_make_install() {
-	install -Dm700 -t "$TERMUX_PREFIX"/bin "$GOPATH"/src/github.com/go-shiori/shiori/shiori
-	mkdir -p "${TERMUX_PREFIX}"/share/doc/shiori
-	cp -a "$TERMUX_PKG_SRCDIR"/docs/ "$TERMUX_PREFIX"/share/doc/shiori
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,25 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://openscad.org/
-TERMUX_PKG_DESCRIPTION="The programmers solid 3D CAD modeller (headless build)"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="openscad"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2021.01"
-TERMUX_PKG_REVISION=6
-TERMUX_PKG_SRCURL="https://files.openscad.org/openscad-$TERMUX_PKG_VERSION.src.tar.gz"
-TERMUX_PKG_SHA256=d938c297e7e5f65dbab1461cac472fc60dfeaa4999ea2c19b31a4184f2d70359
-TERMUX_PKG_DEPENDS="boost, double-conversion, fontconfig, freetype, glib, harfbuzz, libc++, libgmp, libmpfr, libxml2, libzip"
-TERMUX_PKG_BUILD_DEPENDS="boost-headers, cgal, eigen"
-TERMUX_PKG_GROUPS="science"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_POLICY_VERSION_MINIMUM=3.5
--DBoost_USE_STATIC_LIBS=OFF
--DBUILD_SHARED_LIBS=ON
--DBUILD_STATIC_LIBS=OFF
--DNULLGL=ON
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make_install () {
-	mkdir -p $TERMUX_PREFIX/share/openscad
-	install openscad $TERMUX_PREFIX/bin/
-	cp -r $TERMUX_PKG_SRCDIR/libraries $TERMUX_PREFIX/share/openscad/
-	cp -r $TERMUX_PKG_SRCDIR/examples $TERMUX_PREFIX/share/openscad/
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

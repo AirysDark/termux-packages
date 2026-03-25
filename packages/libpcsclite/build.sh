@@ -1,25 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://pcsclite.apdu.fr/
-TERMUX_PKG_DESCRIPTION="Middleware to access a smart card using SCard API (PC/SC)."
-TERMUX_PKG_LICENSE="BSD 3-Clause, GPL-3.0, BSD 2-Clause, ISC"
-TERMUX_PKG_LICENSE_FILE="COPYING, GPL-3.0.txt"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libpcsclite"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.4.1"
-TERMUX_PKG_SRCURL=https://github.com/LudovicRousseau/PCSC/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=e7b6737f68c3b9a763fb0b0370d899cea091cced9d762ca8a6032c959576d5be
-TERMUX_PKG_DEPENDS="python"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_BREAKS="libpcsclite-dev"
-TERMUX_PKG_REPLACES="libpcsclite-dev"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--Dpolkit=false
--Dusbdropdir=$TERMUX_PREFIX/lib/pcsc/drivers
--Dipcdir=$TERMUX_PREFIX/var/run
--Dlibsystemd=false
--Dlibudev=false
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_create_debscripts() {
-	# "pcscd fails to start if this folder does not exist"
-	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
-	echo "mkdir -p $TERMUX_PREFIX/lib/pcsc/drivers" >> postinst
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

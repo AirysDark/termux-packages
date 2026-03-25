@@ -1,48 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://kubernetes.io/
-TERMUX_PKG_DESCRIPTION="Kubernetes.io client binary"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="kubectl"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.35.3"
-TERMUX_PKG_SRCURL=https://dl.k8s.io/v$TERMUX_PKG_VERSION/kubernetes-src.tar.gz
-TERMUX_PKG_SHA256=24c8529fea0163a43787ae062c34e7734aa5c190fae12733a6de4ffcced63c31
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_get_source() {
-	mkdir -p "$TERMUX_PKG_CACHEDIR"
-	mkdir -p "$TERMUX_PKG_SRCDIR"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	termux_download "$TERMUX_PKG_SRCURL" "$TERMUX_PKG_CACHEDIR"/kubernetes-src.tar.gz \
-		"$TERMUX_PKG_SHA256"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	tar xf "$TERMUX_PKG_CACHEDIR"/kubernetes-src.tar.gz \
-		-C "$TERMUX_PKG_SRCDIR"
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make() {
-	termux_setup_golang
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	# Needed to generate manpages.
-	#(
-	#	export GOPATH="$TERMUX_PKG_BUILDDIR/host"
-	#	unset GOOS GOARCH CGO_LDFLAGS
-	#	unset CC CXX CFLAGS CXXFLAGS LDFLAGS
-	#	cd "$TERMUX_PKG_SRCDIR"
-	#	./hack/update-generated-docs.sh
-	#)
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	export GOPATH="$TERMUX_PKG_BUILDDIR/target"
-	#chmod +w "$TERMUX_PKG_SRCDIR"/_output
-	#rm -rf "$TERMUX_PKG_SRCDIR"/_output
-
-	cd "$TERMUX_PKG_SRCDIR"/cmd/kubectl
-	go build .
-}
-
-termux_step_make_install() {
-	install -Dm700 "$TERMUX_PKG_SRCDIR"/cmd/kubectl/kubectl \
-		"$TERMUX_PREFIX"/bin/kubectl
-
-	#mkdir -p "$TERMUX_PREFIX"/share/man/man1
-	#cp -f "$TERMUX_PKG_SRCDIR"/docs/man/man1/kubectl-*.1 \
-	#	"$TERMUX_PREFIX"/share/man/man1/
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

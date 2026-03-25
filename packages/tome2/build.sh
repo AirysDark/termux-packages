@@ -1,35 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/tome2/tome2
-TERMUX_PKG_DESCRIPTION="An open world roguelike adventure set in middle earth"
-TERMUX_PKG_LICENSE="non-free"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="tome2"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-_COMMIT=885799917d42ea9e6eb69fc320fa03922cd8cbb4
-TERMUX_PKG_VERSION="2025.12.13"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=git+https://github.com/tome2/tome2
-TERMUX_PKG_SHA256=a7115bfd526b6b1172cba3b59ba37f975a7f7749d0cb3a40e890988558af7a89
-TERMUX_PKG_GIT_BRANCH=master
-TERMUX_PKG_DEPENDS="boost, libc++, libx11, ncurses"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-DSYSTEM_INSTALL=YES"
 
-termux_step_post_get_source() {
-	git fetch --unshallow
-	git checkout $_COMMIT
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local version="$(git log -1 --format=%cs | sed 's/-/./g')"
-	if [ "$version" != "$TERMUX_PKG_VERSION" ]; then
-		echo -n "ERROR: The specified version \"$TERMUX_PKG_VERSION\""
-		echo " is different from what is expected to be: \"$version\""
-		return 1
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	local s=$(find . -type f ! -path '*/.git/*' -print0 | xargs -0 sha256sum | LC_ALL=C sort | sha256sum)
-	if [[ "${s}" != "${TERMUX_PKG_SHA256}  "* ]]; then
-		termux_error_exit "Checksum mismatch for source files."
-	fi
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_install_license() {
-	install -Dm600 $TERMUX_PKG_BUILDER_DIR/LICENSE \
-		$TERMUX_PREFIX/share/doc/$TERMUX_PKG_NAME/LICENSE
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

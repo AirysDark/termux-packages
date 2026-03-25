@@ -1,32 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://libexif.github.io/
-TERMUX_PKG_DESCRIPTION="Library for reading and writing EXIF image metadata"
-TERMUX_PKG_LICENSE="LGPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libexif"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.6.25"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/libexif/libexif/archive/refs/tags/libexif-0_6_22-release.tar.gz
-TERMUX_PKG_SHA256=46498934b7b931526fdee8fd8eb77a1dddedd529d5a6dbce88daf4384baecc54
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+.\d+.\d+"
-TERMUX_PKG_BREAKS="libexif-dev"
-TERMUX_PKG_REPLACES="libexif-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION=12
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local a
-	for a in LIBEXIF_CURRENT LIBEXIF_AGE; do
-		local _${a}=$(sed -En 's/^'"${a}"'=([0-9]+).*/\1/p' \
-				configure.ac)
-	done
-	local v=$(( _LIBEXIF_CURRENT - _LIBEXIF_AGE ))
-	if [ ! "${_LIBEXIF_CURRENT}" ] || [ "${v}" != "${_SOVERSION}" ]; then
-		termux_error_exit "SOVERSION guard check failed."
-	fi
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_pre_configure() {
-	autoreconf -fi
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

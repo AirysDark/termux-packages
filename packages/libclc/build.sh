@@ -1,85 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://libclc.llvm.org/
-TERMUX_PKG_DESCRIPTION="Open source implementation of the library requirements of the OpenCL C programming language"
-TERMUX_PKG_LICENSE="Apache-2.0, NCSA"
-TERMUX_PKG_LICENSE_FILE="libclc/LICENSE.TXT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libclc"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=(
-	21.1.3
-	21.1.1
-)
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=(
-	https://github.com/llvm/llvm-project/releases/download/llvmorg-${TERMUX_PKG_VERSION[0]}/llvm-project-${TERMUX_PKG_VERSION[0]}.src.tar.xz
-	https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/refs/tags/v${TERMUX_PKG_VERSION[1]}.tar.gz
-)
-TERMUX_PKG_SHA256=(
-	9c9db50d8046f668156d83f6b594631b4ca79a0d96e4f19bed9dc019b022e58f
-	dda46febdb060a1d5cc2ceeb9682ccaf33e55ae294fd0793274531b54f07c46b
-)
-TERMUX_PKG_BUILD_DEPENDS="clang, libc++, libllvm, libllvm-static, lld, llvm, spirv-llvm-translator"
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_HOSTBUILD=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
-TERMUX_PKG_FORCE_CMAKE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	mkdir -p llvm/projects
-	ln -fsv ../../SPIRV-LLVM-Translator-${TERMUX_PKG_VERSION[1]} llvm/projects
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_host_build() {
-	termux_setup_cmake
-	termux_setup_ninja
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	cmake \
-		-B llvm \
-		-S "${TERMUX_PKG_SRCDIR}/llvm" \
-		-G Ninja \
-		-DCMAKE_BUILD_TYPE=Release \
-		-DLLVM_ENABLE_PROJECTS="clang" \
-		-DLLVM_INCLUDE_BENCHMARKS=OFF \
-		-DLLVM_INCLUDE_EXAMPLES=OFF \
-		-DLLVM_INCLUDE_TESTS=OFF \
-		-DLLVM_INCLUDE_UTILS=OFF
-	ninja \
-		-C llvm \
-		-j "$TERMUX_PKG_MAKE_PROCESSES" \
-		clang llvm-as llvm-link llvm-spirv opt
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	export PATH="${TERMUX_PKG_HOSTBUILD_DIR}/bin:${PATH}"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	cmake \
-		-B libclc \
-		-S "${TERMUX_PKG_SRCDIR}/libclc" \
-		-G Ninja \
-		-DCMAKE_BUILD_TYPE=Release \
-		-DLLVM_DIR="${TERMUX_PKG_HOSTBUILD_DIR}/llvm/lib/llvm" \
-		-DCMAKE_INSTALL_PREFIX="${TERMUX_PREFIX}"
-	ninja \
-		-C libclc \
-		-j "$TERMUX_PKG_MAKE_PROCESSES"
-	ninja \
-		-C libclc \
-		-j "$TERMUX_PKG_MAKE_PROCESSES" \
-		install
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	echo "INFO: ${TERMUX_PREFIX}/share/pkgconfig/libclc.pc"
-	cat "${TERMUX_PREFIX}/share/pkgconfig/libclc.pc"
-	echo
-}
-
-termux_step_configure() {
-	# always remove this marker because this package is built in termux_step_host_build()
-	# this prevents "ERROR: No files in package." when the package is built again without deleting
-	# the docker container.
-	rm -rf $TERMUX_HOSTBUILD_MARKER
-	# also, termux_step_configure() does not do anything else for this package
-}
-
-termux_step_make() {
-	:
-}
-
-termux_step_make_install() {
-	:
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

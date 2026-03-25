@@ -1,33 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://tukaani.org/xz/
-TERMUX_PKG_DESCRIPTION="XZ-format compression library"
-TERMUX_PKG_LICENSE="LGPL-2.1, GPL-2.0, GPL-3.0"
-TERMUX_PKG_LICENSE_FILE="COPYING, COPYING.GPLv2, COPYING.GPLv3, COPYING.LGPLv2.1"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="liblzma"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="5.8.2"
-TERMUX_PKG_SRCURL=https://github.com/tukaani-project/xz/releases/download/v$TERMUX_PKG_VERSION/xz-$TERMUX_PKG_VERSION.tar.xz
-TERMUX_PKG_SHA256=890966ec3f5d5cc151077879e157c0593500a522f413ac50ba26d22a9a145214
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_BREAKS="liblzma-dev"
-TERMUX_PKG_REPLACES="liblzma-dev"
-TERMUX_PKG_ESSENTIAL=true
-# seccomp prevents SYS_landlock_create_ruleset
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---enable-sandbox=no
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_massage() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION_GUARD_FILES="lib/liblzma.so.5"
-	local f
-	for f in ${_SOVERSION_GUARD_FILES}; do
-		if [ ! -e "${f}" ]; then
-			termux_error_exit "SOVERSION guard check failed."
-		fi
-	done
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# Check if SONAME is properly set:
-	if ! readelf -d lib/liblzma.so | grep -q '(SONAME).*\[liblzma\.so\.'; then
-		termux_error_exit "SONAME of liblzma.so is not properly set."
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

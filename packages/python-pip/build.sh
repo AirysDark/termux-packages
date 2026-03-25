@@ -1,60 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://pip.pypa.io/
-TERMUX_PKG_DESCRIPTION="The PyPA recommended tool for installing Python packages"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="python-pip"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="26.0.1"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/pypa/pip/archive/refs/tags/$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=b70256771f5ea127dae3e4bd6a9c9ab4928d1833519e17b132e76bdeec5a373d
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE="newest-tag"
-TERMUX_PKG_UPDATE_VERSION_REGEXP='\d+(?:\.\d+){1,2}(?!b)' # matches '25.3', '25.3.1' but not '26.0b1'
-TERMUX_PKG_DEPENDS="python (>= 3.11.1-1)"
-TERMUX_PKG_RECOMMENDS="clang, make, pkg-config"
-TERMUX_PKG_BREAKS="python (<< 3.11.1-1)"
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_PYTHON_COMMON_BUILD_DEPS="docutils, myst_parser, sphinx_copybutton, sphinx_inline_tabs, sphinxcontrib.towncrier, completion"
 
 termux_step_post_make_install() {
-	if [ ! -e "$TERMUX_PYTHON_HOME/site-packages/pip-$TERMUX_PKG_VERSION.dist-info" ]; then
-		termux_error_exit "Package ${TERMUX_PKG_NAME} doesn't build properly."
-	fi
-	( # creating pip documentation
-		cd docs/
-		python pip_sphinxext.py
-		sphinx-build -b man -d build/doctrees/man man build/man -c html --tag man
-	)
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	install -vDm 644 LICENSE.txt -t "$TERMUX_PREFIX/share/licenses/python-pip/"
-	install -vDm 644 docs/build/man/*.1 -t "$TERMUX_PREFIX/share/man/man1/"
-	install -vDm 644 {NEWS,README}.rst -t "$TERMUX_PREFIX/share/doc/python-pip/"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	"$TERMUX_PREFIX"/bin/pip completion --bash | install -vDm 644 /dev/stdin "$TERMUX_PREFIX"/share/bash-completion/completions/pip
-	"$TERMUX_PREFIX"/bin/pip completion --fish | install -vDm 644 /dev/stdin "$TERMUX_PREFIX"/share/fish/vendor_completions.d/pip.fish
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_create_debscripts() {
-	# disable pip update notification
-	cat <<- POSTINST_EOF > ./postinst
-	#!$TERMUX_PREFIX/bin/bash
-	echo "pip setup..."
-	pip config set --global global.disable-pip-version-check true
-	exit 0
-	POSTINST_EOF
-	if [ "$TERMUX_PACKAGE_FORMAT" = "pacman" ]; then
-		echo "post_install" > postupg
-	fi
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	# deleting conf of pip while removing it
-	cat <<- PRERM_EOF > ./prerm
-	#!$TERMUX_PREFIX/bin/bash
-	if [ -d $TERMUX_PREFIX/etc/pip.conf ]; then
-		echo "Removing the pip setting..."
-		rm -fr $TERMUX_PREFIX/etc/pip.conf
-	fi
-	exit 0
-	PRERM_EOF
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	chmod 0755 postinst prerm
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

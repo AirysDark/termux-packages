@@ -1,46 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://jfrog.com/getcli
-TERMUX_PKG_DESCRIPTION="A CLI for JFrog products"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="jfrog-cli"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.96.0"
-TERMUX_PKG_SRCURL=https://github.com/jfrog/jfrog-cli/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=04fee5bfab110e570da71a4e5d5c3070c0d3a73d68bc2d0de2ff87f210d6e756
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
-	export GOPATH=$TERMUX_PKG_BUILDDIR
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	cd $TERMUX_PKG_SRCDIR
-	go mod init || :
-	go mod tidy
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	go build \
-		-o "$TERMUX_PREFIX/bin/jfrog" \
-		-tags "linux extended" \
-		main.go
-		# "linux" tag should not be necessary
-		# try removing when golang version is upgraded
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	# Building for host to generate manpages and completion.
-	chmod 700 -R $GOPATH/pkg && rm -rf $GOPATH/pkg
-	unset GOOS GOARCH CGO_LDFLAGS
-	unset CC CXX CFLAGS CXXFLAGS LDFLAGS
-	go build \
-		-o "$TERMUX_PKG_BUILDDIR/jfrog" \
-		-tags "linux extended" \
-		main.go
-		# "linux" tag should not be necessary
-		# try removing when golang version is upgraded
-}
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-termux_step_make_install() {
-	mkdir -p $TERMUX_PREFIX/share/bash-completion/completions
-	export JFROG_CLI_HOME_DIR=$TERMUX_PKG_BUILDDIR/.jfrog
-	mkdir -p $JFROG_CLI_HOME_DIR
-	$TERMUX_PKG_BUILDDIR/jfrog completion bash \
-		> $JFROG_CLI_HOME_DIR/jfrog_bash_completion
-	cp $JFROG_CLI_HOME_DIR/jfrog_bash_completion \
-		$TERMUX_PREFIX/share/bash-completion/completions/jfrog
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,28 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://getmonero.org/
-TERMUX_PKG_DESCRIPTION="A private, secure, untraceable, decentralised digital currency"
-TERMUX_PKG_LICENSE="BSD 3-Clause"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="monero"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.18.4.6"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_SRCURL=git+https://github.com/monero-project/monero
-TERMUX_PKG_DEPENDS="boost, libc++, libprotobuf, libsodium, libunbound, libusb, libzmq, miniupnpc, openssl, readline"
-TERMUX_PKG_BUILD_DEPENDS="boost-headers"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DReadline_ROOT_DIR=$TERMUX_PREFIX
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	termux_setup_protobuf
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	CPPFLAGS+=" -DPROTOBUF_USE_DLLS"
-	LDFLAGS+=" -lminiupnpc"
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_post_configure() {
-	local bin=$TERMUX_PKG_BUILDDIR/_prefix/bin
-	mkdir -p $bin
-	$CC_FOR_BUILD \
-		$TERMUX_PKG_SRCDIR/translations/generate_translations_header.c \
-		-o $bin/generate_translations_header_for_build
-	export PATH=$bin:$PATH
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

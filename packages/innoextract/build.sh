@@ -1,10 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://constexpr.org/innoextract/
-TERMUX_PKG_DESCRIPTION="A tool to unpack installers created by Inno Setup"
-TERMUX_PKG_LICENSE="ZLIB"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="innoextract"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.9"
-TERMUX_PKG_REVISION=10
-TERMUX_PKG_SRCURL="https://constexpr.org/innoextract/files/innoextract-${TERMUX_PKG_VERSION}/innoextract-${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=6344a69fc1ed847d4ed3e272e0da5998948c6b828cb7af39c6321aba6cf88126
-TERMUX_PKG_DEPENDS="libc++, boost, liblzma, libiconv"
-TERMUX_PKG_BUILD_DEPENDS="boost-headers"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

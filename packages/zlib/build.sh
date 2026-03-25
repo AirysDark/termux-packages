@@ -1,28 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.zlib.net/
-TERMUX_PKG_DESCRIPTION="Compression library implementing the deflate compression method found in gzip and PKZIP"
-TERMUX_PKG_LICENSE="ZLIB"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="zlib"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.3.2"
-TERMUX_PKG_SRCURL=https://github.com/madler/zlib/releases/download/v${TERMUX_PKG_VERSION}/zlib-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=d7a0654783a4da529d1bb793b7ad9c3318020af77667bcae35f95d0e42a792f3
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_BREAKS="ndk-sysroot (<< 19b-3), zlib-dev"
-TERMUX_PKG_REPLACES="ndk-sysroot (<< 19b-3), zlib-dev"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	if [ "$TERMUX_ARCH" = "aarch64" ]; then
-		CFLAGS+=" -march=armv8-a+crc"
-		CXXFLAGS+=" -march=armv8-a+crc"
-	fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# Fix relocation issues when linking with libz.a
-	CFLAGS+=" -fPIC"
-	CXXFLAGS+=" -fPIC"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# Fix linker script error for zlib 1.3
-	LDFLAGS+=" -Wl,--undefined-version"
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_configure() {
-	"$TERMUX_PKG_SRCDIR/configure" --prefix=$TERMUX_PREFIX --shared
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

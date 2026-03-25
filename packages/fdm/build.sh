@@ -1,25 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/nicm/fdm
-TERMUX_PKG_DESCRIPTION="A program designed to fetch mail from POP3 or IMAP servers, or receive local mail from stdin, and deliver it in various ways"
-TERMUX_PKG_LICENSE="ISC, BSD 3-Clause"
-TERMUX_PKG_LICENSE_FILE="LICENSE, LICENSE.BSD"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="fdm"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=2.2
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=https://github.com/nicm/fdm/releases/download/${TERMUX_PKG_VERSION}/fdm-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=53aad117829834e21c1b9bf20496a1aa1c0e0fb98fe7735e1e73314266fb6c16
-TERMUX_PKG_DEPENDS="libandroid-glob, libtdb, openssl, pcre2, zlib"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---sysconfdir=$TERMUX_PREFIX/etc
---localstatedir=$TERMUX_PREFIX/var
---disable-static
---enable-pcre2
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	# Source distribution does not have separate license files
-	for f in LICENSE LICENSE.BSD; do
-		cp $TERMUX_PKG_BUILDER_DIR/$f $TERMUX_PKG_SRCDIR/
-	done
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	LDFLAGS+=" -landroid-glob"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

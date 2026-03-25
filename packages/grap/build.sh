@@ -1,19 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.lunabase.org/~faber/Vault/software/grap/
-TERMUX_PKG_DESCRIPTION="Language for typesetting graphs"
-TERMUX_PKG_LICENSE="BSD 2-Clause"
-TERMUX_LICENSE_FILE="COPYRIGHT"
-TERMUX_PKG_MAINTAINER="@xingguangcuican6666 <xingguangcuican666@foxmail.com>"
-TERMUX_PKG_VERSION="1.49"
-TERMUX_PKG_SRCURL="https://www.lunabase.org/~faber/Vault/software/grap/grap-${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=f0bc7f09641a5ec42f019da64b0b2420d95c223b91b3778ae73cb68acfdf4e23
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="grap"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_RM_AFTER_INSTALL="
-share/doc/grap/CHANGES
-share/doc/grap/COPYRIGHT
-share/doc/grap/README
-share/doc/grap/grap.man
-"
 
-termux_step_pre_configure() {
-	autoreconf -fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,50 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://docs.astral.sh/uv/
-TERMUX_PKG_DESCRIPTION="An extremely fast Python package installer and resolver, written in Rust."
-TERMUX_PKG_LICENSE="Apache-2.0, MIT"
-TERMUX_PKG_LICENSE_FILE="LICENSE-APACHE, LICENSE-MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="uv"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.11.0"
-TERMUX_PKG_SRCURL=https://github.com/astral-sh/uv/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=d61c168d4a3b0dad3c2c2a73c591fe7a2bbad96ea5a5e15f857d03308e15ca50
-TERMUX_PKG_DEPENDS="zstd"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_AUTO_UPDATE=true
-
-termux_step_pre_configure() {
-	termux_setup_cmake
-	termux_setup_rust
-}
-
-termux_step_make() {
-	PKG_CONFIG_ALL_DYNAMIC=1 \
-	ZSTD_SYS_USE_PKG_CONFIG=1 \
-	cargo build --jobs "${TERMUX_PKG_MAKE_PROCESSES}" --target "${CARGO_TARGET_NAME}" --release
-}
-
-termux_step_make_install() {
-	install -Dm700 -t "${TERMUX_PREFIX}"/bin target/"${CARGO_TARGET_NAME}"/release/uv
-	install -Dm700 -t "${TERMUX_PREFIX}"/bin target/"${CARGO_TARGET_NAME}"/release/uvx
-}
 
 termux_step_post_make_install() {
-	# Make a placeholder for shell-completions (to be filled with postinst)
-	mkdir -p "${TERMUX_PREFIX}"/share/bash-completion/completions
-	mkdir -p "${TERMUX_PREFIX}"/share/elvish/lib
-	mkdir -p "${TERMUX_PREFIX}"/share/fish/vendor_completions.d
-	mkdir -p "${TERMUX_PREFIX}"/share/zsh/site-functions
-	touch "${TERMUX_PREFIX}"/share/bash-completion/completions/uv
-	touch "${TERMUX_PREFIX}"/share/elvish/lib/uv.elv
-	touch "${TERMUX_PREFIX}"/share/fish/vendor_completions.d/uv.fish
-	touch "${TERMUX_PREFIX}"/share/zsh/site-functions/_uv
-}
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_create_debscripts() {
-	cat <<-EOF >./postinst
-		#!${TERMUX_PREFIX}/bin/sh
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-		uv generate-shell-completion bash > "${TERMUX_PREFIX}/share/bash-completion/completions/uv"
-		uv generate-shell-completion elvish > "$TERMUX_PREFIX/share/elvish/lib/uv.elv"
-		uv generate-shell-completion fish > "${TERMUX_PREFIX}/share/fish/vendor_completions.d/uv.fish"
-		uv generate-shell-completion zsh > "${TERMUX_PREFIX}/share/zsh/site-functions/_uv"
-	EOF
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

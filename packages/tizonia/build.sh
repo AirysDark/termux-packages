@@ -1,49 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/tizonia/
-TERMUX_PKG_DESCRIPTION="A command-line streaming music client/server for Linux"
-TERMUX_PKG_LICENSE="LGPL-3.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="tizonia"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.22.0"
-TERMUX_PKG_REVISION=24
-TERMUX_PKG_SRCURL="https://github.com/tizonia/tizonia-openmax-il/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=0750cae23ed600fb4b4699a392f43a5e03dcd0870383d64da4b8c28ea94a82f8
-TERMUX_PKG_DEPENDS="boost, dbus, libandroid-wordexp, libc++, libcurl, libflac, liblog4c, libmad, libmediainfo, libmp3lame, liboggz, libopus, libsndfile, libsqlite, libuuid, libvpx, libmpg123, opusfile, pulseaudio, python, taglib"
-TERMUX_PKG_BUILD_DEPENDS="boost-headers, libev"
-TERMUX_PKG_HOSTBUILD=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_host_build() {
-	termux_setup_build_python
-	local _PREFIX_FOR_BUILD=$TERMUX_PKG_HOSTBUILD_DIR/prefix
-	mkdir -p $_PREFIX_FOR_BUILD
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local srcdir="$TERMUX_PKG_SRCDIR"/3rdparty/dbus-cplusplus
-	autoreconf -fi "$srcdir"
-	"$srcdir"/configure --prefix=$_PREFIX_FOR_BUILD
-	make -j $TERMUX_PKG_MAKE_PROCESSES
-	make install
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_pre_configure() {
-	termux_setup_python_pip
-	local _PREFIX_FOR_BUILD=$TERMUX_PKG_HOSTBUILD_DIR/prefix
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	install -Dm700 $TERMUX_PKG_BUILDER_DIR/exe_wrapper $_PREFIX_FOR_BUILD/bin/
-	PATH=$_PREFIX_FOR_BUILD/bin:$PATH
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	export BOOST_ROOT=$TERMUX_PREFIX
-	LDFLAGS+=" -landroid-wordexp"
-}
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-termux_step_configure_meson() {
-	termux_setup_meson
-	sed -i 's/^\(\[binaries\]\)$/\1\nexe_wrapper = '\'exe_wrapper\''/g' \
-		$TERMUX_MESON_CROSSFILE
-	CC=gcc CXX=g++ CFLAGS= CXXFLAGS= CPPFLAGS= LDFLAGS= $TERMUX_MESON \
-		$TERMUX_PKG_SRCDIR \
-		$TERMUX_PKG_BUILDDIR \
-		--cross-file $TERMUX_MESON_CROSSFILE \
-		--prefix $TERMUX_PREFIX \
-		--libdir lib \
-		--buildtype minsize \
-		--strip \
-		$TERMUX_PKG_EXTRA_CONFIGURE_ARGS
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,23 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://www.nongnu.org/oath-toolkit/
-TERMUX_PKG_DESCRIPTION="One-time password components"
-TERMUX_PKG_LICENSE="GPL-3.0, LGPL-2.1"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="oathtool"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.6.12"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL=http://download.savannah.nongnu.org/releases/oath-toolkit/oath-toolkit-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=cafdf739b1ec4b276441c6aedae6411434bbd870071f66154b909cc6e2d9e8ba
-TERMUX_PKG_DEPENDS="libxml2, xmlsec"
-TERMUX_PKG_BREAKS="oathtool-dev"
-TERMUX_PKG_REPLACES="oathtool-dev"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-pam"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_configure() {
-	# Fix out-of-tree build
-	local _gdoc="./libpskc/man/gdoc"
-	if [ ! -e "${_gdoc}" ]; then
-		ln -sf "$TERMUX_PKG_SRCDIR/libpskc/man/gdoc" "${_gdoc}"
-	fi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# Avoid overlinking
-	sed -i 's/ -shared / -Wl,--as-needed\0/g' ./libpskc/libtool
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

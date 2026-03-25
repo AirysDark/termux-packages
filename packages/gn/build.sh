@@ -1,38 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://gn.googlesource.com/gn
-TERMUX_PKG_DESCRIPTION="Meta-build system that generates build files for Ninja"
-TERMUX_PKG_LICENSE="BSD 3-Clause"
-TERMUX_PKG_MAINTAINER="Yaksh Bariya <thunder-coding@termux.dev>"
-TERMUX_PKG_SRCURL=git+https://gn.googlesource.com/gn
-_COMMIT=64d35867ca0a1088f13de8f4ccaf1a5687d7f1ce
-_COMMIT_DATE=2025.12.17
-TERMUX_PKG_VERSION=${_COMMIT_DATE//./}
-TERMUX_PKG_GIT_BRANCH=main
-TERMUX_PKG_DEPENDS="libc++"
-TERMUX_PKG_RECOMMENDS="ninja"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="gn"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_get_source() {
-	git fetch --unshallow
-	git checkout $_COMMIT
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	local version="$(git log -1 --format=%cs | sed 's/-/./g')"
-	if [ "$version" != "$_COMMIT_DATE" ]; then
-		echo -n "ERROR: The specified commit date \"$_COMMIT_DATE\""
-		echo " is different from what is expected to be: \"$version\""
-		return 1
-	fi
-	termux_setup_gn
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_configure() {
-	./build/gen.py --no-static-libstdc++
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make() {
-	termux_setup_ninja
-	ninja -C out/
-}
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-termux_step_make_install() {
-	install -Dm755 -t $TERMUX_PREFIX/bin out/gn
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

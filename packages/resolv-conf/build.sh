@@ -1,17 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://man7.org/linux/man-pages/man5/resolv.conf.5.html
-TERMUX_PKG_DESCRIPTION="Resolver configuration file"
-TERMUX_PKG_LICENSE="Public Domain"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="resolv-conf"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1.3
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_SKIP_SRC_EXTRACT=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-TERMUX_PKG_CONFFILES="
-etc/hosts
-etc/resolv.conf
-"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make_install() {
-	printf "127.0.0.1 localhost\n::1 ip6-localhost\n" > $TERMUX_PREFIX/etc/hosts
-	printf "nameserver 8.8.8.8\nnameserver 8.8.4.4\n" > $TERMUX_PREFIX/etc/resolv.conf
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

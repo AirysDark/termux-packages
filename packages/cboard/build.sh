@@ -1,23 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://benkibbey.wordpress.com/cboard/
-TERMUX_PKG_DESCRIPTION="PGN browser, editor and chess engine frontend"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="cboard"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.7.5
-TERMUX_PKG_REVISION=5
-TERMUX_PKG_SRCURL=http://downloads.sourceforge.net/project/c-board/${TERMUX_PKG_VERSION}/cboard-${TERMUX_PKG_VERSION}.tar.bz2
-TERMUX_PKG_SHA256=dd748039f3531653e1573577cd814741524e1b16e16e3a841ef512e5150da6a0
-TERMUX_PKG_DEPENDS="libandroid-support,libandroid-glob,gnuchess, ncurses, ncurses-ui-libs"
-TERMUX_PKG_GROUPS="games"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	CPPFLAGS+=" -DNCURSES_WIDECHAR"
-	CFLAGS+=" -DLINE_MAX=_POSIX2_LINE_MAX -fcommon"
-	LDFLAGS+=" -landroid-glob"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	if $TERMUX_DEBUG_BUILD; then
-		# When doing debug build, -D_FORTIFY_SOURCE=2 gives this error:
-		# /home/builder/.termux-build/cboard/src/libchess/pgn.c:2235:33: error: 'umask' called with invalid mode
-		# mode = umask(600);
-		export CFLAGS=${CFLAGS/-D_FORTIFY_SOURCE=2/}
-	fi
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

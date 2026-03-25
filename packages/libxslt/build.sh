@@ -1,21 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://xmlsoft.org/libxslt/
-TERMUX_PKG_DESCRIPTION="XSLT processing library"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libxslt"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.1.45"
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL="https://gitlab.gnome.org/GNOME/libxslt/-/archive/v${TERMUX_PKG_VERSION}/libxslt-v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=4298285dfe7220ddfc1908e97b0cf3a67134e6d2d0f1af17c38220eba57477ab
-TERMUX_PKG_DEPENDS="libgcrypt, libgpg-error, libxml2, libandroid-glob"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_BREAKS="libxslt-dev"
-TERMUX_PKG_REPLACES="libxslt-dev"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DCMAKE_INSTALL_LIBDIR=$TERMUX__PREFIX__LIB_SUBDIR
--DCMAKE_INSTALL_INCLUDEDIR=$TERMUX__PREFIX__INCLUDE_SUBDIR
--DLIBXSLT_WITH_PYTHON=no
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	LDFLAGS+=" -landroid-glob"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

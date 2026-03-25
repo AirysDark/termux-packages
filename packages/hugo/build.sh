@@ -1,44 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://gohugo.io/
-TERMUX_PKG_DESCRIPTION="A fast and flexible static site generator"
-TERMUX_PKG_LICENSE="Apache-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="hugo"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.159.0"
-TERMUX_PKG_SRCURL=https://github.com/gohugoio/hugo/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=a4e70460f4e9721606862e0e4e5d8036726974ed958bcb5efc6db95f7cd8fa7c
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libc++"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
-	export GOPATH=$TERMUX_PKG_BUILDDIR
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	cd $TERMUX_PKG_SRCDIR
-	go build \
-		-o "$TERMUX_PREFIX/bin/hugo" \
-		-tags "linux extended" \
-		main.go
-		# "linux" tag should not be necessary
-		# try removing when golang version is upgraded
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	# Building for host to generate manpages and completion.
-	chmod 700 -R $GOPATH/pkg && rm -rf $GOPATH/pkg
-	unset GOOS GOARCH CGO_LDFLAGS
-	unset CC CXX CFLAGS CXXFLAGS LDFLAGS
-	go build \
-		-o "$TERMUX_PKG_BUILDDIR/hugo" \
-		-tags "linux extended" \
-		main.go
-		# "linux" tag should not be necessary
-		# try removing when golang version is upgraded
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	mkdir -p $TERMUX_PREFIX/share/{bash-completion/completions,zsh/site-functions,fish/vendor_completions.d,man/man1}
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	$TERMUX_PKG_BUILDDIR/hugo completion bash > $TERMUX_PREFIX/share/bash-completion/completions/hugo
-	$TERMUX_PKG_BUILDDIR/hugo completion zsh > $TERMUX_PREFIX/share/zsh/site-functions/_hugo
-	$TERMUX_PKG_BUILDDIR/hugo completion fish > $TERMUX_PREFIX/share/fish/vendor_completions.d/hugo.fish
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	$TERMUX_PKG_BUILDDIR/hugo gen man \
-		--dir=$TERMUX_PREFIX/share/man/man1/
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,18 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/coin-or/Cgl
-TERMUX_PKG_DESCRIPTION="An open-source cut generation library for COIN-OR projects"
-TERMUX_PKG_LICENSE="EPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libcoinor-cgl"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.60.8
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/coin-or/Cgl/archive/refs/tags/releases/${TERMUX_PKG_VERSION#*:}.tar.gz
-TERMUX_PKG_SHA256=1482ba38afb783d124df8d5392337f79fdd507716e9f1fb6b98fc090acd1ad96
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_METHOD=repology
-TERMUX_PKG_DEPENDS="coinor-clp, libc++, libcoinor-osi, libcoinor-utils"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	local _libgcc_file="$($CC -print-libgcc-file-name)"
-	local _libgcc_path="$(dirname $_libgcc_file)"
-	local _libgcc_name="$(basename $_libgcc_file)"
-	LDFLAGS+=" -L$_libgcc_path -l:$_libgcc_name"
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

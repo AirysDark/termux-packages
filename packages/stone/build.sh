@@ -1,21 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.gcd.org/sengoku/stone/
-TERMUX_PKG_DESCRIPTION="A TCP/IP repeater in the application layer"
-TERMUX_PKG_LICENSE="GPL-2.0"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="stone"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=2.4
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL=https://www.gcd.org/sengoku/stone/stone-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=d5dc1af6ec5da503f2a40b3df3fe19a8fbf9d3ce696b8f46f4d53d2ac8d8eb6f
-TERMUX_PKG_DEPENDS="openssl"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_EXTRA_MAKE_ARGS="-e stone"
 
-termux_step_configure() {
-	CFLAGS+=" $CPPFLAGS"
-	export FLAGS="-DUSE_SSL -DUNIX_DAEMON -DNO_RINDEX -DUSE_EPOLL -DPTHREAD -DPRCTL -UANDROID"
-	export LIBS="$LDFLAGS -lssl -lcrypto"
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make_install() {
-	install -Dm700 -t $TERMUX_PREFIX/bin stone
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

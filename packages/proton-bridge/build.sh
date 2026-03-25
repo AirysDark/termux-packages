@@ -1,29 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/ProtonMail/proton-bridge
-TERMUX_PKG_DESCRIPTION="ProtonMail Bridge application"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="proton-bridge"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
-TERMUX_PKG_VERSION="3.22.0"
-TERMUX_PKG_SRCURL=git+https://github.com/ProtonMail/proton-bridge
-TERMUX_PKG_GIT_BRANCH="v${TERMUX_PKG_VERSION}"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_DEPENDS="glib, libsecret"
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_UPDATE_TAG_TYPE=latest-release-tag
-TERMUX_PKG_UPDATE_VERSION_REGEXP="\d+\.\d+\.\d+"
-# The go-rfc5322 module cannot currently be compiled for 32-bit OSes:
-# https://github.com/ProtonMail/proton-bridge/blob/v2.1.1/BUILDS.md#prerequisites
-TERMUX_PKG_EXCLUDED_ARCHES="arm, i686"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
-	export GOPATH="${TERMUX_PKG_BUILDDIR}"
-	cd "${TERMUX_PKG_SRCDIR}" || exit 1
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	rm -rf internal/fido \
-			internal/frontend/grpc/fido.go
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	make build-nogui
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_make_install() {
-	install -Dm700 "${TERMUX_PKG_SRCDIR}"/bridge "${TERMUX_PREFIX}"/bin/proton-bridge
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

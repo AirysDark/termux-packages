@@ -1,38 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.freedesktop.org/wiki/Software/cppunit
-TERMUX_PKG_DESCRIPTION="A C++ unit testing framework"
-TERMUX_PKG_LICENSE="LGPL-2.1"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="cppunit"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.15.1"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL="https://dev-www.libreoffice.org/src/cppunit-$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=89c5c6665337f56fd2db36bc3805a5619709d51fb136e51937072f63fcc717a7
-
-termux_step_pre_configure() {
-	local _libgcc_file="$($CC -print-libgcc-file-name)"
-	local _libgcc_path="$(dirname $_libgcc_file)"
-	local _libgcc_name="$(basename $_libgcc_file)"
-	LDFLAGS+=" -L$_libgcc_path -l:$_libgcc_name"
-}
-
-termux_step_post_configure() {
-	# Avoid overlinking
-	sed -i 's/ -shared / -Wl,--as-needed\0/g' ./libtool
-}
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-	ln -sfr $PREFIX/lib/libcppunit-1.15.so $PREFIX/lib/libcppunit.so
-}
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_post_massage() {
-	# Do not forget to bump revision of reverse dependencies and rebuild them
-	# after SOVERSION is changed.
-	local _SOVERSION_GUARD_FILES="
-lib/libcppunit-1.15.so
-"
-	local f
-	for f in ${_SOVERSION_GUARD_FILES}; do
-		if [ ! -e "${f}" ]; then
-			termux_error_exit "SOVERSION guard check failed."
-		fi
-	done
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

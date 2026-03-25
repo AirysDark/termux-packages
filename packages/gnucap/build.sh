@@ -1,30 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.gnu.org/software/gnucap/gnucap.html
-TERMUX_PKG_DESCRIPTION="The Gnu Circuit Analysis Package"
-TERMUX_PKG_MAINTAINER="Henrik Grimler @Grimler91"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="gnucap"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
-TERMUX_PKG_VERSION=20210107
-TERMUX_PKG_REVISION=4
-TERMUX_PKG_SRCURL=https://gitlab.com/gnucap/gnucap/-/archive/${TERMUX_PKG_VERSION}/gnucap-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=d2c24a66c7e60b379727c9e9487ed1b4a3532646b3f4cc03c6a4305749e3348b
-TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_DEPENDS="libc++, readline"
-TERMUX_PKG_BREAKS="gnucap-dev"
-TERMUX_PKG_REPLACES="gnucap-dev"
-TERMUX_PKG_GROUPS="science"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_HOSTBUILD=true
 
-termux_step_host_build () {
-	cp -r $TERMUX_PKG_SRCDIR/* .
-	./configure
-	(cd lib && make)
-	(cd modelgen && make)
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_pre_configure () {
-	sed -i "s%@TERMUX_PKG_HOSTBUILD_DIR@%$TERMUX_PKG_HOSTBUILD_DIR%g" $TERMUX_PKG_SRCDIR/apps/Make1
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_configure () {
-	$TERMUX_PKG_SRCDIR/configure --prefix=$TERMUX_PREFIX
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

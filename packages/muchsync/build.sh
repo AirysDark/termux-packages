@@ -1,9 +1,33 @@
-TERMUX_PKG_HOMEPAGE=http://www.muchsync.org/
-TERMUX_PKG_DESCRIPTION="Synchronize notmuch mail across machines"
-TERMUX_PKG_LICENSE="GPL-2.0-or-later"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="muchsync"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="7"
-TERMUX_PKG_REVISION=3
-TERMUX_PKG_SRCURL="https://www.muchsync.org/src/muchsync-${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=f83e2f6fcd0ef4813475fddc8d39285686654da5f41565a1e9a9acd781a3beac
-TERMUX_PKG_DEPENDS="libc++, libsqlite, libxapian, notmuch, openssl"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

@@ -1,29 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://sendxmpp.hostname.sk/
-TERMUX_PKG_DESCRIPTION="A perl-script to send XMPP (jabber) messages"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="sendxmpp"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_LICENSE="GPL-2.0"
-TERMUX_PKG_VERSION=1.24
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://github.com/lhost/sendxmpp/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=dfaf735b4585efd6b3b0f95db31203f9ab0fe607b50e75c6951bc18a6269837d
-TERMUX_PKG_DEPENDS="perl, clang, make"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_PLATFORM_INDEPENDENT=true
 
-termux_step_make_install() {
-	install -Dm700 -t $TERMUX_PREFIX/bin sendxmpp
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_create_debscripts()  {
-	cat <<- POSTINST_EOF > ./postinst
-	#!$TERMUX_PREFIX/bin/bash
-	set -e
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	export PERL_MM_USE_DEFAULT=1
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	echo "Sideloading Perl Authen::SASL and Net::XMPP ..."
-	cpan -Ti Authen::SASL Net::XMPP
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	exit 0
-	POSTINST_EOF
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

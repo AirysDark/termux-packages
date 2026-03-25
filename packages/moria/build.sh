@@ -1,32 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://umoria.org
-TERMUX_PKG_DESCRIPTION="Rogue-like game with an infinite dungeon"
-TERMUX_PKG_LICENSE="GPL-3.0-or-later"
-TERMUX_PKG_LICENSE_FILE="LICENSE"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="moria"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=5.7.15
-TERMUX_PKG_REVISION=7
-TERMUX_PKG_SRCURL=https://github.com/dungeons-of-moria/umoria/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=97f76a68b856dd5df37c20fc57c8a51017147f489e8ee8866e1764778b2e2d57
-TERMUX_PKG_DEPENDS="libc++, ncurses"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-Dbuild_dir=$TERMUX_PKG_BUILDDIR"
-TERMUX_PKG_GROUPS="games"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_create_debscripts() {
-	# Create scores file in a debscript, so an update to the package wouldn't erase any scores
-	cat <<-EOF > ./postinst
-		#!$TERMUX_PREFIX/bin/sh
-		DIR=$TERMUX_PREFIX/lib/games/moria
-		mkdir -p \$DIR
-		touch \$DIR/scores.dat
-	EOF
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# https://github.com/termux/termux-packages/issues/1401
-	cat <<-EOF > ./prerm
-		#!$TERMUX_PREFIX/bin/sh
-		cd $TERMUX_PREFIX/lib/games/moria || exit
-		case \$1 in
-			purge|remove)
-			rm -f game.sav scores.dat;;
-		esac
-	EOF
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

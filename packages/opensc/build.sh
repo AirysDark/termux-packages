@@ -1,17 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/OpenSC/OpenSC
-TERMUX_PKG_DESCRIPTION="Open source smart card tools and middleware"
-TERMUX_PKG_LICENSE="LGPL-2.1"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="opensc"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.26.1
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL="https://github.com/OpenSC/OpenSC/releases/download/${TERMUX_PKG_VERSION}/opensc-${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=f16291a031d86e570394762e9f35eaf2fcbc2337a49910f3feae42d54e1688cb
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="glib, libpcsclite"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
-CFLAGS=-I$TERMUX_PREFIX/include/PCSC
-"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_pre_configure() {
-	autoreconf -vfi
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

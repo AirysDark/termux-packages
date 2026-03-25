@@ -1,46 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://hub.github.com/
-TERMUX_PKG_DESCRIPTION="Command-line wrapper for git that makes you better at GitHub"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="hub"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=2.14.2
-TERMUX_PKG_REVISION=6
-TERMUX_PKG_SRCURL=https://github.com/github/hub/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=e19e0fdfd1c69c401e1c24dd2d4ecf3fd9044aa4bd3f8d6fd942ed1b2b2ad21a
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="git"
-TERMUX_PKG_HOSTBUILD=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_host_build() {
-	termux_setup_golang
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	mkdir ./gopath
-	export GOPATH="$PWD/gopath"
-	mkdir -p "${GOPATH}/src/github.com/github"
-	cp -a "${TERMUX_PKG_SRCDIR}" "${GOPATH}/src/github.com/github/hub"
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	cd "${GOPATH}/src/github.com/github/hub"
-	make man-pages
-}
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-termux_step_pre_configure() {
-	termux_setup_golang
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	cd "$TERMUX_PKG_SRCDIR"
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-	export GOPATH="${TERMUX_PKG_BUILDDIR}"
-	mkdir -p "${GOPATH}/src/github.com/github"
-	cp -a "${TERMUX_PKG_SRCDIR}" "${GOPATH}/src/github.com/github/hub"
-}
-
-termux_step_make() {
-	cd "${GOPATH}/src/github.com/github/hub"
-	make bin/hub "prefix=$TERMUX_PREFIX"
-}
-
-termux_step_make_install() {
-	cd "${GOPATH}/src/github.com/github/hub"
-	install -Dm700 ./bin/hub "$TERMUX_PREFIX"/bin/hub
-
-	install -D -m 600 -t "$TERMUX_PREFIX"/share/man/man1 \
-		"$TERMUX_PKG_HOSTBUILD_DIR"/gopath/src/github.com/github/hub/share/man/man1/*.1
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

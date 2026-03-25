@@ -1,17 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://www.gnu.org/software/gnuit/
-TERMUX_PKG_DESCRIPTION="gnuit - GNU Interactive Tools"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="gnuit"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=4.9.5
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://mirrors.kernel.org/gnu/gnuit/gnuit-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=6b6e96db13bafa5ad35c735b2277699d4244088c709a3e134fb1a3e8c8a8557c
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-transition"
-TERMUX_PKG_DEPENDS="libandroid-support, ncurses"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_massage() {
-	cd $TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/share/gnuit
-	ln -s gnuitrc.xterm-color gnuitrc.xterm-256color
-	ln -s gnuitrc.screen gnuitrc.screen-color
-	ln -s gnuitrc.screen gnuitrc.screen-256color
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,35 +1,33 @@
-TERMUX_PKG_HOMEPAGE="https://xmlrpc-c.sourceforge.io/"
-TERMUX_PKG_DESCRIPTION="XML-RPC for C and C++"
-TERMUX_PKG_LICENSE="BSD 3-Clause"
-TERMUX_PKG_LICENSE_FILE="doc/COPYING"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="libxmlrpc"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.64.03"
-TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/project/xmlrpc-c/Xmlrpc-c%20Super%20Stable/${TERMUX_PKG_VERSION}/xmlrpc-${TERMUX_PKG_VERSION}.tgz
-TERMUX_PKG_SHA256=74729d364edbedbe42e782822da1e076f3f45c65c4278a3cfba5f2342d7cedbe
-TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_HOSTBUILD=true
-TERMUX_PKG_UPDATE_METHOD=repology
-TERMUX_PKG_BUILD_DEPENDS="libc++, libcurl, openssl"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
---disable-cgi-server
---disable-libwww-client
---disable-libxml2-backend
---disable-wininet-client
---enable-cplusplus
-"
 
-# separate host-build directory but build system does not support out-of-tree build
-termux_step_host_build() {
-	pushd $TERMUX_PKG_HOSTBUILD_DIR
-	cp -r $TERMUX_PKG_SRCDIR/* .
-	./configure
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-	# build only the required tool
-	make -C lib/expat/gennmtab
-	popd
-}
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-termux_step_post_configure() {
-	export GENNMTAB=$TERMUX_PKG_HOSTBUILD_DIR/lib/expat/gennmtab/gennmtab
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

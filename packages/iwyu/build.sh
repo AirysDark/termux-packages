@@ -1,12 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://include-what-you-use.org/
-TERMUX_PKG_DESCRIPTION="A tool to analyze #includes in C and C++ source files"
-TERMUX_PKG_LICENSE=NCSA
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="iwyu"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-# Update this and the clang version below when libllvm is updated:
-TERMUX_PKG_VERSION="0.25"
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_SRCURL="https://github.com/include-what-you-use/include-what-you-use/archive/refs/tags/$TERMUX_PKG_VERSION.tar.gz"
-TERMUX_PKG_SHA256=2e8381368ec0a6ecb770834bce00fc62efa09a2b2f9710ed569acbb823ead9cc
-TERMUX_PKG_AUTO_UPDATE=false # can't be auto-updated since release correspond to clang version.
-TERMUX_PKG_DEPENDS="clang (>= 21), clang (<< 22), libc++, python"
-TERMUX_PKG_BUILD_DEPENDS="libllvm-static"
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+}

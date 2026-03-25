@@ -1,50 +1,33 @@
-TERMUX_PKG_HOMEPAGE=https://gogs.io
-TERMUX_PKG_DESCRIPTION="A painless self-hosted Git service"
-TERMUX_PKG_LICENSE="MIT"
+#!/usr/bin/env bash
+# Auto-generated Termux build.sh
+TERMUX_PKG_NAME="gogs"
+TERMUX_PKG_HOMEPAGE=""
+TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.14.2"
-TERMUX_PKG_SRCURL=https://github.com/gogs/gogs/archive/refs/tags/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=fa16a396956edcfeb6a5a54e0de2c0837c9381ed49fb49ea2f40e9bc79ce9eb1
-TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="dash, git"
-TERMUX_PKG_CONFFILES="etc/gogs/app.ini"
-TERMUX_PKG_HOSTBUILD=true
+TERMUX_PKG_VERSION="0.0.1"
+TERMUX_PKG_SRCURL=""
+TERMUX_PKG_SHA256=""
+TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_host_build() {
-	termux_setup_golang
-	export GOPATH=$TERMUX_PKG_HOSTBUILD_DIR
-	mkdir -p $TERMUX_PKG_HOSTBUILD_DIR
-	cd $TERMUX_PKG_HOSTBUILD_DIR
-	go install github.com/kevinburke/go-bindata/go-bindata@v3.24.0
-}
+termux_step_post_make_install() {
+    echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-termux_step_make() {
-	termux_setup_golang
-	export GOPATH=$TERMUX_PKG_BUILDDIR
+    # Standard directories
+    mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-	mkdir -p "$GOPATH"/src/gogs.io
-	cp -a "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/gogs.io/gogs
-	cd "$GOPATH"/src/gogs.io/gogs
+    # --- PLACEHOLDERS ---
+    # Install binaries
+    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
 
-	LDFLAGS=""
-	LDFLAGS+=" -X gogs.io/gogs/internal/conf.CustomConf=$TERMUX_PREFIX/etc/gogs/app.ini"
-	LDFLAGS+=" -X gogs.io/gogs/internal/conf.AppWorkPath=$TERMUX_PREFIX/var/lib/gogs"
-	LDFLAGS+=" -X gogs.io/gogs/internal/conf.CustomPath=$TERMUX_PREFIX/var/lib/gogs"
+    # Install man pages
+    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
 
-	PATH=$PATH:$TERMUX_PKG_HOSTBUILD_DIR/bin go build -ldflags "${LDFLAGS}" -tags "bindata sqlite" -trimpath -o gogs
-}
+    # Install documentation
+    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-termux_step_make_install() {
-	install -Dm700 \
-		"$GOPATH"/src/gogs.io/gogs/gogs \
-		"$TERMUX_PREFIX"/bin/gogs
-
-	mkdir -p "$TERMUX_PREFIX"/etc/gogs
-	sed "s%\@TERMUX_PREFIX\@%${TERMUX_PREFIX}%g" \
-		"$TERMUX_PKG_BUILDER_DIR"/app.ini > "$TERMUX_PREFIX"/etc/gogs/app.ini
-}
-
-termux_step_post_massage() {
-	mkdir -p "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX"/var/lib/gogs
-	mkdir -p "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX"/var/log/gogs
+    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }
