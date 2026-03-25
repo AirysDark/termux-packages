@@ -1,7 +1,7 @@
 termux_step_install_pacman_hooks() {
 	[[ "$TERMUX_PACKAGE_FORMAT" != "pacman" ]] && return
 
-	local sed="sed -e s|@TERMUX_PREFIX@|${TERMUX_PREFIX}|g -e s|@TERMUX_PREFIX_TARGET@|${TERMUX_PREFIX:1}|g -e s|@TERMUX_ARCH@|${TERMUX_ARCH}|g"
+	local sed="sed -e s|/usr/local|${TERMUX_PREFIX}|g -e s|@TERMUX_PREFIX_TARGET@|${TERMUX_PREFIX:1}|g -e s|@TERMUX_ARCH@|${TERMUX_ARCH}|g"
 
 	# Installing hooks
 	local hooks

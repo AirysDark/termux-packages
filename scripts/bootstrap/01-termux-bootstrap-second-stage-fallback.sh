@@ -1,29 +1,27 @@
 #!@TERMUX_PREFIX@/bin/sh
 # shellcheck shell=sh
+# 01-termux-bootstrap-second-stage-fallback.sh
+# Fallback script to run Termux bootstrap second stage if never executed
+# This script is automatically removed after a successful run.
 
 (
-	# If termux bootstrap second stage has never been run, like in case
-	# bootstrap was extracted to rootfs from a shell instead of by the
-	# by the Termux app, which normally runs the second stage, then run it.
-	# This is currently an issue of pacman bootstraps, which are not
-	# supported by the Termux app and both extraction and second stage
-	# are run from a shell. Once support has been added, this script
-	# will be removed.
-	# Termux app wipes the prefix directory if second stage fails,
-	# as otherwise when app is restarted, the broken prefix directory
-	# would be used and logged into. We do not do that here as that
-	# may wipe other changes done to prefix and users should wipe
-	# manually if needed. We do not delete the lock file on failure
-	# as then second stage will run again when new shell is started
-	# which may affect already configured packages.
-	# The shell should still load if second stage run below fails.
-	if [ ! -L "@TERMUX_BOOTSTRAP__BOOTSTRAP_SECOND_STAGE_DIR@/@TERMUX_BOOTSTRAP__BOOTSTRAP_SECOND_STAGE_ENTRY_POINT_SUBFILE@.lock" ]; then
-		echo "Starting fallback run of termux bootstrap second stage"
-		chmod +x "@TERMUX_BOOTSTRAP__BOOTSTRAP_SECOND_STAGE_DIR@/@TERMUX_BOOTSTRAP__BOOTSTRAP_SECOND_STAGE_ENTRY_POINT_SUBFILE@" || exit $?
-		"@TERMUX_BOOTSTRAP__BOOTSTRAP_SECOND_STAGE_DIR@/@TERMUX_BOOTSTRAP__BOOTSTRAP_SECOND_STAGE_ENTRY_POINT_SUBFILE@" || exit $?
-	fi
+    # Determine the second-stage lock file path
+    LOCK_FILE="@TERMUX_BOOTSTRAP__BOOTSTRAP_SECOND_STAGE_DIR@/@TERMUX_BOOTSTRAP__BOOTSTRAP_SECOND_STAGE_ENTRY_POINT_SUBFILE@.lock"
+    ENTRY_POINT="@TERMUX_BOOTSTRAP__BOOTSTRAP_SECOND_STAGE_DIR@/@TERMUX_BOOTSTRAP__BOOTSTRAP_SECOND_STAGE_ENTRY_POINT_SUBFILE@"
 
-	# Delete script itself so that it is never run again
-	rm -f "@TERMUX__PREFIX__PROFILE_D_DIR@/01-termux-bootstrap-second-stage-fallback.sh" || exit $?
+    # Only run if the second stage has never been run
+    if [ ! -L "$LOCK_FILE" ]; then
+        echo "Starting fallback run of Termux bootstrap second stage..."
+
+        # Ensure entry point is executable
+        chmod +x "$ENTRY_POINT" || exit $?
+
+        # Run the second stage bootstrap
+        "$ENTRY_POINT" || exit $?
+    fi
+
+    # Remove this fallback script after execution
+    SCRIPT_PATH="@TERMUX__PREFIX__PROFILE_D_DIR@/01-termux-bootstrap-second-stage-fallback.sh"
+    rm -f "$SCRIPT_PATH" || exit $?
 
 ) || return $?

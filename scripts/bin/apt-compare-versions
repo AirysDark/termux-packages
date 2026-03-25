@@ -1,1 +1,30 @@
-../updates/utils/termux_pkg_is_update_needed.sh
+#!/usr/bin/env bash
+# check if package update is needed (Linux-native replacement)
+
+PKG_NAME="$1"
+NEW_VERSION="$2"
+
+if [[ -z "$PKG_NAME" || -z "$NEW_VERSION" ]]; then
+    echo "Usage: $0 <package_name> <new_version>"
+    exit 1
+fi
+
+# Get installed version (dpkg-query)
+INSTALLED_VERSION=$(dpkg-query -W -f='${Version}' "$PKG_NAME" 2>/dev/null || echo "none")
+
+if [[ "$INSTALLED_VERSION" == "none" ]]; then
+    echo "Package $PKG_NAME is not installed: update needed"
+    exit 0
+fi
+
+# Use apt-compare-versions for comparison
+apt-compare-versions "$INSTALLED_VERSION" lt "$NEW_VERSION"
+RESULT=$?
+
+if [[ $RESULT -eq 0 ]]; then
+    echo "Update needed for $PKG_NAME: $INSTALLED_VERSION → $NEW_VERSION"
+else
+    echo "No update needed for $PKG_NAME"
+fi
+
+exit $RESULT

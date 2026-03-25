@@ -1,22 +1,54 @@
-#!/bin/sh
-# Randomise buildorder.py test on packages directory
+#!/usr/bin/env bash
+# test-buildorder-random-linux.sh - Randomized build order test for packages-linux
 
+set -euo pipefail
+
+# Root of repository
+TERMUX_SCRIPTDIR=$(realpath "$(dirname "$0")/../..")
 export TERMUX_SCRIPTDIR
-TERMUX_SCRIPTDIR=$(realpath "$(dirname "$0")/../..") # Root of repository.
 
-cd "${TERMUX_SCRIPTDIR}" || exit 1
+cd "$TERMUX_SCRIPTDIR" || exit 1
 
-no_of_total_packages=0
-no_of_filter_packages=0
+TERMUX_ARCH="${TERMUX_ARCH:-x86_64}"
 
-total_packages=$(find packages -maxdepth 1 -type d | sort)
-filter_packages=$(find packages -maxdepth 2 -type f -name build.sh | xargs -P$(nproc) -i sh -c "if ! grep -E "^TERMUX_PKG_EXCLUDED_ARCHES=.*${TERMUX_ARCH}" {} >/dev/null; then dirname {}; fi" | sort)
+# -------------------------------
+# Gather packages
+# -------------------------------
 
-[ -n "${total_packages}" ] && no_of_total_packages=$(echo "${total_packages}" | wc -l)
-[ -n "${filter_packages}" ] && no_of_filter_packages=$(echo "${filter_packages}" | wc -l)
-echo "INFO: Filtered packages: ${no_of_filter_packages} of ${no_of_total_packages}"
+# All top-level package directories
+mapfile -t total_packages < <(find packages -maxdepth 1 -mindepth 1 -type d | sort)
 
-random_package_no=$(shuf -i 1-"${no_of_filter_packages}" -n 1)
-random_package=$(echo "${filter_packages}" | head -n"${random_package_no}" | tail -n1)
-echo "INFO: random_package = ${random_package}"
-./scripts/buildorder.py "${random_package}"
+# Filter packages not excluded for current arch
+mapfile -t filter_packages < <(
+    find packages -maxdepth 2 -type f -name build.sh |
+    xargs -n1 -P"$(nproc)" -I{} bash -c '
+        pkg_file="{}"
+        if ! grep -Eq "^TERMUX_PKG_EXCLUDED_ARCHES=.*'"$TERMUX_ARCH"'" "$pkg_file"; then
+            dirname "$pkg_file"
+        fi
+    ' |
+    sort -u
+)
+
+no_of_total_packages=${#total_packages[@]}
+no_of_filter_packages=${#filter_packages[@]}
+
+echo "INFO: Filtered packages: $no_of_filter_packages of $no_of_total_packages"
+
+if (( no_of_filter_packages == 0 )); then
+    echo "ERROR: No packages available for current architecture ($TERMUX_ARCH)."
+    exit 1
+fi
+
+# -------------------------------
+# Pick a random package
+# -------------------------------
+random_index=$(( RANDOM % no_of_filter_packages ))
+random_package="${filter_packages[$random_index]}"
+
+echo "INFO: Selected random package = $random_package"
+
+# -------------------------------
+# Run buildorder script
+# -------------------------------
+python3 ./scripts/buildorder-linux.py "$random_package" "packages"

@@ -1,5 +1,13 @@
-#!/bin/bash
-cd "$(realpath "$(dirname "$0")")/../.." || { echo "cd failed"; exit 1; }
+#!/usr/bin/env bash
+##
+## validation.sh - Batch build Golang/Zig packages with splitting & CI summary
+##
+
+set -euo pipefail
+
+cd "$(realpath "$(dirname "$0")/../..")" || { echo "ERROR: failed to cd to repo root"; exit 1; }
+
+# Read packages directories from repo.json
 readarray -t TERMUX_PACKAGE_DIRECTORIES < <(jq --raw-output 'del(.pkg_format) | keys | .[]' repo.json)
 
 usage() {
@@ -10,105 +18,98 @@ usage() {
 	echo "  PACKAGES - golang, zig"
 	echo
 	echo "EXAMPLES:"
-	echo "  $0 aarch64 golang         Build all aarch64 golang based packages"
-	echo "  $0 aarch64 golang list    Split aarch64 golang based package list"
+	echo "  $0 aarch64 golang         Build all aarch64 golang-based packages"
+	echo "  $0 aarch64 golang list    Split aarch64 golang-based package list"
 	echo "  $0 aarch64 golang 2       Build 2nd batch of said list"
+	exit 1
 }
 
-case "${1}" in
+# Validate architecture
+case "${1:-}" in
 	aarch64|arm|i686|x86_64)
 		ARCH="${1}"
 		;;
 	*)
-		echo "ERROR: Invalid args: $*" 1>&2
+		echo "ERROR: Invalid architecture: $1" 1>&2
 		usage
-		exit 1
 		;;
 esac
 
+# Prepare packages list based on second argument
 STRATEGY=(50 50)
 EXCLUDE_BIG_PACKAGES=false
 BIG_PACKAGES_IN_SEPARATE_BATCH=false
 
-case "${2}" in
+case "${2:-}" in
 	golang)
-		readarray -t PACKAGES < <(grep -rl termux_setup_golang --include=build.sh --exclude-dir=golang "${TERMUX_PACKAGE_DIRECTORIES[@]}" | cut -d/ -f1,2 | sort -u | cut -d/ -f2 || :) || :
+		readarray -t PACKAGES < <(
+			grep -rl termux_setup_golang --include=build.sh --exclude-dir=golang "${TERMUX_PACKAGE_DIRECTORIES[@]}" \
+			| cut -d/ -f1,2 | sort -u | cut -d/ -f2 || :
+		)
 		STRATEGY=(100)
 		EXCLUDE_BIG_PACKAGES=true
 		BIG_PACKAGES_IN_SEPARATE_BATCH=true
 		;;
 	zig)
-		readarray -t PACKAGES < <(grep -rl termux_setup_zig --include=build.sh --exclude-dir=zig "${TERMUX_PACKAGE_DIRECTORIES[@]}" | cut -d/ -f1,2 | sort -u | cut -d/ -f2 || :) || :
+		readarray -t PACKAGES < <(
+			grep -rl termux_setup_zig --include=build.sh --exclude-dir=zig "${TERMUX_PACKAGE_DIRECTORIES[@]}" \
+			| cut -d/ -f1,2 | sort -u | cut -d/ -f2 || :
+		)
 		STRATEGY=(100)
 		;;
 	*)
-		echo "ERROR: Invalid args: $*" 1>&2
+		echo "ERROR: Invalid packages: $2" 1>&2
 		usage
-		exit 1
 		;;
 esac
 
+# Validate strategy sums to 100%
 SUM_PERCENT=0
 for PERCENT in "${STRATEGY[@]}"; do
-	SUM_PERCENT=$((SUM_PERCENT+PERCENT))
+	SUM_PERCENT=$((SUM_PERCENT + PERCENT))
 done
-if [[ "${SUM_PERCENT}" != 100 ]]; then
-	echo "ERROR: STRATEGY = $(echo "${STRATEGY[@]}" | tr " " "+") = ${SUM_PERCENT} != 100" 1>&2
-	exit 1
-fi
+[[ "$SUM_PERCENT" -eq 100 ]] || { echo "ERROR: STRATEGY does not sum to 100"; exit 1; }
 
+# ----------------------------
+# Split packages into batches
+# ----------------------------
 split_build_job() {
 	local PACKAGE_RATIO=()
 	local CUM_PACKAGE_RATIO=()
-	local BATCHES=${#STRATEGY[@]}
 	local PREV_RATIO=0
-	local BATCH
+	local BATCH BATCHES=${#STRATEGY[@]}
 	for BATCH in $(seq 0 $((BATCHES-1))); do
-		PACKAGE_RATIO[BATCH]=$((STRATEGY[BATCH]*${#PACKAGES[@]}/100))
-		CUM_PACKAGE_RATIO[BATCH]=$((STRATEGY[BATCH]*${#PACKAGES[@]}/100+PREV_RATIO))
+		PACKAGE_RATIO[BATCH]=$((STRATEGY[BATCH] * ${#PACKAGES[@]} / 100))
+		CUM_PACKAGE_RATIO[BATCH]=$((PACKAGE_RATIO[BATCH] + PREV_RATIO))
 		PREV_RATIO=${CUM_PACKAGE_RATIO[BATCH]}
 	done
-	local REMAINDER=$((${#PACKAGES[@]}-CUM_PACKAGE_RATIO[-1]))
-	if [[ "${REMAINDER}" != 0 ]]; then
-		PACKAGE_RATIO[-1]=$((PACKAGE_RATIO[-1]+REMAINDER))
-		CUM_PACKAGE_RATIO[-1]=${#PACKAGES[@]}
-	fi
 
+	# Handle remainder
+	local REMAINDER=$((${#PACKAGES[@]} - CUM_PACKAGE_RATIO[-1]))
+	PACKAGE_RATIO[-1]=$((PACKAGE_RATIO[-1]+REMAINDER))
+	CUM_PACKAGE_RATIO[-1]=${#PACKAGES[@]}
+
+	# Identify big packages
 	unset BIG_PACKAGES
 	BIG_PACKAGES=()
 	local PACKAGE
 	for PACKAGE in "${PACKAGES[@]}"; do
-		while IFS= read -r PKG; do
-			if [[ "${PKG}" == "${PACKAGE}" ]]; then
-				BIG_PACKAGES+=("${PACKAGE}")
-				break
-			fi
-		done < scripts/big-pkgs.list
+		if grep -Fxq "$PACKAGE" scripts/big-pkgs.list; then
+			BIG_PACKAGES+=("$PACKAGE")
+		fi
 	done
 
-	local PACKAGES1=()
-	local BATCH_NO=0
-	local OLD_MIDPOINT=0
+	# Allocate packages per batch
+	local PACKAGES1=() BATCH_NO=0 OLD_MIDPOINT=0 PACKAGE_NO
 	for MIDPOINT in "${CUM_PACKAGE_RATIO[@]}"; do
-		local COUNT=0
+		PACKAGE_NO=0
 		for PACKAGE in "${PACKAGES[@]}"; do
-			COUNT=$((COUNT+1))
-			if [[ "${EXCLUDE_BIG_PACKAGES}" == "true" ]]; then
-				local PKG
-				local BIG_PACKAGE=false
-				while IFS= read -r PKG; do
-					if [[ "${PKG}" == "${PACKAGE}" ]]; then
-						BIG_PACKAGE=true
-						break
-					fi
-				done < <(echo "${BIG_PACKAGES[@]}" | tr " " "\n")
-				if [[ "${BIG_PACKAGE}" == true ]]; then
-					continue
-				fi
-			fi
-			if (( "${COUNT}" <= "${OLD_MIDPOINT}" )); then
+			PACKAGE_NO=$((PACKAGE_NO+1))
+			if [[ "$EXCLUDE_BIG_PACKAGES" == "true" ]] && [[ " ${BIG_PACKAGES[*]} " == *" $PACKAGE "* ]]; then
 				continue
-			elif (( "${COUNT}" <= "${MIDPOINT}" )); then
+			fi
+			if (( PACKAGE_NO <= OLD_MIDPOINT )); then continue; fi
+			if (( PACKAGE_NO <= MIDPOINT )); then
 				PACKAGES1+=("${BATCH_NO}:${PACKAGE}")
 			else
 				break
@@ -117,129 +118,98 @@ split_build_job() {
 		OLD_MIDPOINT=${MIDPOINT}
 		BATCH_NO=$((BATCH_NO+1))
 	done
+
+	# Print batches
 	local BATCH=0
-	local PACKAGE_NO=0
-	local NEW_PACKAGE_RATIO=()
 	for PACKAGE in "${PACKAGES1[@]}"; do
-		if [[ "${EXCLUDE_BIG_PACKAGES}" == "true" ]]; then
-			local PKG
-			local BIG_PACKAGE=false
-			while IFS= read -r PKG; do
-				if [[ "${PKG}" == "${PACKAGE%:*}" ]]; then
-					BIG_PACKAGE=true
-					break
-				fi
-			done < <(echo "${BIG_PACKAGES[@]}" | tr " " "\n")
-			if [[ "${BIG_PACKAGE}" == true ]]; then
-				continue
-			fi
-		fi
-		if [[ "${BATCH}" != "${PACKAGE%:*}" ]]; then
+		if [[ "$BATCH" != "${PACKAGE%:*}" ]]; then
 			printf "\n"
 			BATCH=$((BATCH+1))
 			PACKAGE_NO=0
 		fi
-		if [[ "${PACKAGE_NO}" == 0 ]]; then
+		if (( PACKAGE_NO == 0 )); then
 			printf "%s" "${PACKAGE#*:}"
-			NEW_PACKAGE_RATIO[BATCH]=1
 		else
 			printf " %s" "${PACKAGE#*:}"
-			NEW_PACKAGE_RATIO[BATCH]=$((NEW_PACKAGE_RATIO[BATCH]+1))
 		fi
 		PACKAGE_NO=$((PACKAGE_NO+1))
 	done
-	if [[ "${BIG_PACKAGES_IN_SEPARATE_BATCH}" == "true" ]]; then
-		printf "\n%s" "$(echo "${BIG_PACKAGES[@]}" | tr "\n" " " | sed "s| $||")"
-		NEW_PACKAGE_RATIO+=("${#BIG_PACKAGES[@]}")
+
+	# Print big packages separately
+	if [[ "$BIG_PACKAGES_IN_SEPARATE_BATCH" == "true" ]]; then
+		printf "\n%s" "$(echo "${BIG_PACKAGES[@]}" | tr "\n" " " | sed 's/ $//')"
 	fi
-	printf "\n\n"
-	echo "Number of packages:            ${#PACKAGES[@]}"
-	echo "Number of big packages:        ${#BIG_PACKAGES[@]}"
-	echo "Batches (expected):            ${#STRATEGY[@]}"
-	echo "Packages per batch (expected): ${PACKAGE_RATIO[*]}"
-	echo "Batches (actual):              ${#NEW_PACKAGE_RATIO[*]}"
-	echo "Packages per batch (actual):   ${NEW_PACKAGE_RATIO[*]}"
+	printf "\n\nNumber of packages: %d\n" "${#PACKAGES[@]}"
+	printf "Number of big packages: %d\n" "${#BIG_PACKAGES[@]}"
+	printf "Batches (expected): %d\n" "${#STRATEGY[@]}"
 }
 
-if [[ "${3}" == "list" ]]; then
+# ----------------------------
+# Parse third argument
+# ----------------------------
+if [[ "${3:-}" == "list" ]]; then
 	split_build_job
 	exit
-elif (( "${3}" )); then
-	readarray -t SPLIT_PACKAGES < <(split_build_job 2>/dev/null | head -n "${3}" | tail -n1 | tr " " "\n")
-	unset PACKAGES
+elif [[ "${3:-}" =~ ^[0-9]+$ ]]; then
+	readarray -t SPLIT_PACKAGES < <(split_build_job 2>/dev/null | head -n "$3" | tail -n1 | tr " " "\n")
 	PACKAGES=("${SPLIT_PACKAGES[@]}")
-elif [[ -n "${3}" ]]; then
+elif [[ -n "${3:-}" ]]; then
 	echo "ERROR: Invalid args: $*" 1>&2
 	usage
-	exit 1
 fi
 
-# Converts milliseconds to human-readable format.
-# Example: `ms_to_human_readable 123456789` => 34h 17m 36s 789ms
+# ----------------------------
+# Build packages
+# ----------------------------
 ms_to_human_readable() {
-	echo "$(($1/3600000))h $(($1%3600000/60000))m $(($1%60000/1000))s $(($1%1000))ms" | sed 's/0h //;s/0m //;s/0s //'
+	echo "$(($1/3600000))h $(($1%3600000/60000))m $(($1%60000/1000))s $(($1%1000))ms" \
+		| sed 's/0h //;s/0m //;s/0s //'
 }
 
 maybe_cleanup() {
+	local PACKAGE="$1" CLEANUP_THRESHOLD=10
 	[[ -z "$CI" ]] && return
-	local PACKAGE="$1" CLEANUP_THRESHOLD=10 # GiB
-
-	if grep -Fxq "$PACKAGE" scripts/big-pkgs.list; then
-		echo "INFO: performing cleanup before building big package."
-	elif df "$HOME" | awk -v t="$CLEANUP_THRESHOLD" 'NR == 2 { exit ($4 / 1024^2 < t ? 0 : 1) }'; then
-		echo "INFO: Cleaning up, free disk space is below the threshold (${CLEANUP_THRESHOLD} GiB)."
-	else
-		return
+	if grep -Fxq "$PACKAGE" scripts/big-pkgs.list || \
+	   df "$HOME" | awk -v t="$CLEANUP_THRESHOLD" 'NR==2 {exit ($4/1024^2 < t ? 0 : 1)}'; then
+		echo "INFO: Cleaning up before building ${PACKAGE}"
+		./scripts/run-docker.sh ./clean.sh
+		rm -rf ./output/*
 	fi
-
-	./scripts/run-docker.sh ./clean.sh
-	rm -rf ./output/*
 }
 
-# This script aims to:
-# 1. Obtain a list of all Golang packages.
-# 2. Build them.
-# 3. Create a CI summary containing only build logs of failed build attempts.
+echo "INFO: Rebuild list: ${PACKAGES[*]}" | tee "${GITHUB_STEP_SUMMARY:-/dev/null}"
 
-[[ -z "$CI" ]] && echo "INFO: Not running in CI environment, cleanup will not be performed."
-echo "INFO: Rebuild list: ${PACKAGES[*]}" | tee "${GITHUB_STEP_SUMMARY}"
-
-output=""
 declare -A failed=()
 start_building_arch="$(date +%10s%3N)"
 for package in "${PACKAGES[@]}"; do
-	output="$(
+	output=$(
 		start="$(date +%10s%3N)"
-		exec > >(tee /dev/fd/2) 2>&1 # output everything to both variable and stdout.
-
-		# Header
+		exec > >(tee /dev/fd/2) 2>&1
 		echo "INFO: Building ${package} for ${ARCH}"
-		maybe_cleanup "${package}"
-		./scripts/run-docker.sh ./build-package.sh -I -f -a "${ARCH}" "${package}"
+		maybe_cleanup "$package"
+		./scripts/run-docker.sh ./build-package.sh -I -f -a "$ARCH" "$package"
 		status="${PIPESTATUS[0]}"
-		echo # newline
+		echo
 		echo "INFO: Building ${package} for ${ARCH} took $(ms_to_human_readable $(( $(date +%10s%3N) - start )))"
-		echo # newline
 		exit "$status"
-	)" || failed["${package} ${ARCH}"]="${output}"
+	) || failed["${package} ${ARCH}"]="$output"
 done
-echo "INFO: Building all packages for ${ARCH} took $(ms_to_human_readable $(( $(date +%10s%3N) - start_building_arch )))" | tee -a "${GITHUB_STEP_SUMMARY}"
-echo # newline
 
+echo "INFO: Completed all packages for ${ARCH} in $(ms_to_human_readable $(( $(date +%10s%3N) - start_building_arch )))" | tee -a "${GITHUB_STEP_SUMMARY:-/dev/null}"
+
+# ----------------------------
+# Report failures
+# ----------------------------
 if (( ${#failed[@]} > 0 )); then
-	echo "Writing output for failed packages to '$GITHUB_STEP_SUMMARY' to be logged in summary." >&2
-	echo "### The packages below failed to build for ${ARCH}." >> "$GITHUB_STEP_SUMMARY"
-fi
-
-for entry in "${!failed[@]}"; do
-	echo "${failed["${entry}"]}" >> "${GITHUB_STEP_SUMMARY}"
 	{
-	echo "<details><summary><code>${entry% *}</code></summary><p>"
-	echo ""
-	echo "${failed["${entry}"]}"
-	echo ""
-	echo "</p></details>"
-	} >> "$GITHUB_STEP_SUMMARY"
-done
-
-exit $(( ${#failed[@]} > 0 ))
+		echo "### The packages below failed to build for ${ARCH}."
+		for entry in "${!failed[@]}"; do
+			echo "<details><summary><code>${entry% *}</code></summary><p>"
+			echo ""
+			echo "${failed["$entry"]}"
+			echo ""
+			echo "</p></details>"
+		done
+	} >> "${GITHUB_STEP_SUMMARY:-/dev/null}"
+	exit 1
+fi

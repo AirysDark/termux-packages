@@ -49,7 +49,7 @@ termux_setup_gir() {
 			unset TERMUX_G_IR_COMPILER
 
 			mkdir -p "$bin"
-			sed -e "s|@TERMUX_PREFIX@|${TERMUX_PREFIX}|g" \
+			sed -e "s|/usr/local|${TERMUX_PREFIX}|g" \
 				"$TERMUX_SCRIPTDIR/packages/gobject-introspection/gi-cross-launcher-on-device.in" \
 				> "$GI_CROSS_LAUNCHER"
 			chmod 0700 "$GI_CROSS_LAUNCHER"
