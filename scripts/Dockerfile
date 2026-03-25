@@ -7,10 +7,10 @@
 
 FROM ubuntu:24.04
 
-# Fix locale to avoid warnings
+# Fix locale to avoid warnings:
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
-ENV container=docker
+ENV container docker
 ENV TMPDIR=/tmp
 
 # Prevent systemd tmpfiles warnings
@@ -28,21 +28,23 @@ COPY ./build/termux_download.sh /tmp/termux-packages/scripts/build/
 # Setup needed packages and environment for Linux-only builds
 RUN apt-get update && \
     apt-get -yq upgrade && \
-    apt-get install -yq sudo curl gnupg git lzip tar unzip python3 python3-pip locales jq xz-utils pkg-config bash && \
+    apt-get install -yq sudo curl gnupg git lzip tar unzip python3 python3-pip locales jq xz-utils pkg-config && \
     # Create builder user
     userdel ubuntu || true && \
     useradd -u 1001 -U -m -s /bin/bash builder && \
     echo "builder ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/builder && \
-    chmod 0440 /etc/sudoers.d/builder && \
-    chmod a+rx /tmp/termux-packages/scripts/*.sh /tmp/termux-packages/scripts/build/termux_download.sh
+    chmod 0440 /etc/sudoers.d/builder
 
-# Switch to builder user before running scripts to avoid su issues
+# Ensure scripts are executable (as root)
+RUN chmod +x /tmp/termux-packages/scripts/setup-*.sh \
+ && chmod +x /tmp/termux-packages/scripts/build/termux_download.sh
+
+# Switch to builder user before running scripts
 USER builder:builder
 WORKDIR /home/builder/termux-packages
 
-# Ensure scripts are executable and run them explicitly via bash
-RUN chmod +x /tmp/termux-packages/scripts/setup-*.sh && \
-    bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' /tmp/termux-packages/scripts/setup-ubuntu.sh && \
+# Run setup scripts as builder user
+RUN bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' /tmp/termux-packages/scripts/setup-ubuntu.sh && \
              TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' /tmp/termux-packages/scripts/setup-cgct.sh"
 
 # Cleanup unused packages and temporary files to reduce image size
