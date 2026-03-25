@@ -1,0 +1,50 @@
+name: Build Termux Packages Only
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - dev
+    paths:
+      - 'packages/**'
+      - 'root-packages/**'
+      - 'x11-packages/**'
+      - 'scripts/**'
+
+jobs:
+  build-packages:
+    name: Build Termux Packages
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        arch: [aarch64, arm, i686, x86_64]
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Pull Docker image
+        run: |
+          docker pull ghcr.io/${{ github.repository_owner }}/package-builder:latest
+
+      - name: Free disk space
+        run: ./scripts/free-space.sh || true
+
+      - name: Build packages for ${{ matrix.arch }}
+        run: |
+          ./scripts/run-docker.sh true
+          ./scripts/bin/update-packages "@all"
+
+      - name: Archive built .deb files
+        run: |
+          mkdir -p artifacts
+          find output -type f -name '*.deb' -exec mv {} artifacts/ \;
+
+      - name: Upload built packages as artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: termux-debs-${{ matrix.arch }}
+          path: artifacts/
