@@ -40,6 +40,12 @@ jobs:
           chmod +x ./scripts/free-space.sh
           ./scripts/free-space.sh 2>&1 | tee /tmp/free-space.log || true
 
+      # Step 3b: Generate missing build.sh files
+      - name: Generate missing build.sh for packages
+        run: |
+          chmod +x ./scripts/setup-build-sh.sh
+          ./scripts/setup-build-sh.sh
+
       # Step 4: Build packages for matrix architectures
       - name: Build packages for ${{ matrix.arch }}
         run: |

@@ -3,7 +3,7 @@
 ## update-packages-linux.sh - Auto-update Termux packages on Linux
 ##
 
-set -uo pipefail
+set -euo pipefail
 
 # ----------------------------
 # Configuration (environment)
@@ -64,11 +64,13 @@ _update() {
 	TERMUX_PKG_BUILDER_DIR="$(realpath "$pkg_dir")"
 
 	set +eu
-	. "$TERMUX_PKG_BUILDER_DIR/build.sh" 2>/dev/null
+	if [ -f "$TERMUX_PKG_BUILDER_DIR/build.sh" ]; then
+		. "$TERMUX_PKG_BUILDER_DIR/build.sh" 2>/dev/null
+	fi
 	set -eu
 
 	echo
-	echo "INFO: Updating ${TERMUX_PKG_NAME} [Current version: ${TERMUX_PKG_VERSION}]"
+	echo "INFO: Updating ${TERMUX_PKG_NAME} [Current version: ${TERMUX_PKG_VERSION:-unknown}]"
 	exec {IPC_FIFO_FD}<>"$IPC_FIFO"
 	termux_pkg_auto_update 3>&"${IPC_FIFO_FD}"
 	exec {IPC_FIFO_FD}>&-
@@ -83,10 +85,8 @@ declare -A _ALREADY_SEEN=()
 
 _fetch_and_cache_tags() {
 	local pkg_dirs=("$@")
-	# call buildorder-linux.py to order dependencies
 	for pkg_dir in "${pkg_dirs[@]}"; do
-		# skip packages with custom termux_pkg_auto_update
-		if grep -q 'termux_pkg_auto_update' "$pkg_dir/build.sh"; then
+		if [ -f "$pkg_dir/build.sh" ] && grep -q 'termux_pkg_auto_update' "$pkg_dir/build.sh"; then
 			continue
 		fi
 		BUILD_PACKAGES=false quiet _should_update "$pkg_dir" || continue
@@ -98,7 +98,9 @@ _check_updated() {
 	local latest_tag="${_LATEST_TAGS[${pkg_dir##*/}]:-}"
 	[[ -n "$latest_tag" ]] || return 1
 	set +eu
-	quiet source "$pkg_dir/build.sh"
+	if [ -f "$pkg_dir/build.sh" ]; then
+		quiet source "$pkg_dir/build.sh"
+	fi
 	export TERMUX_PKG_NAME="${pkg_dir##*/}"
 	TERMUX_PKG_UPGRADE_VERSION_DRY_RUN=1
 	termux_pkg_upgrade_version "$latest_tag" >/dev/null
@@ -112,7 +114,7 @@ _run_update() {
 	export TERMUX_PKG_NAME="$pkg_name"
 
 	local _CURRENT_VERSION _NEWEST_VERSION output
-	_CURRENT_VERSION="$(set +eu; . "$pkg_dir/build.sh"; echo "${TERMUX_PKG_VERSION#*:}")"
+	_CURRENT_VERSION="$(set +eu; [ -f "$pkg_dir/build.sh" ] && . "$pkg_dir/build.sh"; echo "${TERMUX_PKG_VERSION#*:}")"
 	read -rt0.001 _ < "$IPC_FIFO"
 
 	if output="$(set -euo pipefail; exec > >(tee /dev/fd/2) 2>&1; _update "$pkg_dir")"; then
