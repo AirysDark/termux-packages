@@ -42,10 +42,10 @@ fi
 # CGCT packages and versions
 # -----------------------------
 declare -A CGCT=(
-    ["cbt"]="2.45.1-0"       # Cross Binutils for Termux
-    ["cgt"]="15.2.0-0"       # Cross GCCs for Termux
-    ["glibc-cgct"]="2.42-0"  # Glibc for CGCT
-    ["cgct-headers"]="6.18.6-0" # Headers for CGCT
+    ["cbt"]="2.45.1-0"
+    ["cgt"]="15.2.0-0"
+    ["glibc-cgct"]="2.42-0"
+    ["cgct-headers"]="6.18.6-0"
 )
 
 # -----------------------------
@@ -56,13 +56,13 @@ TMPDIR_CGCT="${TERMUX_PKG_TMPDIR}/cgct"
 CGCT_DIR="/opt/cgct"
 
 mkdir -p "$TMPDIR_CGCT"
-
-# Remove old installation
-if [ -d "$CGCT_DIR" ]; then
-    echo "Removing old CGCT..."
-    rm -rf "$CGCT_DIR"
-fi
 mkdir -p "$CGCT_DIR"
+
+# Remove old installation if present
+if [ -d "$CGCT_DIR" ] && [ "$(ls -A "$CGCT_DIR")" ]; then
+    echo "Removing old CGCT..."
+    rm -rf "$CGCT_DIR"/*
+fi
 
 # -----------------------------
 # Download CGCT manifest
@@ -77,7 +77,7 @@ if [ ! -s "$CGCT_MANIFEST_JSON" ]; then
 fi
 
 # -----------------------------
-# Download and extract packages
+# Download, verify, and extract packages
 # -----------------------------
 for pkgname in "${!CGCT[@]}"; do
     version="${CGCT[$pkgname]}"
@@ -90,7 +90,7 @@ for pkgname in "${!CGCT[@]}"; do
         echo "Error: version mismatch for '${pkgname}': requested '${version}', got '${version_of_json}'"
         exit 1
     fi
-    if [ "$SHA256SUM" = "null" ] || [ "$filename" = "null" ]; then
+    if [ -z "$SHA256SUM" ] || [ "$SHA256SUM" = "null" ] || [ -z "$filename" ] || [ "$filename" = "null" ]; then
         echo "Error: package '${pkgname}' missing SHA256SUM or filename in manifest"
         exit 1
     fi
@@ -100,6 +100,9 @@ for pkgname in "${!CGCT[@]}"; do
         echo "Downloading ${pkgname}..."
         termux_download "${REPO_URL}/${filename}" "$TMPDIR_CGCT/$filename" "$SHA256SUM"
     fi
+
+    # Verify SHA256 checksum
+    echo "${SHA256SUM}  $TMPDIR_CGCT/$filename" | sha256sum -c -
 
     # Extract package
     echo "Extracting ${pkgname}..."
