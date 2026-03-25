@@ -39,6 +39,39 @@ __termux_build_props__add_variables_validator_actions() {
     __TERMUX_BUILD_PROPS__VARIABLES_VALIDATOR_ACTIONS_MAP["$variable_name"]+="$validator_actions"
 }
 
+# -----------------------------
+# Define the missing function to avoid Docker CI errors
+# -----------------------------
+termux_build_props__set_termux_prefix_dir_and_sub_variables() {
+    local prefix_dir="$1"
+    local export_subdirs="${2:-false}"
+
+    if [ -z "$prefix_dir" ]; then
+        echo "Prefix directory not provided" >&2
+        return 1
+    fi
+
+    TERMUX__PREFIX="$prefix_dir"
+    TERMUX_PREFIX="$prefix_dir"
+    TERMUX__PREFIX_CLASSICAL="$prefix_dir"
+    TERMUX_PREFIX_CLASSICAL="$prefix_dir"
+
+    if [ "$export_subdirs" = "true" ]; then
+        TERMUX__PREFIX__BIN_DIR="$prefix_dir/bin"
+        TERMUX__PREFIX__ETC_DIR="$prefix_dir/etc"
+        TERMUX__PREFIX__BASE_INCLUDE_DIR="$prefix_dir/include"
+        TERMUX__PREFIX__MULTI_INCLUDE_DIR="$prefix_dir/include32"
+        TERMUX__PREFIX__BASE_LIB_DIR="$prefix_dir/lib"
+        TERMUX__PREFIX__MULTI_LIB_DIR="$prefix_dir/lib32"
+        TERMUX__PREFIX__LIBEXEC_DIR="$prefix_dir/libexec"
+        TERMUX__PREFIX__OPT_DIR="$prefix_dir/opt"
+        TERMUX__PREFIX__SHARE_DIR="$prefix_dir/share"
+        TERMUX__PREFIX__VAR_DIR="$prefix_dir/var"
+    fi
+}
+export -f termux_build_props__set_termux_prefix_dir_and_sub_variables
+# -----------------------------
+
 ### Regex definitions ###
 
 TERMUX_REGEX__ABSOLUTE_PATH='^(/[^/]+)+$'
@@ -112,30 +145,6 @@ __termux_build_props__add_variables_validator_actions "TERMUX__PREFIX" "safe_abs
 TERMUX_PREFIX="$TERMUX__PREFIX"
 TERMUX__PREFIX_CLASSICAL="$TERMUX__PREFIX"
 TERMUX_PREFIX_CLASSICAL="$TERMUX__PREFIX"
-
-# Set subdirectories for bin, etc, lib, include, tmp, share, var
-TERMUX__PREFIX__BIN_SUBDIR="bin"
-TERMUX__PREFIX__BIN_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__BIN_SUBDIR"
-TERMUX__PREFIX__ETC_SUBDIR="etc"
-TERMUX__PREFIX__ETC_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__ETC_SUBDIR"
-TERMUX__PREFIX__BASE_INCLUDE_SUBDIR="include"
-TERMUX__PREFIX__BASE_INCLUDE_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__BASE_INCLUDE_SUBDIR"
-TERMUX__PREFIX__MULTI_INCLUDE_SUBDIR="include32"
-TERMUX__PREFIX__MULTI_INCLUDE_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__MULTI_INCLUDE_SUBDIR"
-TERMUX__PREFIX__BASE_LIB_SUBDIR="lib"
-TERMUX__PREFIX__BASE_LIB_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__BASE_LIB_SUBDIR"
-TERMUX__PREFIX__MULTI_LIB_SUBDIR="lib32"
-TERMUX__PREFIX__MULTI_LIB_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__MULTI_LIB_SUBDIR"
-TERMUX__PREFIX__LIB_SUBDIR="$TERMUX__PREFIX__BASE_LIB_SUBDIR"
-TERMUX__PREFIX__LIB_DIR="$TERMUX__PREFIX__BASE_LIB_DIR"
-TERMUX__PREFIX__LIBEXEC_SUBDIR="libexec"
-TERMUX__PREFIX__LIBEXEC_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__LIBEXEC_SUBDIR"
-TERMUX__PREFIX__OPT_SUBDIR="opt"
-TERMUX__PREFIX__OPT_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__OPT_SUBDIR"
-TERMUX__PREFIX__SHARE_SUBDIR="share"
-TERMUX__PREFIX__SHARE_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__SHARE_SUBDIR"
-TERMUX__PREFIX__VAR_SUBDIR="var"
-TERMUX__PREFIX__VAR_DIR="$TERMUX__PREFIX/$TERMUX__PREFIX__VAR_SUBDIR"
 
 # -----------------------------
 # Set prefix sub variables
