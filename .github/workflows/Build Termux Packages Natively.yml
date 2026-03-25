@@ -1,0 +1,57 @@
+name: Build Termux Packages Natively
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - dev
+    paths:
+      - 'packages/**'
+      - 'root-packages/**'
+      - 'x11-packages/**'
+      - 'scripts/**'
+
+jobs:
+  build-packages:
+    name: Build Termux Packages
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        arch: [aarch64, arm, i686, x86_64]
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Termux Build Environment
+        run: |
+          chmod +x ./scripts/setup-native-termux.sh
+          ./scripts/setup-native-termux.sh
+
+      - name: Free disk space
+        run: ./scripts/free-space.sh || true
+
+      - name: Build packages for ${{ matrix.arch }}
+        run: ./scripts/bin/update-packages "@all"
+
+      - name: Archive built .deb files
+        run: |
+          mkdir -p artifacts
+          find output -type f -name '*.deb' -exec mv {} artifacts/ \;
+
+      - name: Upload built packages as artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: termux-debs-${{ matrix.arch }}
+          path: artifacts/
+
+      - name: Upload CGCT build log if exists
+        if: failure() || always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cgct-build-log-${{ matrix.arch }}
+          path: /tmp/cgct_build.log
