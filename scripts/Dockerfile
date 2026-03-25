@@ -35,7 +35,6 @@ COPY ./build/termux_download.sh /tmp/termux-packages/scripts/build/
 RUN apt-get update && \
     apt-get -yq upgrade && \
     apt-get install -yq sudo curl gnupg git lzip tar unzip python3 python3-pip locales jq xz-utils pkg-config && \
-    # Remove default ubuntu user and add builder
     userdel ubuntu || true && \
     useradd -u 1001 -U -m -s /bin/bash builder && \
     echo "builder ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/builder && \
@@ -69,9 +68,13 @@ USER builder:builder
 WORKDIR /home/builder/termux-packages
 
 # -----------------------------
-# Run setup scripts as builder
+# Run setup scripts as builder with safe defaults
 # -----------------------------
-RUN bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' /tmp/termux-packages/scripts/setup-ubuntu.sh && \
+RUN bash -c "TERMUX_PKGS__BUILD__IS_DOCKER_BUILD='true' \
+             TERMUX_HOST_LLVM_MAJOR_VERSION=16 \
+             TERMUX_HOST_GCC_VERSION=13 \
+             TERMUX_PKG_TMPDIR=/tmp \
+             /tmp/termux-packages/scripts/setup-ubuntu.sh && \
              /tmp/termux-packages/scripts/setup-cgct.sh"
 
 # -----------------------------
