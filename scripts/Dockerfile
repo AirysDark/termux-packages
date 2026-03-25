@@ -32,7 +32,7 @@ COPY ./llvm-snapshot.gpg.key ./properties.sh ./setup-ubuntu.sh ./setup-cgct.sh /
 COPY ./build/termux_download.sh /tmp/termux-packages/scripts/build/
 
 # -----------------------------
-# Install packages & create builder user
+# Install essential packages & create builder user
 # -----------------------------
 RUN apt-get update && \
     apt-get -yq upgrade && \
@@ -43,6 +43,12 @@ RUN apt-get update && \
     && useradd -u 1001 -U -m -s /bin/bash builder \
     && echo "builder ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/builder \
     && chmod 0440 /etc/sudoers.d/builder
+
+# -----------------------------
+# Generate locale early to avoid tex-common/fmtutil errors
+# -----------------------------
+RUN locale-gen en_US.UTF-8 \
+ && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 # -----------------------------
 # Copy AppArmor profile (for reference only, no parsing)

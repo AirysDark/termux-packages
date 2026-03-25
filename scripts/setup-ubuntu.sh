@@ -89,13 +89,14 @@ $SUDO chown -R "$(whoami)" "$(dirname "$TERMUX_APP__DATA_DIR")"
 $SUDO ln -sf "$TERMUX_APP__DATA_DIR/aosp" /system
 
 # =============================================================================
-# Build and install pkgconf from source
+# Build and install pkgconf from source (safe defaults)
 # =============================================================================
 PKGCONF_VERSION=2.3.0
 PKGCONF_SHA256=3a9080ac51d03615e7c1910a0a2a8df08424892b5f13b0628a204d3fcce0ea8
 HOST_TRIPLET=$(gcc -dumpmachine)
-PKG_CONFIG_DIRS=$(grep DefaultSearchPaths: /usr/share/pkgconfig/personality.d/${HOST_TRIPLET}.personality | cut -d ' ' -f2)
-SYSTEM_LIBDIRS=$(grep SystemLibraryPaths: /usr/share/pkgconfig/personality.d/${HOST_TRIPLET}.personality | cut -d ' ' -f2)
+# Use default pkgconfig directories instead of missing personality.d
+PKG_CONFIG_DIRS="/usr/lib/pkgconfig:/usr/share/pkgconfig"
+SYSTEM_LIBDIRS="/usr/lib"
 
 mkdir -p /tmp/pkgconf-build
 cd /tmp/pkgconf-build
