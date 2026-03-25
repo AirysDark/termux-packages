@@ -7,6 +7,9 @@
 
 set -euo pipefail
 
+# -----------------------------------------------------------------------------
+# Log file setup
+# -----------------------------------------------------------------------------
 LOG_FILE="/tmp/free_space.log"
 mkdir -p "$(dirname "$LOG_FILE")"
 echo "🚀 Starting free-space cleanup at $(date)" | tee -a "$LOG_FILE"
@@ -46,9 +49,9 @@ sudo apt-get update -y >> "$LOG_FILE" 2>&1
 sudo apt-get upgrade -y >> "$LOG_FILE" 2>&1
 
 # -----------------------------------------------------------------------------
-# Purge large/unneeded packages by name patterns (dynamic)
+# Purge large/unneeded packages by dynamic name patterns
 # -----------------------------------------------------------------------------
-echo "Purging large/unneeded packages..." | tee -a "$LOG_FILE"
+echo "Purging large/unneeded packages by pattern..." | tee -a "$LOG_FILE"
 PATTERNS=(
     'mecab' 'linux-azure-tools-' 'aspnetcore' 'liblldb-' 'netstandard-' 'llvm' 'clang' \
     'gcc-12' 'gcc-13' 'cpp-' 'g++-' 'temurin-' 'gfortran-' 'mysql-' 'google-cloud-cli' \
@@ -67,21 +70,14 @@ done
 # Purge specific large known packages
 # -----------------------------------------------------------------------------
 echo "Purging specific known large packages..." | tee -a "$LOG_FILE"
-sudo apt purge -yq \
-    snapd \
-    kubectl \
-    podman \
-    mercurial-common \
-    git-lfs \
-    skopeo \
-    buildah \
-    vim \
-    python3-botocore \
-    azure-cli \
-    powershell \
-    shellcheck \
-    firefox >> "$LOG_FILE" 2>&1 || \
-    echo "⚠ Some packages could not be removed, check log." | tee -a "$LOG_FILE"
+KNOWN_PACKAGES=(
+    snapd kubectl podman mercurial-common git-lfs skopeo buildah vim \
+    python3-botocore azure-cli powershell shellcheck firefox
+)
+
+for pkg in "${KNOWN_PACKAGES[@]}"; do
+    safe_purge "$pkg"
+done
 
 # -----------------------------------------------------------------------------
 # Remove large directories that CI does not need
