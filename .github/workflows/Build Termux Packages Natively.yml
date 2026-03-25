@@ -36,11 +36,14 @@ jobs:
 
       # Step 3: Free disk space (optional)
       - name: Free disk space
-        run: ./scripts/free-space.sh || true
+        run: |
+          chmod +x ./scripts/free-space.sh
+          ./scripts/free-space.sh 2>&1 | tee /tmp/free-space.log || true
 
       # Step 4: Build packages for matrix architectures
       - name: Build packages for ${{ matrix.arch }}
         run: |
+          chmod +x ./scripts/bin/update-packages
           ./scripts/bin/update-packages "@all" 2>&1 | tee /tmp/termux-build-${{ matrix.arch }}.log
 
       # Step 5: Archive built .deb files
@@ -56,7 +59,7 @@ jobs:
           name: termux-debs-${{ matrix.arch }}
           path: artifacts/
 
-      # Step 7: Upload CGCT / setup logs for debugging
+      # Step 7: Upload setup/build logs for debugging
       - name: Upload setup/build logs
         if: failure() || always()
         uses: actions/upload-artifact@v7
@@ -64,5 +67,6 @@ jobs:
           name: termux-build-logs-${{ matrix.arch }}
           path: |
             /tmp/setup-native-termux.log
+            /tmp/free-space.log
             /tmp/termux-build-${{ matrix.arch }}.log
             /tmp/cgct_build.log
