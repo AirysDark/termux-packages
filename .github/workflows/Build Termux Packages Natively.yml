@@ -14,7 +14,7 @@ on:
 
 jobs:
   build-packages:
-    name: Build Termux Packages
+    name: Build Termux Packages Natively
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -22,43 +22,47 @@ jobs:
       fail-fast: false
 
     steps:
-      # Checkout repo
+      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      # Free disk space (optional)
+      # Step 2: Setup native Termux build environment
+      - name: Setup Termux Build Environment
+        run: |
+          chmod +x ./scripts/setup-native-termux.sh
+          ./scripts/setup-native-termux.sh 2>&1 | tee /tmp/setup-native-termux.log
+
+      # Step 3: Free disk space (optional)
       - name: Free disk space
         run: ./scripts/free-space.sh || true
 
-      # Setup native Termux build environment
-      - name: Setup native Termux environment
-        run: |
-          chmod +x ./scripts/setup-native-termux.sh
-          ./scripts/setup-native-termux.sh
-
-      # Build packages
+      # Step 4: Build packages for matrix architectures
       - name: Build packages for ${{ matrix.arch }}
-        run: ./scripts/bin/update-packages "@all" || true
+        run: |
+          ./scripts/bin/update-packages "@all" 2>&1 | tee /tmp/termux-build-${{ matrix.arch }}.log
 
-      # Archive built .deb files
+      # Step 5: Archive built .deb files
       - name: Archive built .deb files
         run: |
           mkdir -p artifacts
           find output -type f -name '*.deb' -exec mv {} artifacts/ \;
 
-      # Upload built packages
-      - name: Upload built packages as artifacts
+      # Step 6: Upload built .deb artifacts
+      - name: Upload built packages
         uses: actions/upload-artifact@v7
         with:
           name: termux-debs-${{ matrix.arch }}
           path: artifacts/
 
-      # Upload CGCT build log if exists
-      - name: Upload CGCT build log
+      # Step 7: Upload CGCT / setup logs for debugging
+      - name: Upload setup/build logs
         if: failure() || always()
         uses: actions/upload-artifact@v7
         with:
-          name: cgct-build-log-${{ matrix.arch }}
-          path: /tmp/cgct_build.log
+          name: termux-build-logs-${{ matrix.arch }}
+          path: |
+            /tmp/setup-native-termux.log
+            /tmp/termux-build-${{ matrix.arch }}.log
+            /tmp/cgct_build.log
