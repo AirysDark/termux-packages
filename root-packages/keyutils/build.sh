@@ -5,29 +5,25 @@ TERMUX_PKG_HOMEPAGE=""
 TERMUX_PKG_DESCRIPTION=""
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="v2.0.3"
-TERMUX_PKG_SRCURL="https://api.github.com/repos/bitpay/bitpay-c-keyutils/tarball/v2.0.3"
+TERMUX_PKG_VERSION="1.6.0"
+TERMUX_PKG_SRCURL="https://github.com/.../keyutils-1.6.0.tar.gz"
 TERMUX_PKG_SHA256=""
 TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+    echo "Installing ${TERMUX_PKG_NAME} binaries, man pages, and configuration..."
 
-    # Standard directories
     mkdir -p "$TERMUX_PREFIX/bin"
+    mkdir -p "$TERMUX_PREFIX/sbin"
     mkdir -p "$TERMUX_PREFIX/share/man/man1"
-    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+    mkdir -p "$TERMUX_PREFIX/share/keyutils"
+    mkdir -p "$TERMUX_PREFIX/etc/keyutils"
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    cp keyctl key.dns_resolver "$TERMUX_PREFIX/bin/"
+    install -Dm600 keyctl.1 "$TERMUX_PREFIX/share/man/man1/keyctl.1"
+    install -Dm600 key.dns_resolver.8 "$TERMUX_PREFIX/share/man/man8/key.dns_resolver.8"
+    cp request-key.conf "$TERMUX_PREFIX/etc/keyutils/request-key.conf"
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
-
-    # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
-
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Installation complete for ${TERMUX_PKG_NAME}"
 }

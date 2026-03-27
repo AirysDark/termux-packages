@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Auto-generated Termux build.sh
+# Termux build.sh for libnfnetlink
+
 TERMUX_PKG_NAME="libnfnetlink"
-TERMUX_PKG_HOMEPAGE=""
-TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_HOMEPAGE="https://netfilter.org/projects/libnfnetlink/"
+TERMUX_PKG_DESCRIPTION="Library providing a userspace API to Netlink sockets for netfilter"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="1.0.1"
@@ -12,22 +13,29 @@ TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+    echo "Installing libnfnetlink for ${TERMUX_PKG_NAME}..."
 
-    # Standard directories
-    mkdir -p "$TERMUX_PREFIX/bin"
-    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    # Create directories
+    mkdir -p "$TERMUX_PREFIX/lib"
+    mkdir -p "$TERMUX_PREFIX/include/libnfnetlink"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+    mkdir -p "$TERMUX_PREFIX/share/man/man3"
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    # Install headers
+    cp -v include/libnfnetlink/*.h "$TERMUX_PREFIX/include/libnfnetlink/"
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    # Install library
+    cp -v libnfnetlink.so* "$TERMUX_PREFIX/lib/"
+
+    # Install man pages if present
+    if [ -d "man" ]; then
+        cp -v man/*.3 "$TERMUX_PREFIX/share/man/man3/"
+    fi
 
     # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    if [ -f "README" ]; then
+        cp -v README "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    fi
 
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Installation complete for ${TERMUX_PKG_NAME}"
 }

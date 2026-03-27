@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Auto-generated Termux build.sh
+
 TERMUX_PKG_NAME="hwinfo"
 TERMUX_PKG_HOMEPAGE=""
 TERMUX_PKG_DESCRIPTION=""
@@ -11,23 +12,30 @@ TERMUX_PKG_SHA256=""
 TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+termux_step_make() {
+    # Apply patches automatically if needed
+    for patch in "$TERMUX_PKG_SRCDIR"/*.patch; do
+        [ -f "$patch" ] && patch -p1 < "$patch"
+    done
 
-    # Standard directories
-    mkdir -p "$TERMUX_PREFIX/bin"
-    mkdir -p "$TERMUX_PREFIX/share/man/man1"
-    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+    # Build with prefix to install into Termux
+    make PREFIX="$TERMUX_PREFIX" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS"
+}
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+termux_step_make_install() {
+    echo "Installing ${TERMUX_PKG_NAME} binaries and docs..."
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    # Install main binary
+    install -Dm755 hwinfo "$TERMUX_PREFIX/bin/hwinfo"
+
+    # Install hwdata if present
+    [ -f hwdata ] && install -Dm644 hwdata "$TERMUX_PREFIX/share/hwdata/hwdata"
+
+    # Install man page
+    [ -f hwinfo.1 ] && install -Dm600 hwinfo.1 "$TERMUX_PREFIX/share/man/man1/hwinfo.1"
 
     # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    [ -f README ] && install -Dm644 README "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/README"
 
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Installation complete for ${TERMUX_PKG_NAME}"
 }

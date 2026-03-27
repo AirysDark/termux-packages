@@ -14,20 +14,25 @@ TERMUX_PKG_BUILD_IN_SRC=true
 termux_step_post_make_install() {
     echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-    # Standard directories
+    # Create standard directories
     mkdir -p "$TERMUX_PREFIX/bin"
     mkdir -p "$TERMUX_PREFIX/share/man/man1"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    # Copy built binaries (example: lsusb)
+    if [ -f "lsusb" ]; then
+        cp lsusb "$TERMUX_PREFIX/bin/"
+    fi
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    # Copy man pages
+    if [ -f "lsusb.1" ]; then
+        install -Dm600 lsusb.1 "$TERMUX_PREFIX/share/man/man1/lsusb.1"
+    fi
 
-    # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    # Copy documentation (README, etc.)
+    if [ -f "README" ]; then
+        cp README "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    fi
 
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Installation complete for ${TERMUX_PKG_NAME}"
 }

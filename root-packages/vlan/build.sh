@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Auto-generated Termux build.sh
+# Termux build script for vlan
 TERMUX_PKG_NAME="vlan"
 TERMUX_PKG_HOMEPAGE=""
 TERMUX_PKG_DESCRIPTION=""
@@ -19,15 +19,15 @@ termux_step_post_make_install() {
     mkdir -p "$TERMUX_PREFIX/share/man/man1"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-    # --- PLACEHOLDERS ---
     # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
-
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    cp vconfig "$TERMUX_PREFIX/bin/"
 
     # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    cp README "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    # Install if-pre-up script for VLANs with patched TERMUX path
+    mkdir -p "$TERMUX_PREFIX/etc/network/if-pre-up.d"
+    install -Dm700 debian/network/if-pre-up.d/vlan "$TERMUX_PREFIX/etc/network/if-pre-up.d/vlan"
+
+    echo "Installation complete for ${TERMUX_PKG_NAME}"
 }

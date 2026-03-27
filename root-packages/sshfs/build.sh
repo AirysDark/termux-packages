@@ -19,15 +19,19 @@ termux_step_post_make_install() {
     mkdir -p "$TERMUX_PREFIX/share/man/man1"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    # --- INSTALL BINARIES ---
+    # Example: cp "sshfs" "$TERMUX_PREFIX/bin/"
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    # --- INSTALL MAN PAGES ---
+    # Example: install -Dm600 "doc/sshfs.1" "$TERMUX_PREFIX/share/man/man1/"
 
-    # Install documentation
+    # --- INSTALL DOCUMENTATION ---
     # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+
+    # --- PATCH ADJUSTMENTS ---
+    # In sshfs.c: Change buffers from LINE_MAX to PATH_MAX (already applied in patch)
+    # char line[PATH_MAX]; instead of char line[LINE_MAX];
+    # while (fgets(line, PATH_MAX, fp) != NULL) { ... }
 
     echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }

@@ -1,33 +1,45 @@
 #!/usr/bin/env bash
-# Auto-generated Termux build.sh
+# Updated Termux build.sh for bindfs
 TERMUX_PKG_NAME="bindfs"
-TERMUX_PKG_HOMEPAGE=""
-TERMUX_PKG_DESCRIPTION=""
-TERMUX_PKG_LICENSE="GPL-3.0"
-TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="1.14.0"
 TERMUX_PKG_SRCURL="https://bindfs.org/downloads/bindfs-1.18.4.tar.gz"
 TERMUX_PKG_SHA256=""
-TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_BUILD_IN_SRC=true
+TERMUX_PKG_DEPENDS="fuse, coreutils"
 
-termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+termux_step_pre_configure() {
+    # Prepare the build environment
+    autoreconf -fi
+}
 
-    # Standard directories
-    mkdir -p "$TERMUX_PREFIX/bin"
-    mkdir -p "$TERMUX_PREFIX/share/man/man1"
-    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+termux_step_configure() {
+    ./configure --prefix="$TERMUX_PREFIX"
+}
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+termux_step_make() {
+    make -j$(nproc)
+}
+
+termux_step_make_install() {
+    make install DESTDIR="$TERMUX_PREFIX"
+
+    # Install binaries explicitly if needed
+    if [ -f "$TERMUX_PREFIX/bin/bindfs" ]; then
+        chmod +x "$TERMUX_PREFIX/bin/bindfs"
+    fi
 
     # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    if [ -d man ]; then
+        cp man/* "$TERMUX_PREFIX/share/man/man1/"
+    fi
 
     # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    for doc in README* CHANGELOG* LICENSE*; do
+        if [ -f "$doc" ]; then
+            install -Dm644 "$doc" "$TERMUX_PREFIX/share/doc/$TERMUX_PKG_NAME/$doc"
+        fi
+    done
 
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Installation complete for $TERMUX_PKG_NAME"
 }

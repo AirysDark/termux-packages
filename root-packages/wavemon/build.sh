@@ -1,33 +1,47 @@
 #!/usr/bin/env bash
-# Auto-generated Termux build.sh
-TERMUX_PKG_NAME="wavemon"
-TERMUX_PKG_HOMEPAGE=""
-TERMUX_PKG_DESCRIPTION=""
+# Termux build script for v4l-utils
+
+TERMUX_PKG_NAME="v4l-utils"
+TERMUX_PKG_HOMEPAGE="https://www.linuxtv.org/"
+TERMUX_PKG_DESCRIPTION="Video4Linux utilities and libraries"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="v0.9.7"
-TERMUX_PKG_SRCURL="https://api.github.com/repos/uoaerg/wavemon/tarball/v0.9.7"
-TERMUX_PKG_SHA256=""
+TERMUX_PKG_VERSION="1.22.0"
+TERMUX_PKG_SRCURL="https://www.linuxtv.org/downloads/v4l-utils/v4l-utils-1.22.0.tar.bz2"
+TERMUX_PKG_SHA256=""  # Fill in the correct hash
 TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+termux_step_configure() {
+    ./configure --prefix="$TERMUX_PREFIX" \
+                --disable-static \
+                --disable-udev \
+                --disable-android
+}
 
-    # Standard directories
-    mkdir -p "$TERMUX_PREFIX/bin"
-    mkdir -p "$TERMUX_PREFIX/share/man/man1"
-    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+termux_step_make() {
+    make -j$(nproc)
+}
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+termux_step_make_install() {
+    make install
+
+    # Install extra binaries manually if needed
+    for bin in v4l2-ctl v4l2-compliance v4l2-dbg v4l2-info v4l2-sysfs-path v4l2-test;
+    do
+        if [ -f "$TERMUX_PKG_SRCDIR/$bin" ]; then
+            install -Dm755 "$TERMUX_PKG_SRCDIR/$bin" "$TERMUX_PREFIX/bin/$bin"
+        fi
+    done
 
     # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    for man in v4l2-ctl.1 v4l2-compliance.1 v4l2-dbg.1 v4l2-info.1 v4l2-sysfs-path.1 v4l2-test.1;
+    do
+        if [ -f "$TERMUX_PKG_SRCDIR/doc/$man" ]; then
+            install -Dm644 "$TERMUX_PKG_SRCDIR/doc/$man" "$TERMUX_PREFIX/share/man/man1/$man"
+        fi
+    done
 
     # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
-
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    cp -r "$TERMUX_PKG_SRCDIR"/docs "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 }

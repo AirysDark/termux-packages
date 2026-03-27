@@ -19,15 +19,18 @@ termux_step_post_make_install() {
     mkdir -p "$TERMUX_PREFIX/share/man/man1"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
+    # --- BINARIES ---
+    # Copy the demo binaries enabled by the Makefile.am patch
+    cp -f squashfuse_ls "$TERMUX_PREFIX/bin/"
+    cp -f squashfuse_extract "$TERMUX_PREFIX/bin/"
+
     # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    # Install man pages (if any)
+    # Example: install -Dm600 "doc/squashfuse_ls.1" "$TERMUX_PREFIX/share/man/man1/"
+    # Example: install -Dm600 "doc/squashfuse_extract.1" "$TERMUX_PREFIX/share/man/man1/"
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
-
-    # Install documentation
+    # Install documentation (if any)
     # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Install complete for ${TERMUX_PKG_NAME}"
 }

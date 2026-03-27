@@ -1,33 +1,37 @@
 #!/usr/bin/env bash
-# Auto-generated Termux build.sh
+# Termux build.sh for libfuse3
+
 TERMUX_PKG_NAME="libfuse3"
-TERMUX_PKG_HOMEPAGE=""
-TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_HOMEPAGE="https://github.com/libfuse/libfuse"
+TERMUX_PKG_DESCRIPTION="FUSE (Filesystem in Userspace) library"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="v0.3.2"
-TERMUX_PKG_SRCURL="https://api.github.com/repos/openunix/nfs-fuse/tarball/v0.3.2"
+TERMUX_PKG_VERSION="3.9.1"
+TERMUX_PKG_SRCURL="https://github.com/libfuse/libfuse/archive/refs/tags/fuse-3.9.1.tar.gz"
 TERMUX_PKG_SHA256=""
 TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+    echo "Installing ${TERMUX_PKG_NAME} files..."
 
     # Standard directories
     mkdir -p "$TERMUX_PREFIX/bin"
     mkdir -p "$TERMUX_PREFIX/share/man/man1"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+    mkdir -p "$TERMUX_PREFIX/etc"
 
-    # --- PLACEHOLDERS ---
     # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    install -Dm755 "${TERMUX_PKG_SRCDIR}/util/fusermount3" "$TERMUX_PREFIX/bin/fusermount3"
+
+    # Install configuration
+    install -Dm644 "${TERMUX_PKG_SRCDIR}/util/fuse.conf" "$TERMUX_PREFIX/etc/fuse.conf"
 
     # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    install -Dm644 "${TERMUX_PKG_SRCDIR}/doc/fusermount.1" "$TERMUX_PREFIX/share/man/man1/fusermount.1"
 
     # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    cp -r "${TERMUX_PKG_SRCDIR}/doc" "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "${TERMUX_PKG_NAME} installation complete."
 }

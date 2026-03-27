@@ -1,33 +1,25 @@
 #!/usr/bin/env bash
-# Auto-generated Termux build.sh
 TERMUX_PKG_NAME="btop"
-TERMUX_PKG_HOMEPAGE=""
-TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_HOMEPAGE="https://github.com/aristocratos/btop"
+TERMUX_PKG_DESCRIPTION="Advanced, cross-platform monitoring tool."
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="v1.4.6"
 TERMUX_PKG_SRCURL="https://api.github.com/repos/aristocratos/btop/tarball/v1.4.6"
-TERMUX_PKG_SHA256=""
-TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_SHA256="<INSERT_SHA256>"
+TERMUX_PKG_DEPENDS="libc++,ncurses"
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+termux_step_pre_configure() {
+    # Apply patches
+    patch -p1 < "${TERMUX_PKG_BUILDER_DIR}/getloadavg.patch"
+    patch -p1 < "${TERMUX_PKG_BUILDER_DIR}/improve-cpu-sensor-guessing.patch"
+}
 
-    # Standard directories
+termux_step_make_install() {
     mkdir -p "$TERMUX_PREFIX/bin"
-    mkdir -p "$TERMUX_PREFIX/share/man/man1"
+    make -j$(nproc)
+    install -Dm755 "btop" "$TERMUX_PREFIX/bin/btop"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
-
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
-
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
-
-    # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
-
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 }

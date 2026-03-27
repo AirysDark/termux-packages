@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Auto-generated Termux build.sh
 TERMUX_PKG_NAME="lxc"
 TERMUX_PKG_HOMEPAGE=""
 TERMUX_PKG_DESCRIPTION=""
@@ -12,22 +11,29 @@ TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+    echo "Applying patches..."
+    patch -p1 < src-include-lxcmntent.c.patch
+    patch -p1 < src-lxc-cgroups-cgfsng.c.patch
+    patch -p1 < src-lxc-conf.c.patch
+    patch -p1 < src-lxc-pam-pam_cgfs.c.patch
+    patch -p1 < templates-lxc-download.in.patch
+    patch -p1 < templates-lxc-local.in.patch
+    patch -p1 < templates-lxc-oci.patch
 
-    # Standard directories
+    echo "Installing directories..."
     mkdir -p "$TERMUX_PREFIX/bin"
     mkdir -p "$TERMUX_PREFIX/share/man/man1"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+    mkdir -p "$TERMUX_PREFIX/share/lxc/templates"
+    mkdir -p "$TERMUX_PREFIX/libexec/lxc"
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    echo "Installing templates..."
+    cp templates/* "$TERMUX_PREFIX/share/lxc/templates/"
+    sed -i "s|/tmp|$TERMUX_PREFIX/tmp|" "$TERMUX_PREFIX/share/lxc/templates/lxc-oci.in"
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    echo "Installing helper scripts..."
+    cp lxc-setup-cgroups.sh "$TERMUX_PREFIX/libexec/lxc/"
+    chmod +x "$TERMUX_PREFIX/libexec/lxc/lxc-setup-cgroups.sh"
 
-    # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
-
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Installation complete for ${TERMUX_PKG_NAME}"
 }

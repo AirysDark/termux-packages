@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Auto-generated Termux build.sh
+# Updated Termux build.sh for libccid
+
 TERMUX_PKG_NAME="libccid"
-TERMUX_PKG_HOMEPAGE=""
-TERMUX_PKG_DESCRIPTION=""
+TERMUX_PKG_HOMEPAGE="https://ccid.apdu.fr/"
+TERMUX_PKG_DESCRIPTION="CCID (USB Smart Card) driver library"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="1.6.2"
@@ -11,23 +12,25 @@ TERMUX_PKG_SHA256=""
 TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
+termux_step_pre_configure() {
+    echo "Applying patches for ${TERMUX_PKG_NAME}..."
+    patch -p1 < "${TERMUX_PKG_BUILDER_DIR}/issetugid.patch"
+}
+
 termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+    echo "Installing binaries and documentation for ${TERMUX_PKG_NAME}..."
 
-    # Standard directories
-    mkdir -p "$TERMUX_PREFIX/bin"
-    mkdir -p "$TERMUX_PREFIX/share/man/man1"
-    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
-
-    # --- PLACEHOLDERS ---
     # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    cp ccid-sys-*.so "$TERMUX_PREFIX/lib/"
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    # Install helper programs
+    install -Dm755 pcscd "$TERMUX_PREFIX/bin/"
+
+    # Install man pages if available
+    [ -f ccid.1 ] && install -Dm600 ccid.1 "$TERMUX_PREFIX/share/man/man1/"
 
     # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    [ -f README ] && cp README "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Installation complete for ${TERMUX_PKG_NAME}"
 }

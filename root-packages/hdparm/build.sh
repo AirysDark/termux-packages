@@ -14,20 +14,13 @@ TERMUX_PKG_BUILD_IN_SRC=true
 termux_step_post_make_install() {
     echo "Installing directories for ${TERMUX_PKG_NAME}..."
 
-    # Standard directories
+    # Standard directories according to updated Makefile
     mkdir -p "$TERMUX_PREFIX/bin"
     mkdir -p "$TERMUX_PREFIX/share/man/man1"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    # Build and install using the Makefile paths
+    make DESTDIR="$TERMUX_PREFIX" install
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
-
-    # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
-
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Build and installation complete for ${TERMUX_PKG_NAME}"
 }

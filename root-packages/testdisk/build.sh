@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Auto-generated Termux build.sh
+
 TERMUX_PKG_NAME="testdisk"
 TERMUX_PKG_HOMEPAGE=""
 TERMUX_PKG_DESCRIPTION=""
@@ -19,15 +20,23 @@ termux_step_post_make_install() {
     mkdir -p "$TERMUX_PREFIX/share/man/man1"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    # --- INSTALL BINARIES ---
+    cp src/testdisk "$TERMUX_PREFIX/bin/"
+    cp src/photorec "$TERMUX_PREFIX/bin/"
+    cp src/fidentify "$TERMUX_PREFIX/bin/"
+    cp src/qphotorec "$TERMUX_PREFIX/bin/"
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    # --- INSTALL MAN PAGES ---
+    # (Assuming man pages exist under 'doc/' in the source tree)
+    if [ -d "doc" ]; then
+        install -Dm600 doc/testdisk.1 "$TERMUX_PREFIX/share/man/man1/testdisk.1"
+        install -Dm600 doc/photorec.1 "$TERMUX_PREFIX/share/man/man1/photorec.1"
+        install -Dm600 doc/fidentify.1 "$TERMUX_PREFIX/share/man/man1/fidentify.1"
+        install -Dm600 doc/qphotorec.1 "$TERMUX_PREFIX/share/man/man1/qphotorec.1"
+    fi
 
-    # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    # --- INSTALL DOCUMENTATION ---
+    cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Installation complete for ${TERMUX_PKG_NAME}"
 }

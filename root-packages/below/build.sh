@@ -1,33 +1,31 @@
 #!/usr/bin/env bash
-# Auto-generated Termux build.sh
-TERMUX_PKG_NAME="below"
-TERMUX_PKG_HOMEPAGE=""
-TERMUX_PKG_DESCRIPTION=""
-TERMUX_PKG_LICENSE="GPL-3.0"
-TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="1.1"
-TERMUX_PKG_SRCURL="https://github.com/erofs/erofs-utils/archive/refs/tags/v1.7.1.tar.gz"
+TERMUX_PKG_NAME="avahi"
+TERMUX_PKG_VERSION="v0.8"
+TERMUX_PKG_SRCURL="https://api.github.com/repos/avahi/avahi/tarball/v0.8"
 TERMUX_PKG_SHA256=""
-TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_BUILD_IN_SRC=true
+TERMUX_PKG_DEPENDS="libc, dbus"
 
-termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+termux_step_pre_configure() {
+    # Apply all patches
+    for patch in ../*.patch; do
+        patch -p1 < "$patch"
+    done
+}
 
-    # Standard directories
-    mkdir -p "$TERMUX_PREFIX/bin"
-    mkdir -p "$TERMUX_PREFIX/share/man/man1"
-    mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
+termux_step_configure() {
+    ./configure --prefix="$TERMUX_PREFIX"
+}
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+termux_step_make() {
+    make -j$(nproc)
+}
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+termux_step_make_install() {
+    make install DESTDIR="$TERMUX_PREFIX"
 
-    # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
-
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    # Install service files
+    install -Dm644 avahi-daemon-ssh.service "$TERMUX_PREFIX"/share/systemd/system/avahi-daemon-ssh.service
+    install -Dm644 avahi-daemon-sftp-ssh.service "$TERMUX_PREFIX"/share/systemd/system/avahi-daemon-sftp-ssh.service
 }

@@ -8,26 +8,36 @@ TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="v2.6.1"
 TERMUX_PKG_SRCURL="https://api.github.com/repos/rfjakob/gocryptfs/tarball/v2.6.1"
 TERMUX_PKG_SHA256=""
-TERMUX_PKG_DEPENDS=""
+TERMUX_PKG_DEPENDS="golang"
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+termux_step_pre_configure() {
+    # Ensure Go modules work correctly
+    export GOPATH="$TERMUX_PREFIX/opt/gopath"
+    mkdir -p "$GOPATH"
+}
 
-    # Standard directories
+termux_step_make() {
+    echo "Building ${TERMUX_PKG_NAME}..."
+    # Build Go binaries
+    go build -o gocryptfs ./cmd/gocryptfs
+    go build -o gocryptfs-xray ./cmd/gocryptfs-xray
+}
+
+termux_step_post_make_install() {
+    echo "Installing ${TERMUX_PKG_NAME} binaries..."
+
     mkdir -p "$TERMUX_PREFIX/bin"
-    mkdir -p "$TERMUX_PREFIX/share/man/man1"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    # Install the built binaries
+    install -Dm755 gocryptfs "$TERMUX_PREFIX/bin/gocryptfs"
+    install -Dm755 gocryptfs-xray "$TERMUX_PREFIX/bin/gocryptfs-xray"
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    # Optional: install documentation if it exists
+    if [ -f "README.md" ]; then
+        install -Dm644 README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/README.md"
+    fi
 
-    # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
-
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Installation complete for ${TERMUX_PKG_NAME}"
 }

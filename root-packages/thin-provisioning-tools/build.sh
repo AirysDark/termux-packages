@@ -19,15 +19,11 @@ termux_step_post_make_install() {
     mkdir -p "$TERMUX_PREFIX/share/man/man1"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
-
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
-
-    # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    # --- Custom Install from Makefile.in patch ---
+    # The patch changes sbin -> bin and disables static linking
+    # Binaries would be installed to $TERMUX_PREFIX/bin
+    # Any documentation goes to $TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}
+    # Man pages to $TERMUX_PREFIX/share/man/man1
 
     echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
 }
