@@ -1,33 +1,46 @@
 #!/usr/bin/env bash
-# Auto-generated Termux build.sh
+# Auto-generated Termux build.sh for authbind
+set -euo pipefail
+
 TERMUX_PKG_NAME="authbind"
-TERMUX_PKG_HOMEPAGE=""
-TERMUX_PKG_DESCRIPTION=""
-TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_HOMEPAGE="https://packages.debian.org/sid/authbind"
+TERMUX_PKG_DESCRIPTION="Allow non-root programs to bind to low-numbered ports"
+TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="2.2.0"
-TERMUX_PKG_SRCURL="https://deb.debian.org/debian/pool/main/a/authbind/authbind_2.2.0.tar.gz"
-TERMUX_PKG_SHA256=""
+TERMUX_PKG_SRCURL="https://deb.debian.org/debian/pool/main/a/authbind/authbind_2.2.0.orig.tar.gz"
+TERMUX_PKG_SHA256=""  # Fill in if known
 TERMUX_PKG_DEPENDS=""
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_post_make_install() {
-    echo "Installing directories for ${TERMUX_PKG_NAME}..."
+    echo "Building ${TERMUX_PKG_NAME}..."
 
-    # Standard directories
+    # Apply patches
+    patch -p1 < libauthbind.c.patch
+    patch -p1 < helper.c.patch
+    patch -p1 < Makefile.patch
+
+    # Build
+    make DESTDIR="$TERMUX_PREFIX" prefix="$TERMUX_PREFIX" all
+
+    # Install
+    make DESTDIR="$TERMUX_PREFIX" prefix="$TERMUX_PREFIX" install
+
+    # Ensure standard directories exist
     mkdir -p "$TERMUX_PREFIX/bin"
     mkdir -p "$TERMUX_PREFIX/share/man/man1"
     mkdir -p "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}"
 
-    # --- PLACEHOLDERS ---
-    # Install binaries
-    # Example: cp "myprog" "$TERMUX_PREFIX/bin/"
+    # Optional: Install placeholders
+    # Example binary install (replace with actual build artifacts)
+    # cp authbind "$TERMUX_PREFIX/bin/"
 
-    # Install man pages
-    # Example: install -Dm600 "doc/myprog.1" "$TERMUX_PREFIX/share/man/man1/"
+    # Example man page install
+    # install -Dm600 "doc/authbind.1" "$TERMUX_PREFIX/share/man/man1/"
 
-    # Install documentation
-    # Example: cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
+    # Example documentation install
+    # cp README.md "$TERMUX_PREFIX/share/doc/${TERMUX_PKG_NAME}/"
 
-    echo "Install placeholders complete for ${TERMUX_PKG_NAME}"
+    echo "Install complete for ${TERMUX_PKG_NAME}"
 }
