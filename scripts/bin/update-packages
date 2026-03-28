@@ -28,6 +28,11 @@ TERMUX_SCRIPTDIR=$(realpath "$(dirname "$0")/../..")
 export TERMUX_PACKAGES_DIRECTORIES
 TERMUX_PACKAGES_DIRECTORIES=$(jq --raw-output 'del(.pkg_format) | keys | .[]' "$TERMUX_SCRIPTDIR/repo.json")
 
+# ----------------------------
+# Source helpers (fix _should_update not found)
+# ----------------------------
+source "$TERMUX_SCRIPTDIR/scripts/updates/_helpers.sh"
+
 # Load utilities
 . "$TERMUX_SCRIPTDIR/scripts/properties.sh"
 . "$TERMUX_SCRIPTDIR/scripts/build/termux_error_exit.sh"
