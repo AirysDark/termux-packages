@@ -1,0 +1,76 @@
+name: Build Termux Root Packages Natively
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - dev
+    paths:
+      - 'root-packages/**'
+      - 'scripts/**'
+
+jobs:
+  build-root-packages:
+    name: Build Termux Root Packages
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        arch: [aarch64, arm, i686, x86_64]
+      fail-fast: false
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # Step 2: Ensure Python is installed (needed for build scripts)
+      - name: Ensure Python is available
+        run: sudo apt-get update -y && sudo apt-get install -y python3 python3-pip python3-venv
+
+      # Step 3: Setup native Termux build environment
+      - name: Setup Termux Build Environment
+        run: |
+          set -e
+          set -o pipefail
+          chmod +x ./scripts/setup-native-termux.sh
+          ./scripts/setup-native-termux.sh 2>&1 | tee /tmp/setup-native-termux.log
+
+      # Step 4: Generate missing build.sh files
+      - name: Generate build.sh files
+        run: |
+          chmod +x ./scripts/setup-build-sh.sh
+          ./scripts/setup-build-sh.sh 2>&1 | tee /tmp/setup-build-sh-build-sh.log
+
+      # Step 5: Build only root-packages for current architecture
+      - name: Build root-packages for ${{ matrix.arch }}
+        run: |
+          for pkg in root-packages/*; do
+            ./scripts/bin/update-packages "$pkg" 2>&1 | tee -a /tmp/termux-build-${{ matrix.arch }}.log
+          done
+
+      # Step 6: Collect .deb files into artifacts folder
+      - name: Archive built .deb files
+        run: |
+          mkdir -p artifacts
+          find root-packages -type f -name '*.deb' -exec mv {} artifacts/ \; || true
+
+      # Step 7: Upload built .deb packages
+      - name: Upload root-packages artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: termux-root-debs-${{ matrix.arch }}
+          path: artifacts/
+
+      # Step 8: Upload logs for debugging
+      - name: Upload setup/build logs
+        if: failure() || always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: termux-build-logs-${{ matrix.arch }}
+          path: |
+            /tmp/setup-native-termux.log
+            /tmp/setup-build-sh-build-sh.log
+            /tmp/termux-build-${{ matrix.arch }}.log
