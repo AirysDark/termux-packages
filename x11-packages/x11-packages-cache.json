@@ -1,0 +1,259 @@
+{
+  "tigervnc": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/rgl/vncpassword/tarball/v1.0",
+        "sha256": "65130cca470b4ee81a2e661c363cc28b05b5c41399c594db1fc13cc75db80022",
+        "version": "v1.0",
+        "verified": true
+      }
+    ]
+  },
+  "pong2": {
+    "versions": []
+  },
+  "qtermwidget": {
+    "versions": []
+  },
+  "libxcomposite": {
+    "versions": []
+  },
+  "python-xapp": {
+    "versions": []
+  },
+  "tageditor": {
+    "versions": []
+  },
+  "libkscreen": {
+    "versions": []
+  },
+  "geocode-glib": {
+    "versions": []
+  },
+  "xfce4-session": {
+    "versions": []
+  },
+  "lxqt-globalkeys": {
+    "versions": []
+  },
+  "mint-themes": {
+    "versions": []
+  },
+  "aurorae": {
+    "versions": []
+  },
+  "xbill": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/Xylemon/xlennart/tarball/1.1.1",
+        "sha256": "f72a120d4f96ec357902b2f9268f378f7fbeda2734222949669b0e43cbb134b7",
+        "version": "1.1.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/Xylemon/xlennart/tarball/1.1",
+        "sha256": "ee5e6d738a4e6ec7e9e341ecf1f7add416dec553906006ba991c5552ccea2b82",
+        "version": "1.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/Xylemon/xlennart/tarball/1.0",
+        "sha256": "e8e04ad65e52b3770b81b2c1007068ac5b16ab202f7b3fea0bf892fb57b3666e",
+        "version": "1.0",
+        "verified": true
+      }
+    ]
+  },
+  "xfce4-screenshooter": {
+    "versions": []
+  },
+  "xfconf": {
+    "versions": []
+  },
+  "bspwm": {
+    "versions": []
+  },
+  "audacious-plugins": {
+    "versions": []
+  },
+  "thunderbird": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/valinet/ThunderbirdToasts/tarball/1.0.0.1",
+        "sha256": "ebab4ced100d2739c4c1b63607e3475d101fbf14e02d723c71547d6f1100fb50",
+        "version": "1.0.0.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://gitlab.com/grahfmusic/outbird/-/archive/1.1.0/outbird-1.1.0.zip",
+        "sha256": "50f365264f0a691e8ab278bffdb649bc38c4c9d8dfb87e7f29d42e3928a76065",
+        "version": "1.1.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://gitlab.com/grahfmusic/outbird/-/archive/1.0.0/outbird-1.0.0.zip",
+        "sha256": "0e455c0f20b981cb9f02be044052138cd9eb8a9b972bd12f09a68de1f99406b4",
+        "version": "1.0.0",
+        "verified": true
+      }
+    ]
+  },
+  "codeblocks": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/lvgl/lv_port_win_codeblocks/tarball/v9.2.2",
+        "sha256": "3693a55fbc144c40335f14c1a9e79e0e8553b80f041005dbf76cff98231a78a5",
+        "version": "v9.2.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/lvgl/lv_port_win_codeblocks/tarball/v9.1.0",
+        "sha256": "4286535d340d0c981f1f7299ac308972ba833f6f4d061bde9b1867b96beb4bbc",
+        "version": "v9.1.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/lvgl/lv_port_win_codeblocks/tarball/v9.0.0",
+        "sha256": "5d1e1ad90d3eb411f5e71313f56a2cc1208cbbd9a437229967cc3ae3f6da8595",
+        "version": "v9.0.0",
+        "verified": true
+      }
+    ]
+  },
+  "plasma-activities-stats": {
+    "versions": []
+  },
+  "goffice": {
+    "versions": []
+  },
+  "kdegraphics-mobipocket": {
+    "versions": []
+  },
+  "kwave": {
+    "versions": []
+  },
+  "xfce4-mailwatch-plugin": {
+    "versions": []
+  },
+  "ksystemstats": {
+    "versions": []
+  },
+  "fcitx5-gtk-common": {
+    "versions": []
+  },
+  "qt6-qtpositioning": {
+    "versions": []
+  },
+  "kf6-threadweaver": {
+    "versions": []
+  },
+  "thunar": {
+    "versions": []
+  },
+  "pinentry-gnome3": {
+    "versions": []
+  },
+  "mpv-x": {
+    "versions": []
+  },
+  "libgnomekbd": {
+    "versions": []
+  },
+  "libcanberra": {
+    "versions": []
+  },
+  "dmenu": {
+    "versions": []
+  },
+  "sdl2-compat": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.32.64",
+        "sha256": "b6b7e39d4a3ba2e19ac87cdd28c7727bccab10ffec638fdbd00da9589650eb8c",
+        "version": "release-2.32.64",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.32.62",
+        "sha256": "df967461209d33b579278222b9747846371e7825bb42dc26255509cede58308b",
+        "version": "release-2.32.62",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.32.60",
+        "sha256": "9897641987e78854268838962934b0f3186e8430ca2086d3785231c857d78469",
+        "version": "release-2.32.60",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.32.58",
+        "sha256": "c0aa9f096fd9b048c811ac13452a02d7c6a28317f5db1b111eeb0de760ad4efa",
+        "version": "release-2.32.58",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.32.56",
+        "sha256": "d2552c1ce71687171dacee7b302b34e619aeb02303c9e3b95174d87778d88cbd",
+        "version": "release-2.32.56",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.32.54",
+        "sha256": "cbd552be36124256b742f01ed53b233af1951fdee611da663ea1cf4c6c5e7aa6",
+        "version": "release-2.32.54",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.32.52",
+        "sha256": "0682e47cd5a8cd510c2ebaddb7b2d5e4bb4d746d6610a9d6f221be654c49b991",
+        "version": "release-2.32.52",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.32.50",
+        "sha256": "49a270c7f7ced070e4e4513db3ffc784fa7e275c648cb69542d67f2434eb2887",
+        "version": "release-2.32.50",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.30.54",
+        "sha256": "41b89f59bfc24dfd689faf55678fbfedcbb81bd5db8201adf74cb4a801b8bd12",
+        "version": "release-2.30.54",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.30.52",
+        "sha256": "e22eb05028fcd3defe4f2fd5aabe407cae71bc4b31100f33639bf3b8060be1bc",
+        "version": "release-2.30.52",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.30.51",
+        "sha256": "7ca6c64df2650626f472f1ad5bedf1311633b4b08c01267b7181bb869bc0684c",
+        "version": "release-2.30.51",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/libsdl-org/sdl2-compat/tarball/release-2.30.50",
+        "sha256": "af8b4db36b48b31498f014f79a17c0bd7256c4fabcfd6cca6359697cd57f55f3",
+        "version": "release-2.30.50",
+        "verified": true
+      }
+    ]
+  },
+  "xfce4-notes-plugin": {
+    "versions": []
+  },
+  "xapp-symbolic-icons": {
+    "versions": []
+  },
+  "calligraplan": {
+    "versions": []
+  },
+  "xorg-fonts-100dpi": {
+    "versions": []
+  },
+  "libxfce4util": {
+    "versions": []
+  }
+}

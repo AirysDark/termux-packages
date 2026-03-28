@@ -1,0 +1,2068 @@
+{
+  "runc": {
+    "versions": [
+      {
+        "src_url": "https://github.com/opencontainers/runc/archive/refs/tags/v1.1.9.tar.gz",
+        "sha256": "509993674481aad7e14aedfb280e0eb160f3a34c0b77e2e98c4b3c0b1df76894",
+        "version": "1.1.9",
+        "verified": true
+      }
+    ]
+  },
+  "macchanger": {
+    "versions": [
+      {
+        "src_url": "https://github.com/alobbs/macchanger/archive/refs/tags/1.7.0.tar.gz",
+        "sha256": "1d75c07a626321e07b48a5fe2dbefbdb98c3038bb8230923ba8d32bda5726e4f",
+        "version": "1.8.4",
+        "verified": true
+      }
+    ]
+  },
+  "lvm2": {
+    "versions": [
+      {
+        "src_url": "https://sourceware.org/pub/lvm2/releases/LVM2.2.03.38.tgz",
+        "sha256": "322d44bf40de318e6e6b52c56999aaeb86b16c8267187ac2e01a44d4dc526960",
+        "version": "2.03.14",
+        "verified": true
+      }
+    ]
+  },
+  "wush": {
+    "versions": [
+      {
+        "src_url": "https://github.com/coder/wush/archive/refs/tags/v0.4.1.tar.gz",
+        "sha256": "77d5a912465d1e8ec478252a9a69a04d39af75a126ac9ed94823f33a60b3d8f9",
+        "version": "0.4.1",
+        "verified": true
+      }
+    ]
+  },
+  "hping3": {
+    "versions": [
+      {
+        "src_url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/hping3/3.a2.ds2-10.1/hping3_3.a2.ds2.orig.tar.gz",
+        "sha256": "be027ed1bc1ebebd2a91c48936493024c3895e789c8490830e273ee7fe6fc09d",
+        "version": "3.0.0",
+        "verified": true
+      }
+    ]
+  },
+  "libaio": {
+    "versions": [
+      {
+        "src_url": "https://pagure.io/libaio/archive/libaio-0.3.113/libaio-0.3.113.tar.gz",
+        "sha256": "1c561c20670c5c09cc8437a622008c0693c6a7816c1f30332da3796953b2f454",
+        "version": "0.3.113",
+        "verified": true
+      }
+    ]
+  },
+  "nwipe": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.40",
+        "sha256": "dbbc37e930e1e169761c9c92fd4e578a5b967b89f60550ac6c53e87099d56594",
+        "version": "v0.40",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.39",
+        "sha256": "e4cb737ced165e590775fa074b64d4ec3da0ba27c4e506cd71e6a1cfb629b361",
+        "version": "v0.39",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.38",
+        "sha256": "6113c2514f1090bb56549d3998ec98fe2d5af118485a1dde9db21f795e974cc0",
+        "version": "v0.38",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.37",
+        "sha256": "ff329882e27bbfb954880b07ae4f102fc7e754ffa95eb7bbb303fbe29b74aedf",
+        "version": "v0.37",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.36",
+        "sha256": "53e37ea1b5f4388516c5f605d1a8bf8574eceec30926a22c9f4daec3cc61f2a9",
+        "version": "v0.36",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.35",
+        "sha256": "733cafdd53cc33e795a51f979b607cb7a3c05538d30f17a21b87977a8c191176",
+        "version": "v0.35",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.34",
+        "sha256": "993bffcf6c9eff780681e25e393fb1cbf47c82179eff49b95210666dedc5a5cc",
+        "version": "v0.34",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.33",
+        "sha256": "eba96963c23d3c3e4cb69acd6a5c6e59f3f9f7d60f3484857d5f400600d05029",
+        "version": "v0.33",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.32",
+        "sha256": "1ce81e3ff5cd32b1a5623753dea749d35e1188a1d173d7f20e8d2ad6d64f636c",
+        "version": "v0.32",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.31",
+        "sha256": "d3e0226b52be3ea619c91a1494e4d09c380a0c3a52ef82aaadf8edc1d9447141",
+        "version": "v0.31",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.30",
+        "sha256": "840ef62132114791baa368a225c6e965f385fe42c5a03e9c0e7c4a8169933e22",
+        "version": "v0.30",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.28",
+        "sha256": "eaae63a2cb9abbe0248dc37b63d0bc9d6dd1978fd2455b05d229099c146ed2e7",
+        "version": "v0.28",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.27",
+        "sha256": "734bbc2b33b94fa8c99148ff731745dc2ce65a9536b147b47b347740e5268bd8",
+        "version": "v0.27",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.26",
+        "sha256": "0601f57980285bbb00cd83a2868be5b70431b245cdb85b2fef0eff15d20bc346",
+        "version": "v0.26",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.25",
+        "sha256": "1fddfd839b0f0bdcfacd0dfab061eabb920bec2ea63f88e5129cb60a274a520d",
+        "version": "v0.25",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.24",
+        "sha256": "397d30367cb05b6e79dd0f1f2557c504bb16a393d5724f2506fa8f4b9266519d",
+        "version": "v0.24",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.23",
+        "sha256": "ee953c4a1dbf2432fc77b271e9962b82df80442300fb9eb151210fe6c3563705",
+        "version": "v0.23",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/v0.21",
+        "sha256": "343ed6a2b3e54691f0a1b95323be2ac8cc37e8253ea9bd2616a64acc47759d2b",
+        "version": "v0.21",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/0.20",
+        "sha256": "8f05a61d19201c5ed8dced88b710db6c57bb2c83d5db190c52502e24808b65cc",
+        "version": "0.20",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/0.19",
+        "sha256": "705442414c548c2a9b49117d9b6fc0a08bddca9149c41cd5129c3f4704aa057f",
+        "version": "0.19",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/0.18",
+        "sha256": "3af61660ee061ea050bd8c07fe2b4f4e2e256662d04d9b52ab88e6786ab6d498",
+        "version": "0.18",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/martijnvanbrummelen/nwipe/tarball/0.17",
+        "sha256": "368ef3f75aa27748b3eeb00ddefe5b52fa88c1999a8d7ac6a5669a180b45023d",
+        "version": "0.17",
+        "verified": true
+      }
+    ]
+  },
+  "squashfuse": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.6.1",
+        "sha256": "ab57252c99930c543652a9adec6fed73f507e2905963a0531d2d71fb6a6c4e10",
+        "version": "0.6.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.6.0",
+        "sha256": "7fe417b1e766270bfbee35e417a201c2ded5dcf29a9d0d05d7ea5eadec4ff5e4",
+        "version": "0.6.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.5.2",
+        "sha256": "e07f706bb153e0dadb2d294432724e8d5bd8eba3036c01b9f1f00ebed6959e8e",
+        "version": "0.5.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/v0.5.1",
+        "sha256": "b54d093505bbb2219c5b066871ecb6f80e80b31869a8f9c4a640e78256d65819",
+        "version": "v0.5.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.5.0",
+        "sha256": "b5f8683cab8c0d75a15fa58283d7b56f8581a07d1a97217606df8468b77f796a",
+        "version": "0.5.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.4.0",
+        "sha256": "1acfd108488f47591e6a6300416c3285b0f0b1d987efa0e9edaa64fcc10028fc",
+        "version": "0.4.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.3.0",
+        "sha256": "d4151b184040f898b2d62fc850ef649192f55afee884a22091c514ae2e36205c",
+        "version": "0.3.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.2.0",
+        "sha256": "f1c6099f8fddfbc05f9cdd9bbcb701d6983ace2fe810d637094e24ea68e01184",
+        "version": "0.2.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.1.105",
+        "sha256": "f33f0e1abf20c78bda1760dfc44d8e400a872904a6307ea776f4b0e02873dbf4",
+        "version": "0.1.105",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.1.104",
+        "sha256": "ae55666e8be5183cb8bd7435eea26211ce9dbec628b77b7cfb7a5038ee7dee97",
+        "version": "0.1.104",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.1.103",
+        "sha256": "e0a576e98ceeacd002bc6433791950e740ac124e20a7f40e898a077431d73e7d",
+        "version": "0.1.103",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.1.102",
+        "sha256": "02b7df6a98a0dd3a834cf0eb676f19994c1b9c88094ae58bb72e495f1cef866d",
+        "version": "0.1.102",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.1.101",
+        "sha256": "7ddbbccdd67cb591416a38855b21cf086290926e4c376f52d030891d539785c6",
+        "version": "0.1.101",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vasi/squashfuse/tarball/0.1.100",
+        "sha256": "d4d2fdcb678e185b73d3bfd4d2eda4f311d538b3b7dc9011dbe62847c883760d",
+        "version": "0.1.100",
+        "verified": true
+      }
+    ]
+  },
+  "usbutils": {
+    "versions": [
+      {
+        "src_url": "https://mirrors.edge.kernel.org/pub/linux/utils/usb/usbutils/usbutils-009.tar.gz",
+        "sha256": "e73543293a17c7803994eac97a49e58b377e08e6299ba11aad09794b91340e8b",
+        "version": "009",
+        "verified": true
+      }
+    ]
+  },
+  "hw-probe": {
+    "versions": [
+      {
+        "src_url": "https://github.com/linuxhw/hw-probe/archive/refs/tags/1.6.5.tar.gz",
+        "sha256": "42030ba2fb3f6fb0772ab34744fbb91a89b1b6a9b0ed99e861fa05ff86968fb1",
+        "version": "1.6.5",
+        "verified": true
+      }
+    ]
+  },
+  "libx86emu": {
+    "versions": [
+      {
+        "src_url": "https://deb.debian.org/debian/pool/main/libx/libx86emu/libx86emu_3.5.orig.tar.gz",
+        "sha256": "91da55f5da55017d5a80e2364de30f9520aa8df2744ff587a09ba58d6e3536c8",
+        "version": "0.7.5",
+        "verified": true
+      }
+    ]
+  },
+  "tcplay-veracrypt": {
+    "versions": [
+      {
+        "src_url": "https://github.com/bwalex/tc-play/archive/refs/tags/v3.3.tar.gz",
+        "sha256": null,
+        "version": "3.3-github",
+        "verified": false
+      }
+    ]
+  },
+  "avrdude": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/avrdudes/avrdude/tarball/v8.1",
+        "sha256": "9239a2fcf9cae885f1f09fedc15436a07f257ea46a8def3b77ae73f3212bf438",
+        "version": "v8.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/avrdudes/avrdude/tarball/v8.0",
+        "sha256": "4287f62959ad52ea65d767a5e7916e655a6a784d6f6e293e6d4ceb03cbe79e45",
+        "version": "v8.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/avrdudes/avrdude/tarball/v7.3",
+        "sha256": "d9ed17f863ae7a05acd86b69aed17e6bd06415fc6a5330e6dc9c848991627fd7",
+        "version": "v7.3",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/avrdudes/avrdude/tarball/v7.2",
+        "sha256": "3f3ff1ca48265de47ced4df56d438c087062833c8916d5273e8e52f20c30e42f",
+        "version": "v7.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/avrdudes/avrdude/tarball/v7.1",
+        "sha256": "abcfc4812ff6e1c02e48837a0e054762c3177d9cd9d462054383c5edb7de1eb7",
+        "version": "v7.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/avrdudes/avrdude/tarball/v7.0",
+        "sha256": "917222e3937431050f13d516132de65e1a2e6f4242b4aa3023d8fb4b73c127b4",
+        "version": "v7.0",
+        "verified": true
+      }
+    ]
+  },
+  "wimlib": {
+    "versions": [
+      {
+        "src_url": "https://wimlib.net/downloads/wimlib-1.14.5.tar.gz",
+        "sha256": "84221a3abd5b91228f15f8e6065c335a336237b5738197b75bf419eea561a194",
+        "version": "1.14.5",
+        "verified": true
+      }
+    ]
+  },
+  "keyutils": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/bitpay/bitpay-c-keyutils/tarball/v2.0.3",
+        "sha256": "125b1b8a76558d8bd6de5d51c46cf3d3f59eb8aae72a8998e574e6bfbdc416c4",
+        "version": "v2.0.3",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/bitpay/bitpay-c-keyutils/tarball/v2.0.2",
+        "sha256": "161aaaa6661108e985e31542c8f2bdb3a1e9aa0adb73a6a62e08f4ba85fb74b4",
+        "version": "v2.0.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/bitpay/bitpay-c-keyutils/tarball/v2.0.1",
+        "sha256": "f44e5b79a44191a57e0041a1d29a4a6e6d696ffe326a4eda0f995de40a29a074",
+        "version": "v2.0.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/bitpay/bitpay-c-keyutils/tarball/v2.0.0",
+        "sha256": "412f73b6f19ff14e91e52ac15324d683feda9bef5ca73f0e88b820103f7120eb",
+        "version": "v2.0.0",
+        "verified": true
+      }
+    ]
+  },
+  "arp-scan": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/royhills/arp-scan/tarball/1.10.0",
+        "sha256": "3867ecbac120841f2576c6ca2882dd36b76d8189621d3b2e36923a62cb8be2bc",
+        "version": "1.10.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/royhills/arp-scan/tarball/1.9",
+        "sha256": "b88e50721416fb9b02ac57fbc26460ba0c698d32d59c80ad57866f8b5c01f20b",
+        "version": "1.9",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/royhills/arp-scan/tarball/1.8",
+        "sha256": "dc5107cd0868c7045089b6762b1b7d86ff2fee0bffd6f6a4bf1493adb5a686de",
+        "version": "1.8",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/royhills/arp-scan/tarball/1.7",
+        "sha256": "7443be188c3e0ede787360798957ccc6ac43ad6f98dff0b6e5bd6311b83f9ba8",
+        "version": "1.7",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/royhills/arp-scan/tarball/1.6",
+        "sha256": "d32f1d529d673e39c83e3ffec5e5ee0485ddfbed93e966835bfedffb8d46ce9d",
+        "version": "1.6",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/royhills/arp-scan/tarball/1.5",
+        "sha256": "dbc6ce36da1e3fc4067a9ed6d1ab61abfd5cd53471f794f341dcb6fed6e5b81c",
+        "version": "1.5",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/royhills/arp-scan/tarball/1.4",
+        "sha256": "c85dd87f667c2dd2c7ba0f6c3c4b32d376bc92d211e5e7ab73cc7838c1c1bb78",
+        "version": "1.4",
+        "verified": true
+      }
+    ]
+  },
+  "zmap": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.3.4",
+        "sha256": "743b2d37fb0c286fe7cdd0b250863d23505e00baa694c64994bf491308af5c92",
+        "version": "v4.3.4",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.3.3",
+        "sha256": "9e33ca9a4b52c9b385b8a74eb69456fc631655151b2e8f318f187018aa26e712",
+        "version": "v4.3.3",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.3.2",
+        "sha256": "fca15bccfc8c8026cfcd711e6d536fd7363d2a3db54eb8a0de95b8e92470fb82",
+        "version": "v4.3.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.3.1",
+        "sha256": "f8b47882133c0a5b60019e1ac1dcdcb679543963efd7f6766786c0a9e6341f41",
+        "version": "v4.3.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.3.0",
+        "sha256": "e43a85e4c10d8706834c154e47fb9691a453e0b3cbda2794188a0626b5143765",
+        "version": "v4.3.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.2.0",
+        "sha256": "530aa309af2c716c0e2a02187fc35c4fac5df21b37b19c9be85f16c9c0425e52",
+        "version": "v4.2.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.1.1",
+        "sha256": "348a8c31786d8d97cd0436013a1258195423b304138584c97af1d71f39966ff4",
+        "version": "v4.1.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.1.0",
+        "sha256": "4a8a923b8641bde51d9a60b7752746e6b80baf5e083ac391694c90c62512e7d7",
+        "version": "v4.1.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.1.0-RC-4",
+        "sha256": "8b0b900f377e37a9215cd435a4b40dbd65e86da95b938223e24a597d083c1b64",
+        "version": "v4.1.0-RC-4",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.1.0-RC3",
+        "sha256": "0e34c4beac0902f8385f93ea200b8ed403a2863128bebf6e550a077adf4e002e",
+        "version": "v4.1.0-RC3",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.1.0-RC2",
+        "sha256": "851de5edecd1d52b11c42bb1d24de3702108e9d5fd53e46311e0a89b4e7a4398",
+        "version": "v4.1.0-RC2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.1.0-RC1",
+        "sha256": "1801d57e14fa061746290f1225aec037de3195cc69bced46e0227aec8d87910f",
+        "version": "v4.1.0-RC1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v4.0.0-RC1",
+        "sha256": "74cd42fec2ad1f4da51b9d50a27448bdb0ab4134e9aadc6d496e1dff3081c47b",
+        "version": "v4.0.0-RC1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v3.0.0",
+        "sha256": "b78e6a094d4cfbbac59142dd979ddb1b3eb5fb3f81b54269c49cd062c39ac115",
+        "version": "v3.0.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v3.0.0-RC2",
+        "sha256": "35d2783b4701549caa0f099d661ba46ad96627ccf00d7352f4ee61a4702a78d8",
+        "version": "v3.0.0-RC2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v3.0.0-RC1",
+        "sha256": "4d548271a13005a4ccfe071678de7cfbe40801ade796d26b20d5eeda08f7da59",
+        "version": "v3.0.0-RC1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/zmap/zmap/tarball/v3.0.0-beta1",
+        "sha256": "61787bd59cb23183a8b5424a148b95812d8254d6249c2d4efb31cbebff9ca383",
+        "version": "v3.0.0-beta1",
+        "verified": true
+      }
+    ]
+  },
+  "wavemon": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.9.7",
+        "sha256": "b6226f95f13884976ab9630a4dc9455f4e54ee77fb676a4e2a7cb3c40996acec",
+        "version": "v0.9.7",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.9.6",
+        "sha256": "b0a2c61ee1072734df14f779020e988e4b03e26b0dc6d64504d49035f4331792",
+        "version": "v0.9.6",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.9.5",
+        "sha256": "e4254185add4f09f1278ee2935d17dbe213fa48e50d4f634762bf43f8c93cdad",
+        "version": "v0.9.5",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.9.4",
+        "sha256": "79aadf0e5160cbff96e88d5f74de9335c84a978851611ed5f309fb12e4af9ede",
+        "version": "v0.9.4",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.9.3",
+        "sha256": "b22b2723f5443a821154d8256653023bf72f296484046205e46b507f66122f58",
+        "version": "v0.9.3",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.9.2",
+        "sha256": "d9edd5a8ac20666c93db077cb88fac12fa8d64094035dc92a226315fe73c1815",
+        "version": "v0.9.2",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.9.1",
+        "sha256": "6de42e24ab8fab6501ca637c4875295802487da6b56b7368aae1b84296a286de",
+        "version": "v0.9.1",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.9.0",
+        "sha256": "9f467bdc32eb1ff70667af743ae9e26429f6a678fbcbc1b0d2d4f0669cabf19a",
+        "version": "v0.9.0",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.8.2",
+        "sha256": "84e2b53669894a20972ad2fbfdee569628c9bdc9ddd1956bad542108fa581bed",
+        "version": "v0.8.2",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.8.1",
+        "sha256": "9131ebb95d15fefd535c361d94849545e279eac1b66f150c74dd1bf301f273fc",
+        "version": "v0.8.1",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.8.0",
+        "sha256": "cfeed204a248dcf68f31ced436c538317ee295d0db7f9a2b58e32abdba3fe104",
+        "version": "v0.8.0",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.7.6",
+        "sha256": "5e9c052f516ddec2ccd94a30c704154a3a979fb470cd450f00fa96265cc14863",
+        "version": "v0.7.6",
+        "verified": false
+      },
+      {
+        "src_url": "https://api.github.com/repos/uoaerg/wavemon/tarball/v0.7.5",
+        "sha256": "91916d2b46895ee401109502655e6b76757ff834c10af9d9fa1ad8d795c17d21",
+        "version": "v0.7.5",
+        "verified": false
+      }
+    ]
+  },
+  "openvpn": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.7.0",
+        "sha256": "6a019f5b9320ab750c6d2a518cb3a04071031f6c745752ed02b70b71f36eb5de",
+        "version": "v2.7.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.19",
+        "sha256": "7e59a0798f4defcd2786bbcde3dcc41f149cc810a20fae300e7c1db05ad0d320",
+        "version": "v2.6.19",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.17",
+        "sha256": "f852c55cab3f8feaf43f51748c26589154e27fb005bc7fa154751623ee317fe4",
+        "version": "v2.6.17",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.16",
+        "sha256": "81fdc6df074dfc9e9f87834be147a04340021942a040ec15896cc9c6ace600b2",
+        "version": "v2.6.16",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.15",
+        "sha256": "bd10a6860d45ab52de3febfccc975727a82c0e0d7e72f67f00cdf0d85a4d78ca",
+        "version": "v2.6.15",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.14",
+        "sha256": "25bc9fa6b981e3ebc0b28f5187701bc0399a25ab0ca29842ae38d28ba6914e4b",
+        "version": "v2.6.14",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.13",
+        "sha256": "e3e405af507f6f8f1ce9fc62cd0a0b555c2259e2fed2d94ab2296cb402472e23",
+        "version": "v2.6.13",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.5.11",
+        "sha256": "701bf69c081e03f9b1c291741957e55dee352e43a73e0233a639b6fff34ee785",
+        "version": "v2.5.11",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.12",
+        "sha256": "9454e86007f57bf11ce918d5c0afb68e66a1544cd1ccc8e2f0c593ccfb2b3113",
+        "version": "v2.6.12",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.11",
+        "sha256": "8fcf456e1637919cb532c3697b0004c39ca7f13bce12f8bb8bb4bf11bdffbbb9",
+        "version": "v2.6.11",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.5.10",
+        "sha256": "b944300a2a577bf35c5a54486b3118d9d086a01aee16e6dc72d7ad6f4daef290",
+        "version": "v2.5.10",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.10",
+        "sha256": "d321c021d04475a1a3c61c70386f6a33b1a4028525f9ef8b4d5a99c6147f36c5",
+        "version": "v2.6.10",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.9",
+        "sha256": "df2764b6e8262991d70f9a45bbb6091652559d0d89cb9384ff410577fb1cb0cb",
+        "version": "v2.6.9",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.8",
+        "sha256": "d4bbfc8010ef9bf77c7018ce42e3cd4b0fbe89e3850af3d8ca7355e92f66b346",
+        "version": "v2.6.8",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.7",
+        "sha256": "1c0be8855caa929ae3568d339220fdb79f94aca692a3e32e9dd2ceb2f9e427b4",
+        "version": "v2.6.7",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/OpenVPN/openvpn/tarball/v2.6.6",
+        "sha256": "2dfe7c0423f68c018229332e3f1cdeccf045511a7f28ec804f71264e631b6280",
+        "version": "v2.6.6",
+        "verified": true
+      }
+    ]
+  },
+  "tinc": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/gsliepen/tinc/tarball/latest",
+        "sha256": "7eeea34eea1883429453cc7bd3ecf8ce4f2b20cb3b4325f84a4b3eb125aac51a",
+        "version": "latest",
+        "verified": true
+      }
+    ]
+  },
+  "libnetfilter-queue": {
+    "versions": [
+      {
+        "src_url": "https://www.netfilter.org/pub/libnetfilter_queue/libnetfilter_queue-1.0.3.tar.bz2",
+        "sha256": "9859266b349d74c5b1fdd59177d3427b3724cd72a97c49cc2fffe3b55da8e774",
+        "version": "1.0.3",
+        "verified": true
+      }
+    ]
+  },
+  "libnfnetlink": {
+    "versions": [
+      {
+        "src_url": "https://netfilter.org/projects/libnfnetlink/files/libnfnetlink-1.0.1.tar.bz2",
+        "sha256": "f270e19de9127642d2a11589ef2ec97ef90a649a74f56cf9a96306b04817b51a",
+        "version": "1.0.1",
+        "verified": true
+      }
+    ]
+  },
+  "hwinfo": {
+    "versions": [
+      {
+        "src_url": "https://deb.debian.org/debian/pool/main/h/hwinfo/hwinfo_21.82.orig.tar.gz",
+        "sha256": "b031dba3ad79676c11d7478ce3123a3551e6abf4b2262f0cc903d1bfedb8d4ee",
+        "version": "21.82",
+        "verified": true
+      }
+    ]
+  },
+  "smartmontools": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/jamesdbailey/smartTBW/tarball/v0.2",
+        "sha256": "868d7a91faa3e62a35c68a5975d78a84e827e8f6b16cd5be450c482ffe40fe05",
+        "version": "v0.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/jamesdbailey/smartTBW/tarball/v0.1",
+        "sha256": "7dd7a49d94403976b2756004c95757e8f69aa62537188f6fced1365e0812e563",
+        "version": "v0.1",
+        "verified": true
+      }
+    ]
+  },
+  "v4l-utils": {
+    "versions": [
+      {
+        "src_url": "https://www.linuxtv.org/downloads/v4l-utils/v4l-utils-1.22.0.tar.bz2",
+        "sha256": "1069e5d7909bcc563baeaadc3a5c496f0e658524c413cf7818816e37bfcea344",
+        "version": "1.22.0",
+        "verified": true
+      }
+    ]
+  },
+  "iw": {
+    "versions": [
+      {
+        "src_url": "https://www.kernel.org/pub/software/network/iw/iw-5.9.tar.xz",
+        "sha256": "293a07109aeb7e36267cf59e3ce52857e9ffae3a6666eb8ac77894b1839fe1f2",
+        "version": "5.9",
+        "verified": true
+      }
+    ]
+  },
+  "libcryptsetup": {
+    "versions": [
+      {
+        "src_url": "https://gitlab.com/cryptsetup/cryptsetup/-/archive/v2.6.0/cryptsetup-v2.6.0.tar.gz",
+        "sha256": "b595b764ef97fd1e01ae9d288e9799b1178e3f1d6bdb2eb421f20e2732f7dedd",
+        "version": "2.6.0",
+        "verified": true
+      }
+    ]
+  },
+  "libfuse3": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/openunix/nfs-fuse/tarball/v0.3.2",
+        "sha256": "4f8e812ddcf6d39fbbc0bb1b4ff2edb1f92c7b0739403f5e8df3fa86e9b851da",
+        "version": "v0.3.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/openunix/nfs-fuse/tarball/v0.3.1",
+        "sha256": "2389fcca338500f1c60cd589c1d85d5ea65bf23cb5231f47d54745f406980052",
+        "version": "v0.3.1",
+        "verified": true
+      }
+    ]
+  },
+  "ntfs-3g": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2022.10.3",
+        "sha256": "42141e287bc48b92192af2d79d86bdbf7ebeca93d468ae88e304e84e9b23d2ea",
+        "version": "2022.10.3",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2022.5.17",
+        "sha256": "c24fd39521f4c69caa52e24641be04d1a410179d947d86044e203ad9bdd6f974",
+        "version": "2022.5.17",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2021.8.22",
+        "sha256": "91261b5b5d3c5a05b8011bc22702a9bb025d8d45fc5a0e400c6bec9b96aebced",
+        "version": "2021.8.22",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2017.3.23AR.6",
+        "sha256": "2d67bf29ecacd7a0ac44edc7e04ac43c3a7628b64906060821dd26c11ec82609",
+        "version": "2017.3.23AR.6",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2017.3.23AR.5",
+        "sha256": "e7132d461444235af73d1a419462e6b17943a02575e5cef367615b7cc389efe3",
+        "version": "2017.3.23AR.5",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2017.3.23AR.4",
+        "sha256": "9f2d46e692a4495b5a4006dd0d9af9d98b790d79104fab2e1c9664c14199b873",
+        "version": "2017.3.23AR.4",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2017.3.23AR.3",
+        "sha256": "c96e3d80ec2bcc8005919339df16e6f864992c91c9b396be6c87b3f85209cb98",
+        "version": "2017.3.23AR.3",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2017.3.23AR.2",
+        "sha256": "a07ac0b7e5ab4193df7fcdec97d28b4d8fd15830ac1f5603b86014f696bace07",
+        "version": "2017.3.23AR.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2017.3.23AR.1",
+        "sha256": "e9b28e3af3bc51cc81df05c343e8e95275eda415286c919da65bf15ad3a99758",
+        "version": "2017.3.23AR.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2017.3.23",
+        "sha256": "1119bfd753b548ba02e196f4c435a8ea454103568d96997c069453ad72756baa",
+        "version": "2017.3.23",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2016.2.22",
+        "sha256": "48ffae05d8b8715458d5a0e65dbe37270f755feda75e726358549d62129b4b2c",
+        "version": "2016.2.22",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2015.3.14",
+        "sha256": "624128c051881a00602544892abb1b200c04dcc91679f4403b45dc822958902e",
+        "version": "2015.3.14",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/2014.2.15",
+        "sha256": "6802acf3be905f0ee369b56b6787389d337bcc455126b93e8ea37706993c86cc",
+        "version": "2014.2.15",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/v2013_1_13",
+        "sha256": "26cd4d42f0c048e3c66e6b9a889b61ba453cfc52065c72a4b66b5095f1a10acf",
+        "version": "v2013_1_13",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/v2012_1_15",
+        "sha256": "c26db2e5eed353ee9207d01288740ac400b8f56b05ec4243e57285d3d591e981",
+        "version": "v2012_1_15",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/v2011_10_9_RC",
+        "sha256": "d32bdbdfab581aed871f40c32563eedf06fe92f7b3d99420020c179c5ac29ef0",
+        "version": "v2011_10_9_RC",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/v2011_4_12",
+        "sha256": "6f8abdd0b325a9e6d71d1e90600f45adc7d07353bbf17b4e09248e37198b3c6a",
+        "version": "v2011_4_12",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/v2011_3_28_RC",
+        "sha256": "fdea0b5d416505ef2d064fb550c9ac7a4c12a9ad0fad7d10ad7c70b9c8610930",
+        "version": "v2011_3_28_RC",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/N2011_1_15",
+        "sha256": "e485530372782f7a69f3c2206f0e2e43cb8d3aa018a50d7d35f57a27dd2b6524",
+        "version": "N2011_1_15",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/N2010_10_2",
+        "sha256": "1b83bca19dd479942ff0e5f804359a3b0869e7d0799aa96e9d2d5c34a44a0d0e",
+        "version": "N2010_10_2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/N2010_8_8",
+        "sha256": "9061260d6ca282ee883e83a8097a1998609bd029e069010c19576e24b051dd14",
+        "version": "N2010_8_8",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/N2010_7_23_RC",
+        "sha256": "258e029bef65b23f3646ab1bf09525ee3bf6e25c0ab45669ab651abff765dd92",
+        "version": "N2010_7_23_RC",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/N2010_6_31_RC",
+        "sha256": "bc51603b614b863240d562a1cd4f61c497480e8951874f61760a749db7ab6a8f",
+        "version": "N2010_6_31_RC",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/N2010_5_22",
+        "sha256": "fafbc803495899e5342b6861985dcf2f54f1464eef420ca36f3b6849ddcf5354",
+        "version": "N2010_5_22",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/N2010_5_16",
+        "sha256": "34614c0804ab7f725d9ec30fe863be370f16ae477669710ad5e1de83f6136e0e",
+        "version": "N2010_5_16",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/N2010_3_6",
+        "sha256": "e9018709619ee1f183fd5a6f9b4ee98c68f18af1cec33eee6753e268c56971d2",
+        "version": "N2010_3_6",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/N2010_2_6",
+        "sha256": "bc7eb54b4e07a1408e6e7ae9b251b0b8e02b6542cb1077a470b3b7a9d5c6d15d",
+        "version": "N2010_2_6",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/N2010_1_16",
+        "sha256": "ff62e44a249566769a64f429db415f19dc52847e5d5b44c2626066233d00dbb9",
+        "version": "N2010_1_16",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/N2009_11_14",
+        "sha256": "b72fc7728392b4e05e692710fbd17e13de0bfa3555b9571547a4a4198d6a3a49",
+        "version": "N2009_11_14",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/tuxera/ntfs-3g/tarball/R2009_10_5_RC",
+        "sha256": "a9f6029fc0440a01f9def7045c0ca463d0bfd4bf3df0eef39a0ae0d2f1e3ddfe",
+        "version": "R2009_10_5_RC",
+        "verified": true
+      }
+    ]
+  },
+  "pciutils": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/pciutils/pciutils/tarball/v3.14.0",
+        "sha256": "ab3d1d35b1ca5cfa8d146602727a606378d6ee9d24ab817e6c1368cf5fd35735",
+        "version": "v3.14.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/pciutils/pciutils/tarball/v3.13.0",
+        "sha256": "5ca43b439127201a39a8de7e013247c2ef2052fc70a49d4084d8e1e4b92a561c",
+        "version": "v3.13.0",
+        "verified": true
+      }
+    ]
+  },
+  "hdparm": {
+    "versions": [
+      {
+        "src_url": "https://raw.githubusercontent.com/AirysDark/Tremux-rootpackages-linux/main/hdparm-9.65.tar.gz",
+        "sha256": "d14929f910d060932e717e9382425d47c2e7144235a53713d55a94f7de535a4b",
+        "version": "9.65",
+        "verified": true
+      }
+    ]
+  },
+  "wireless-tools": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v29",
+        "sha256": "e5dc723cadc10f5240ec2e4dd1b39b0f98ca8ce2e8ce98ab80bbf6538fc4126c",
+        "version": "v29",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v28",
+        "sha256": "58e2c29c6e65db4996c0ad5258a2402d9f26b79a5848236c4d9b2634c6888774",
+        "version": "v28",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v27",
+        "sha256": "939c46295d6f3272e7d0e5be8a646dd4c9d6d42b3875dfcdbbf2632f61441bb1",
+        "version": "v27",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v26",
+        "sha256": "49aae7c45c9e867ac6a1aaadc40b63bd19350f50bca53f7221e48b1188683740",
+        "version": "v26",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v25",
+        "sha256": "d61f4b8ceed3c22e101869214b2c4974c9bf641b84ce798ef3d189bc03c610eb",
+        "version": "v25",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v24",
+        "sha256": "42fe200409b96f9258888c1fca3505a91acf1be390a60fa6014af79b235b06db",
+        "version": "v24",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v23",
+        "sha256": "a3ba514cd6ca0f53ebc13b7e7030fb27f968f4fb7fe017dcf75e5717bab54b35",
+        "version": "v23",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v22",
+        "sha256": "adc2b4678bdbd5393f58c107041aaef509b36b9f063caf93e08e19fad7d20fb2",
+        "version": "v22",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v21",
+        "sha256": "24b75992d909856225924c40138c61f0bdbc4f6ac10caa40bec343a9bdf4bc11",
+        "version": "v21",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v20",
+        "sha256": "f06e2ddfc5b17d4458771525f2e0461fafdbd699ca48188143f5b090a0b4c09d",
+        "version": "v20",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v19",
+        "sha256": "3014def7a002c8b83c957963c7f308b4d3c529991a5cbd66d60bfe48eebb259e",
+        "version": "v19",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/HewlettPackard/wireless-tools/tarball/v10",
+        "sha256": "6cebca64d99bc5006b4e7e4e442df5e014d153fd47e3069aa8c7d357fff19108",
+        "version": "v10",
+        "verified": true
+      }
+    ]
+  },
+  "vnstat": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.13",
+        "sha256": "e8a2dbc57330a8faf541f1a2202ed81dc00fab531b29b0b5d2c1a1171d7e1bb4",
+        "version": "v2.13",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.12",
+        "sha256": "4bb930dfd4c2e6f4dddfc18b21379145a111e38a2411bc9765e4af8d0692b272",
+        "version": "v2.12",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.11",
+        "sha256": "3ac7cfc37ab99e082b5ede583ffbd6cfac72f9a70170aeb595d5176f798955f9",
+        "version": "v2.11",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.10",
+        "sha256": "88826ac1140201f20e7dd6f87198e303804f35a05a7dec52ca00b8f18887c1e2",
+        "version": "v2.10",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.9",
+        "sha256": "6adbff5f78c145b5ff9367406e7159a27b70c862af127b8976d4b92660b3eab8",
+        "version": "v2.9",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.8",
+        "sha256": "e9e17698de969ae969d60222c35b62f91f33e981ab9538aefa3dfee357c4a5f2",
+        "version": "v2.8",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.7",
+        "sha256": "196d7dded0b7d73374c98133262a0a5a9122aa1df73173e5949c9efe8c985dd4",
+        "version": "v2.7",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.6",
+        "sha256": "b5e875a504b4504215175f3e95917a855c010c49fa31b0a39e21d853a60aa0bd",
+        "version": "v2.6",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.5",
+        "sha256": "f4c5c4f106dc1c76e84948937abea18b1d1fe53691ca73404c8d3d500d0eaf4c",
+        "version": "v2.5",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.4",
+        "sha256": "ffdc2f4141a7462d4df3dd6ebcc4eb1e8963097513fe5dd81be8cd46fb672a33",
+        "version": "v2.4",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.3",
+        "sha256": "dcc5a20128d07fe3ef6a204d0ed2d267e656f917b808161333f44680007fa708",
+        "version": "v2.3",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.2",
+        "sha256": "54d166ab5ddb32dfb915e54fee008d04d71635266a464a61c4fff8b220728788",
+        "version": "v2.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.1",
+        "sha256": "ac56432cbe321627dd27239911846db55f327f2af8c653db25ff313d48867a5c",
+        "version": "v2.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v2.0",
+        "sha256": "a0578ad2939c6ac7b08a53b852697d0d67dc9d95da0ad96c70bd0f98dc22c94a",
+        "version": "v2.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v1.18",
+        "sha256": "425737e2ffd786ab8d17cdf4f3e2082265021903803c4b1281fe97c8dd959463",
+        "version": "v1.18",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/vergoh/vnstat/tarball/v1.17",
+        "sha256": "d434cc12422581fe7bb6424802146b08a0e075e9982d6913b989966ead36f02c",
+        "version": "v1.17",
+        "verified": true
+      }
+    ]
+  },
+  "avahi": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/avahi/avahi/tarball/v0.8",
+        "sha256": "09657ff8378eb80168294cb744759b215475bc9378a4bbdc3836a36b6c17273f",
+        "version": "v0.8",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/avahi/avahi/tarball/v0.7",
+        "sha256": "baf0906fc4813cc87a52636b8961e2e9fa35f38015c780e16d3bbc9430116d69",
+        "version": "v0.7",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/avahi/avahi/tarball/v0.6.32",
+        "sha256": "e54e10cfdf614decd04c0a937a0cc08a81081b7e001a3af48089bdefbbbe0eb9",
+        "version": "v0.6.32",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/avahi/avahi/tarball/0.6.32-rc",
+        "sha256": "4482f67bc576970ba3a55979216f1dafe6c034377c9dcfa6b143c03cec4a65cb",
+        "version": "0.6.32-rc",
+        "verified": true
+      }
+    ]
+  },
+  "iptables": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/aabc/ipt-netflow/tarball/v2.5.1",
+        "sha256": "b23c33888621e9a8226b0d37ad0d337f6b4dee26a701d7a32be8fdacd86779c4",
+        "version": "v2.5.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/aabc/ipt-netflow/tarball/v2.5",
+        "sha256": "47fc1ee2a25c1221d9a92fc3c566dd6fe16c57d06533f1279dcd71067ad4b963",
+        "version": "v2.5",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/aabc/ipt-netflow/tarball/v2.4",
+        "sha256": "95a53c795532841bcfdd40ad9e8fcf67087cfabd8b5edda5fd98c12736c5f9c8",
+        "version": "v2.4",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/aabc/ipt-netflow/tarball/v2.3",
+        "sha256": "d530b7c784c6f20d04e15b39fcc46d3447ae5414bdb3bc0a17ccad0676551804",
+        "version": "v2.3",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/aabc/ipt-netflow/tarball/v2.2",
+        "sha256": "0a014b7945d8db5fe3fd677f0bd6a719132b880ec62739373601cd0e9fbfc255",
+        "version": "v2.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/aabc/ipt-netflow/tarball/v2.1",
+        "sha256": "00ee1b270364d34beeb211b847c67cf003891ff3f7e5cf21497e406b7366a094",
+        "version": "v2.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/aabc/ipt-netflow/tarball/v2.0.1",
+        "sha256": "d13bdf84a9feacd280bf2f938397790d7783f2a89f2b84a9cc0a0ac9dc25a748",
+        "version": "v2.0.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/aabc/ipt-netflow/tarball/v2.0",
+        "sha256": "3c78740b4cea3575fde450ef6f9751ec894ee67dd45181c4aef5c57d401eda2e",
+        "version": "v2.0",
+        "verified": true
+      }
+    ]
+  },
+  "docker": {
+    "versions": [
+      {
+        "src_url": "https://download.docker.com/linux/static/stable/x86_64/docker-24.0.2.tgz",
+        "sha256": "fc07577bc0abdcdc02948493cd30b36cf0b096213fade9a7e699132c06c2e34c",
+        "version": "24.0.2",
+        "verified": true
+      }
+    ]
+  },
+  "bubblewrap": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.11.1",
+        "sha256": "5309f7280bdfac786c7fac7a803a6786b6844eecc63282174bdec7c4fbfcb58c",
+        "version": "v0.11.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.11.0",
+        "sha256": "8d44cbd5899d8ad0446ef81dd5529e5815ea62ca6cd7307f1b9e6c047ad0a8f3",
+        "version": "v0.11.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.10.0",
+        "sha256": "305f139d9fd36311f6aef854b6cb96f452242fc84b690ec40f360644e6d11148",
+        "version": "v0.10.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.6.3",
+        "sha256": "e74fecba4815bf204b72da851aa629f8c213c3ef36bd3cb802574d3d3371ca71",
+        "version": "v0.6.3",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.9.0",
+        "sha256": "40419adbf4bd55a5e597d591f60e4b898fa9034f2a34b11cb8e43fe788329522",
+        "version": "v0.9.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.8.0",
+        "sha256": "96de88acd59c21b4b550b620452f3a656b0f5030ec5e180100edf0d5388edfab",
+        "version": "v0.8.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.7.0",
+        "sha256": "243a6db34288631e674bc2a5db733329e4af8da9a4ca75502dbd532af5dfd42b",
+        "version": "v0.7.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.6.2",
+        "sha256": "539b7c4cb2103328de2242051bd4f4dae5d159b876eaf77228955d42cdd28ad9",
+        "version": "v0.6.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.6.1",
+        "sha256": "71f11c662f54649bfe5d568ac9f4e5f47506cc088db9356e96de8b0e85afcc8e",
+        "version": "v0.6.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.6.0",
+        "sha256": "d90a9c10d83781f1a735d4370bb97fe36fbecb066f4aa1b5bab5da0b2adb4605",
+        "version": "v0.6.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.5.0",
+        "sha256": "f25ca31b56c9d064c7ab59002e4ccafe384263fc122885ab6800c4e08e85837f",
+        "version": "v0.5.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.4.1",
+        "sha256": "b999d08ac008d4d1b51b9e30a91793db02bd1eff7fde5b5fba5c44a401233645",
+        "version": "v0.4.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.4.0",
+        "sha256": "1c805dc59b81051259ad9b50623e77ae0512fe7d8622f960cec72ec0f458ec27",
+        "version": "v0.4.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.3.3",
+        "sha256": "edc12d1ec609e73ab41473d5bab946e6f18c894ce13d22896a7ee4ecc29a826d",
+        "version": "v0.3.3",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.3.1",
+        "sha256": "bb6deaa98ef5770f7a2029a15823954b62a1e1abc57e7a930d71d0204c725518",
+        "version": "v0.3.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.3.0",
+        "sha256": "f5fb1857d1749b1945852056b0f85fd6a99a56f02b825ced5af8c92604b1a6cb",
+        "version": "v0.3.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.2.1",
+        "sha256": "03cc351a0cd66400c445649eb7ed918ebf6959cf3372fa6ab8b5d383402a8b52",
+        "version": "v0.2.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.2.0",
+        "sha256": "4f798a85bd228025f084c48310a7eb71e565470c2c9146d297c11c83361e0ca3",
+        "version": "v0.2.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.1.8",
+        "sha256": "5ff4d072548a5f0534ded387e5418bc7db754de450a759e676ef3de9b009886e",
+        "version": "v0.1.8",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.1.7",
+        "sha256": "ab4c4d95619dd747fa712e7664df7df150997bd532ef5fc1d06c37b83b604ba1",
+        "version": "v0.1.7",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.1.6",
+        "sha256": "696c406d1dfbc805e9a28aa0729117e2745350405f3d24c98ca1620fab4cc40a",
+        "version": "v0.1.6",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.1.5",
+        "sha256": "b6c4d1e3e14e06dbf32271b13fa9c475f309e3f98fe5f64e50850686244f1982",
+        "version": "v0.1.5",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.1.4",
+        "sha256": "406ba735abe0c3aaa9a51ba6b34a094010a5af86a9227b272583abbdfa8df1df",
+        "version": "v0.1.4",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/containers/bubblewrap/tarball/v0.1.3",
+        "sha256": "3cabc11133e209714c0f9b62dca4fffd1f30e3d0b00e1a7c15232c91bca8c943",
+        "version": "v0.1.3",
+        "verified": true
+      }
+    ]
+  },
+  "gptfdisk": {
+    "versions": [
+      {
+        "src_url": "https://downloads.sourceforge.net/gptfdisk/1.0.10/gptfdisk-1.0.10.tar.gz",
+        "sha256": "2abed61bc6d2b9ec498973c0440b8b804b7a72d7144069b5a9209b2ad693a282",
+        "version": "1.0.10",
+        "verified": true
+      }
+    ]
+  },
+  "thin-provisioning-tools": {
+    "versions": [
+      {
+        "src_url": "https://deb.debian.org/debian/pool/main/t/thin-provisioning-tools/thin-provisioning-tools_1.1.0.orig.tar.xz",
+        "sha256": "fb838a8aa0355dbdd70a3dd4e84be126e5a30780e655144730ab70f155775ee3",
+        "version": "1.1.0",
+        "verified": true
+      }
+    ]
+  },
+  "nexttrace": {
+    "versions": [
+      {
+        "src_url": "https://github.com/nxtrace/NTrace-core/archive/refs/tags/v1.6.1.tar.gz",
+        "sha256": "f4cefb90a5e1f475366940e91f481f180577ff2fb0ef29edd5d7457a7add64f2",
+        "version": "1.6.1",
+        "verified": true
+      }
+    ]
+  },
+  "sshfs": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/winfsp/sshfs-win/tarball/v3.7.21011",
+        "sha256": "cdec6c1ea424a9abe3b71c48a7c927e5c41b9d3b22731a0bf50b2f15796f2b58",
+        "version": "v3.7.21011",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/winfsp/sshfs-win/tarball/v3.5.21011",
+        "sha256": "4cad5514e0751786afc250d2220874ff1f7990389a4689544fc29ab1e56e9811",
+        "version": "v3.5.21011",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/winfsp/sshfs-win/tarball/v3.5.20357",
+        "sha256": "679d9239776cbe3288fa9222e6e706c419546b1679398e5fec7c8916daf3c558",
+        "version": "v3.5.20357",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/winfsp/sshfs-win/tarball/v3.5.20160",
+        "sha256": "a7c89ab9b6800ec05b37777e238ce4facf1b6e36579db4deae3a7000bd206797",
+        "version": "v3.5.20160",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/winfsp/sshfs-win/tarball/v3.5.20024",
+        "sha256": "32cb6d9a0c93857496115db5e0166382b30a60448038020666086fa92c03a94f",
+        "version": "v3.5.20024",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/winfsp/sshfs-win/tarball/v3.5.19106",
+        "sha256": "3d0aec5275a3cbd357f3622601cdfde076ad0dede6b68545d90a84b9375b25b9",
+        "version": "v3.5.19106",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/winfsp/sshfs-win/tarball/v3.2.18213",
+        "sha256": "fda4af0721fd066054d8f285177f517088839147d73c8e3eada267d8acf038ab",
+        "version": "v3.2.18213",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/winfsp/sshfs-win/tarball/v2.7.17334",
+        "sha256": "1feb6b800b4e07da2d202b9585f5b64f22ef8a3929854fae7666961866f8b8d8",
+        "version": "v2.7.17334",
+        "verified": true
+      }
+    ]
+  },
+  "frida": {
+    "versions": [
+      {
+        "src_url": "https://github.com/frida/frida/archive/refs/tags/17.8.3.tar.gz",
+        "sha256": "f4e328bbb0b29675bc81dd656c57ba1f879c78e8ecf147e500aedb772edd2f09",
+        "version": "17.8.3",
+        "verified": true
+      }
+    ]
+  },
+  "wpa-supplicant": {
+    "versions": [
+      {
+        "src_url": "https://w1.fi/releases/wpa_supplicant-2.11.tar.gz",
+        "sha256": "912ea06f74e30a8e36fbb68064d6cdff218d8d591db0fc5d75dee6c81ac7fc0a",
+        "version": "2.11",
+        "verified": true
+      }
+    ]
+  },
+  "iodine": {
+    "versions": [
+      {
+        "src_url": "https://github.com/yarrick/iodine/archive/refs/tags/v0.7.0.tar.gz",
+        "sha256": "7281e2301804e48029877bab27134f7c0eb04567da4d21a6fcbaa7265cb5849e",
+        "version": "0.7.0",
+        "verified": true
+      }
+    ]
+  },
+  "libfuse2": {
+    "versions": [
+      {
+        "src_url": "https://github.com/libfuse/libfuse/releases/download/fuse-2.9.9/fuse-2.9.9.tar.gz",
+        "sha256": "d0e69d5d608cc22ff4843791ad097f554dd32540ddc9bed7638cc6fea7c1b4b5",
+        "version": "2.9.9",
+        "verified": true
+      }
+    ]
+  },
+  "pixiewps": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/wiire-a/pixiewps/tarball/v1.4.2",
+        "sha256": "48b437c1aa216b99516b664246e502572f813fb89f201494d9741f1f634fe324",
+        "version": "v1.4.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/wiire-a/pixiewps/tarball/v1.4.1",
+        "sha256": "8f71ba90a0db97a3c3b73bcbc49ca39f18811da5809796f350024200eff0a394",
+        "version": "v1.4.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/wiire-a/pixiewps/tarball/v1.4",
+        "sha256": "5374580048f73287d82a0b7469adf945eeb97d5ac83cdf3d0f5ab1e5707fa54c",
+        "version": "v1.4",
+        "verified": true
+      }
+    ]
+  },
+  "termshark": {
+    "versions": [
+      {
+        "src_url": "https://github.com/gcla/termshark/archive/refs/tags/v2.4.0.tar.gz",
+        "sha256": "949c71866fcd2f9ed71a754ea9e3d1bdc23dee85969dcdc78180f1d18ca8b087",
+        "version": "2.4.0",
+        "verified": true
+      }
+    ]
+  },
+  "btop": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/aristocratos/btop/tarball/v1.4.6",
+        "sha256": "b603eb3d2bc6ba504af298191d9edd8f2ad8e837e19a7ed7fe0e149d518f1cd9",
+        "version": "v1.4.6",
+        "verified": true
+      }
+    ]
+  },
+  "erofs-utils": {
+    "versions": [
+      {
+        "src_url": "https://github.com/erofs/erofs-utils/archive/refs/tags/v1.9.1.tar.gz",
+        "sha256": "a9ef5ab67c4b8d2d3e9ed71f39cd008bda653142a720d8a395a36f1110d0c432",
+        "version": "1.9.1",
+        "verified": true
+      }
+    ]
+  },
+  "below": {
+    "versions": [
+      {
+        "src_url": "https://github.com/erofs/erofs-utils/archive/refs/tags/v1.7.1.tar.gz",
+        "sha256": "196083d63e5e231fb5799e7ce86a944bbca564daabce3de9225a8aca9dcaff15",
+        "version": "1.1",
+        "verified": true
+      }
+    ]
+  },
+  "mtr": {
+    "versions": [
+      {
+        "src_url": "https://www.bitwizard.nl/mtr/files/mtr-0.96.tar.gz",
+        "sha256": "73e6aef3fb6c8b482acb5b5e2b8fa7794045c4f2420276f035ce76c5beae632d",
+        "version": "0.96",
+        "verified": false
+      }
+    ]
+  },
+  "ipset": {
+    "versions": [
+      {
+        "src_url": "https://www.netfilter.org/pub/ipset/ipset-7.24.tar.bz2",
+        "sha256": "18ccb49bd38083f0556b11e1d17f43791c52a2b094c9a500b6f770796b17e8e7",
+        "version": "7.24",
+        "verified": false
+      }
+    ]
+  },
+  "dnsmasq": {
+    "versions": [
+      {
+        "src_url": "https://gitlab.com/kubitus-project/external-images/dnsmasq/-/archive/v1.4.0/dnsmasq-v1.4.0.zip",
+        "sha256": "4088feec84f98af4fcf57ef87a1c72cabadefb9653c4d80e6029ba20c547c79d",
+        "version": "v1.4.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://gitlab.com/kubitus-project/external-images/dnsmasq/-/archive/v1.3.0/dnsmasq-v1.3.0.zip",
+        "sha256": "33d8258a5ff9cbf2534f5ab0a827bd67533dd472ec97fa47ab4ff7e4b696807d",
+        "version": "v1.3.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://gitlab.com/kubitus-project/external-images/dnsmasq/-/archive/v1.2.0/dnsmasq-v1.2.0.zip",
+        "sha256": "01aed369589582e475dc498cde6f341f54aa86ed424e3a7271616fdb88e7d8d6",
+        "version": "v1.2.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://gitlab.com/kubitus-project/external-images/dnsmasq/-/archive/v1.1.0/dnsmasq-v1.1.0.zip",
+        "sha256": "0905534c37f5fdf3c33768c627f3d71771293f4562a7f4b78d8bbdb9ce3eb6a5",
+        "version": "v1.1.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://gitlab.com/kubitus-project/external-images/dnsmasq/-/archive/v1.0.0/dnsmasq-v1.0.0.zip",
+        "sha256": "748aec7bfb71d1dfc674b416eecb7cd835e58f66d03cd8d94aab788390895ae6",
+        "version": "v1.0.0",
+        "verified": true
+      }
+    ]
+  },
+  "encfs": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/neurodroid/cryptonite/tarball/v0.7.17",
+        "sha256": "7da5b47842e1ab1f809cac8bae6cd743a56b928fa03e7cc4ef7bf040eac019f3",
+        "version": "v0.7.17",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/neurodroid/cryptonite/tarball/v0.7.16",
+        "sha256": "29dc3b6715cdfc49f6401bc7ebc6422cb2b62288096b3faf375ffecb23034115",
+        "version": "v0.7.16",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/neurodroid/cryptonite/tarball/v0.7.15",
+        "sha256": "7f3feccc8063dd1eaa67e3c5e9299415711e096ae3c6aad55bb7ecd9b1e28c07",
+        "version": "v0.7.15",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/neurodroid/cryptonite/tarball/v0.7.14",
+        "sha256": "c9d5d09756e207cfd790f7b2e2db8211780f5c01ad91669f0e1914377f7d4f0c",
+        "version": "v0.7.14",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/neurodroid/cryptonite/tarball/v0.7.13",
+        "sha256": "5576c24d7bdedcc500d5f43d7b80da05a488cd5f6df4456d5b4235d1fa2c5e2c",
+        "version": "v0.7.13",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/neurodroid/cryptonite/tarball/v0.7.12",
+        "sha256": "6cd88b2a6736ec00eeb3c3a9d8e51e78b815a666de376ae378af39bef7f21648",
+        "version": "v0.7.12",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/neurodroid/cryptonite/tarball/v0.7.11",
+        "sha256": "0ab53ef58a140e6b2b8ba0fcc141efd248f834f9823d5996678bf9d471ce4696",
+        "version": "v0.7.11",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/neurodroid/cryptonite/tarball/v0.7.10",
+        "sha256": "51ea02e77083bec75c29b8817ca384dd7a5a497b018a4b2d94f0d6d862e4dc02",
+        "version": "v0.7.10",
+        "verified": true
+      }
+    ]
+  },
+  "tshark": {
+    "versions": [
+      {
+        "src_url": "https://www.wireshark.org/download/src/all-versions/wireshark-4.6.4.tar.xz",
+        "sha256": "fbeab3d85c6c8a5763c8d9b7fe20b5c69ca9f9e7f2b824bedc73135bdca332e2",
+        "version": "4.6.4",
+        "verified": true
+      }
+    ]
+  },
+  "nethogs": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/Ivlyth/process-bandwidth/tarball/v0.3.2",
+        "sha256": "85f4838ff01e28ef2ccd665b575398a6735bc08a3b57b4163ba4911e13c937d6",
+        "version": "v0.3.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/Ivlyth/process-bandwidth/tarball/v0.3.1",
+        "sha256": "2f9b3c149aea8e61b11977755f4ae2e9a579807580c0dd5cbafc506a4796bf41",
+        "version": "v0.3.1",
+        "verified": true
+      }
+    ]
+  },
+  "i2c-tools": {
+    "versions": [
+      {
+        "src_url": "https://ftp.iij.ad.jp/pub/linux/kernel/software/utils/i2c-tools/i2c-tools-4.4.tar.xz",
+        "sha256": "8b15f0a880ab87280c40cfd7235cfff28134bf14d5646c07518b1ff6642a2473",
+        "version": "4.4",
+        "verified": true
+      }
+    ]
+  },
+  "gocryptfs": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/rfjakob/gocryptfs/tarball/v2.6.1",
+        "sha256": "aa6a308c4fe321be69a12b7107e9deaf540ec4c59b9e844dd3a54c372d62fb3d",
+        "version": "v2.6.1",
+        "verified": true
+      }
+    ]
+  },
+  "ethtool": {
+    "versions": [
+      {
+        "src_url": "https://ftp.debian.org/debian/pool/main/e/ethtool/ethtool_6.19.orig.tar.xz",
+        "sha256": "ba8783465f78abd49e81eebcade00dcc",
+        "version": "6.19",
+        "verified": false
+      }
+    ]
+  },
+  "libccid": {
+    "versions": [
+      {
+        "src_url": "https://ccid.apdu.fr/files/ccid-1.6.2.tar.xz",
+        "sha256": "41958410950157e622f9d91c9e78c7b708db74e22f71190c581d24d20564d449",
+        "version": "1.6.2",
+        "verified": true
+      }
+    ]
+  },
+  "docker-compose": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/jgwehr/homelab-docker/tarball/v3.2.0",
+        "sha256": "af8571ecc92542c307b42d4516e6dd7f0ff37f0f5ff07c6de6bdd7908612040c",
+        "version": "v3.2.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/jgwehr/homelab-docker/tarball/v3.1.0",
+        "sha256": "d1202e62ca820d62295260f7a901eb60ac33843f903c80518ae97262cbbe29bb",
+        "version": "v3.1.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/jgwehr/homelab-docker/tarball/v3.0.1",
+        "sha256": "afdc125c689ee46e98764ad2a7723d6fd6641b25819cff03051c5db9e3acfde7",
+        "version": "v3.0.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/jgwehr/homelab-docker/tarball/v3.0.0",
+        "sha256": "2f2ee864052fe160036225b39367f4cd99681eaf49968047a1edbbc51d4e45ff",
+        "version": "v3.0.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/jgwehr/homelab-docker/tarball/v2.1.0",
+        "sha256": "859c1f55a974f2aea83cf98f5623392ef497b7ea2d409c1078b781a7c0c5334a",
+        "version": "v2.1.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/jgwehr/homelab-docker/tarball/v1.1.0",
+        "sha256": "1ffbdcd1fa793cb05f3c2c925231950e0b69760c6b4b09c6d2c72d0d340f0d24",
+        "version": "v1.1.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/jgwehr/homelab-docker/tarball/jellyseer-working",
+        "sha256": "e145f43329eb30af868dfe4b534741573546ca8a4359125f3be0695b4230a629",
+        "version": "jellyseer-working",
+        "verified": true
+      }
+    ]
+  },
+  "lxc": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/lxc/lxc/tarball/v6.0.6",
+        "sha256": "75c6fe9f9e0bd44e431f2dbe2a4c91d3028ca6b63671865823e7e2f435fc4691",
+        "version": "v6.0.6",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/lxc/lxc/tarball/v6.0.5",
+        "sha256": "599ef9cea0f8238e3f35caab9718b31c3d974ddaaa22e488d01afa5aa6a373c2",
+        "version": "v6.0.5",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/lxc/lxc/tarball/v6.0.4",
+        "sha256": "67a2353f8e5b92944a7e5fbf8a57e7bba9012a845d9a7a1e1587f3e355c5dce7",
+        "version": "v6.0.4",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/lxc/lxc/tarball/v6.0.3",
+        "sha256": "341bcc94fcb9819ca27783c8fdea757245141814fe338734ae8bc123ee946655",
+        "version": "v6.0.3",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/lxc/lxc/tarball/v6.0.2",
+        "sha256": "cde467987711dd8b42045b81bca54aae023a8ac61e59f8fdec0014ed78f35044",
+        "version": "v6.0.2",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/lxc/lxc/tarball/v6.0.1",
+        "sha256": "13ae4153742bf45220581bb43f8571118f309c7982cdf2599f44b524cab262b2",
+        "version": "v6.0.1",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/lxc/lxc/tarball/v6.0.0",
+        "sha256": "caf23b66e6b9d1697f4e04d28305053072486589e8f041f46f3435205fe2aa2b",
+        "version": "v6.0.0",
+        "verified": true
+      },
+      {
+        "src_url": "https://gitlab.com/pl.rachuna-net/ai/openclaw/agents/tech.mrachuna.infrastructure/-/archive/v1.0.0/tech.mrachuna.infrastructure-v1.0.0.zip",
+        "sha256": "15945a4d0ca938e8a50b2b223f6486dbeea2a20e8e5219e782cb80541b9a6332",
+        "version": "v1.0.0",
+        "verified": true
+      }
+    ]
+  },
+  "containerd": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/tiglabs/containerdns/tarball/v1.0",
+        "sha256": "262f4a56a423a32552e41c3ff91bfff7785add9e6a1c08cdfc0228172768f764",
+        "version": "v1.0",
+        "verified": true
+      }
+    ]
+  },
+  "minikube": {
+    "versions": [
+      {
+        "src_url": "https://github.com/kubernetes/minikube/archive/refs/tags/v1.29.0.tar.gz",
+        "sha256": "90fd915150fc69221ed9824bdbd59974bede1470bff8144145fcfadea8a8d27f",
+        "version": "1.29.0",
+        "verified": true
+      }
+    ]
+  },
+  "fio": {
+    "versions": [
+      {
+        "src_url": "https://api.github.com/repos/axboe/fio/tarball/fio-3.41",
+        "sha256": "2da8b5786b20aecc0ac097e49e3b3ff6d717296ee64dd94fba2c9586df27c7d6",
+        "version": "fio-3.41",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/axboe/fio/tarball/fio-3.40",
+        "sha256": "5f4af66c57cd433ec473669a32e9f34005bcfb7deea755d4d76d613cb681aaf2",
+        "version": "fio-3.40",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/axboe/fio/tarball/fio-3.39",
+        "sha256": "a05724e0b87e996003f8a4cfe675233be6facf0256d8c54bfc0cb99a4343889a",
+        "version": "fio-3.39",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/axboe/fio/tarball/fio-3.38",
+        "sha256": "e565f065ba6b879888375afb10f101d48cf4f3ee9921bbb45cecb92a476fb990",
+        "version": "fio-3.38",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/axboe/fio/tarball/fio-3.37",
+        "sha256": "b9f43321e5c38d945a3e7239767aa056f4498f6a3e23143b3124c4b26b274c8b",
+        "version": "fio-3.37",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/axboe/fio/tarball/fio-3.36",
+        "sha256": "902dac807558594c0d105518fd49884f8cd188eaff030544084902edd7b50db3",
+        "version": "fio-3.36",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/axboe/fio/tarball/fio-3.35",
+        "sha256": "b12db3db0867be88350c6d4a4d5e6967ba6ed7dcc2098c631cb679b75798e9a6",
+        "version": "fio-3.35",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/axboe/fio/tarball/fio-3.34",
+        "sha256": "f7f3802358f2894aee2d509cf5f405ee2b95d993f284709c92afa4b3a46609fd",
+        "version": "fio-3.34",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/axboe/fio/tarball/fio-3.33",
+        "sha256": "67959f826610149593ece5422fa0e49fee16b11c48ab0f32e0b8b3f93a5abd16",
+        "version": "fio-3.33",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/axboe/fio/tarball/fio-3.32",
+        "sha256": "b30054164e99d9131ce3c0dadad339dc55ac2747c9a441f4ffbab8c751941c53",
+        "version": "fio-3.32",
+        "verified": true
+      },
+      {
+        "src_url": "https://api.github.com/repos/axboe/fio/tarball/fio-3.31",
+        "sha256": "bcce9899bef3cb05b0775191a0bc64d63e72d8f716836f3cf98a441a7babd2ee",
+        "version": "fio-3.31",
+        "verified": true
+      }
+    ]
+  },
+  "vlan": {
+    "versions": [
+      {
+        "src_url": "https://archive.debian.org/debian/pool/main/v/vlan/vlan_2.0.5.tar.xz",
+        "sha256": "ccf261839b79247be8dae93074e1c5fcbce3807787a0ff7aed4e1f7a9095c465",
+        "version": "1.0.1",
+        "verified": true
+      }
+    ]
+  },
+  "bindfs": {
+    "versions": [
+      {
+        "src_url": "https://bindfs.org/downloads/bindfs-1.18.4.tar.gz",
+        "sha256": "3266d0aab787a9328bbb0ed561a371e19f1ff077273e6684ca92a90fedb2fe24",
+        "version": "1.14.0",
+        "verified": true
+      }
+    ]
+  },
+  "tcpdump": {
+    "versions": [
+      {
+        "src_url": "https://www.tcpdump.org/release/tcpdump-4.99.5.tar.gz",
+        "sha256": "8c75856e00addeeadf70dad67c9ff3dd368536b2b8563abf6854d7c764cd3adb",
+        "version": "4.99.5",
+        "verified": true
+      }
+    ]
+  },
+  "authbind": {
+    "versions": [
+      {
+        "src_url": "https://deb.debian.org/debian/pool/main/a/authbind/authbind_2.2.0.tar.gz",
+        "sha256": "8d265ee08e66fbda2e6c2b348624cd4552ff2c8fe72247d8904b06500c476adf",
+        "version": "2.2.0",
+        "verified": true
+      }
+    ]
+  },
+  "testdisk": {
+    "versions": [
+      {
+        "src_url": "https://www.cgsecurity.org/testdisk-7.2.tar.bz2",
+        "sha256": "f8343be20cb4001c5d91a2e3bcd918398f00ae6d8310894a5a9f2feb813c283f",
+        "version": "7.2",
+        "verified": true
+      }
+    ]
+  },
+  "nfs-utils": {
+    "versions": [
+      {
+        "src_url": "https://www.kernel.org/pub/linux/utils/nfs-utils/2.8.6/nfs-utils-2.8.6.tar.xz",
+        "sha256": "2bd7b34e809a7eff2f4bc5fc5fd96ebcd66a5458b471a270cbd2dc169b011550",
+        "version": "2.8.6",
+        "verified": false
+      }
+    ]
+  }
+}

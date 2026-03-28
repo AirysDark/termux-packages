@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+# --- All root packages ---
+PACKAGES = [
+    "libnetfilter-queue", "libnfnetlink", "hwinfo", "v4l-utils", "iw",
+    "libcryptsetup", "hdparm", "docker", "gptfdisk", "thin-provisioning-tools",
+    "nexttrace", "frida", "wpa-supplicant", "iodine", "libfuse2", "termshark",
+    "btop", "erofs-utils", "below", "mtr", "ipset", "tshark", "i2c-tools",
+    "gocryptfs", "ethtool", "libccid", "nfs-utils", "minikube", "vlan",
+    "bindfs", "tcpdump", "authbind", "testdisk", "runc", "macchanger",
+    "lvm2", "wush", "hping3", "tcplay-veracrypt", "libaio", "usbutils",
+    "hw-probe", "libx86emu", "wimlib"
+]
+
+# --- Scan results mapping ---
+SCAN_RESULTS = {
+    "FOUND": {
+        "hwinfo": "hwinfo",
+        "v4l-utils": "v4l-utils",
+        "iw": "iw",
+        "mtr": "mtr",
+        "ipset": "ipset",
+        "tshark": "tshark",
+        "i2c-tools": "i2c-tools",
+        "gocryptfs": "gocryptfs",
+        "ethtool": "ethtool",
+        "libccid": "libccid",
+        "usbutils": "usbutils",
+        "hw-probe": "hw-probe"
+    },
+    "PARTIAL": {
+        "libnetfilter-queue": "libnfnetlink-dev",
+        "libcryptsetup": "golang-github-miekg-mmark-dev",
+        "wpa-supplicant": "devscripts",
+        "nfs-utils": "libaio-dev",
+        "libx86emu": "libwim-dev"
+    },
+    "MISSING": [
+        "hdparm", "docker", "gptfdisk", "thin-provisioning-tools", "nexttrace",
+        "frida", "iodine", "termshark", "btop", "erofs-utils", "below",
+        "minikube", "vlan", "bindfs", "tcpdump", "authbind", "testdisk",
+        "runc", "macchanger", "lvm2", "wush", "hping3", "tcplay-veracrypt",
+        "libaio", "wimlib"
+    ]
+}
+
+def generate_packages_json(output_file="packages_to_build.json"):
+    """
+    Generate a JSON file describing all packages with status and metadata.
+    
+    Each package has:
+      - status: FOUND / PARTIAL / MISSING
+      - mapped_name: actual package name in repo or None
+      - priority: 0 = FOUND, 1 = PARTIAL, 2 = MISSING
+      - notes: optional notes
+    """
+    build_data = {}
+
+    # Add FOUND packages
+    for pkg, mapped_name in SCAN_RESULTS["FOUND"].items():
+        build_data[pkg] = {
+            "status": "FOUND",
+            "mapped_name": mapped_name,
+            "priority": 0,
+            "notes": ""
+        }
+
+    # Add PARTIAL packages
+    for pkg, mapped_name in SCAN_RESULTS["PARTIAL"].items():
+        build_data[pkg] = {
+            "status": "PARTIAL",
+            "mapped_name": mapped_name,
+            "priority": 1,
+            "notes": "Check for dev package or alternative"
+        }
+
+    # Add MISSING packages
+    for pkg in SCAN_RESULTS["MISSING"]:
+        build_data[pkg] = {
+            "status": "MISSING",
+            "mapped_name": None,
+            "priority": 2,
+            "notes": "Source missing, manual addition required"
+        }
+
+    # Ensure output directory exists
+    output_path = Path(output_file)
+    if not output_path.parent.exists():
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # Write JSON to file
+    with open(output_file, "w") as f:
+        json.dump(build_data, f, indent=2)
+
+    print(f"✅ {output_file} generated with {len(build_data)} packages")
+
+if __name__ == "__main__":
+    generate_packages_json()

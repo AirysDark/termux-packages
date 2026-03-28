@@ -1,3 +1,5 @@
+
+
 #!/usr/bin/env bash
 # Auto-generated Termux build.sh
 TERMUX_PKG_NAME="avrdude"
