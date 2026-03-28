@@ -14,26 +14,15 @@ set -euo pipefail
 : "${GIT_PUSH_PACKAGES:=false}"
 : "${TERMUX_ARCH:=aarch64}"
 
-export TERMUX_PKG_UPDATE_METHOD=""
-export TERMUX_PKG_UPDATE_TAG_TYPE=""
 export TERMUX_PKG_AUTO_UPDATE=false
-export TERMUX_PKG_UPDATE_VERSION_REGEXP=""
-export TERMUX_PKG_UPDATE_VERSION_SED_REGEXP=""
-export TERMUX_REPOLOGY_DATA_FILE
-rm -f "${TMPDIR:-/tmp}/termux-repology".* &> /dev/null
-TERMUX_REPOLOGY_DATA_FILE="$(mktemp -t termux-repology.XXXXXX)"
-
 export TERMUX_SCRIPTDIR
 TERMUX_SCRIPTDIR=$(realpath "$(dirname "$0")/../..")
 export TERMUX_PACKAGES_DIRECTORIES
 TERMUX_PACKAGES_DIRECTORIES=$(jq --raw-output 'del(.pkg_format) | keys | .[]' "$TERMUX_SCRIPTDIR/repo.json")
 
 # ----------------------------
-# Source helpers (fix _should_update not found)
+# Load required scripts
 # ----------------------------
-source "$TERMUX_SCRIPTDIR/scripts/updates/_helpers.sh"
-
-# Load utilities
 . "$TERMUX_SCRIPTDIR/scripts/properties.sh"
 . "$TERMUX_SCRIPTDIR/scripts/build/termux_error_exit.sh"
 . "$TERMUX_SCRIPTDIR/scripts/updates/utils/termux_pkg_upgrade_version.sh"
@@ -50,18 +39,9 @@ source "$TERMUX_SCRIPTDIR/scripts/updates/_helpers.sh"
 # ----------------------------
 # Helpers
 # ----------------------------
-ms_to_human_readable() {
-	local t="$1" hrs=0 mins=0 secs=0 ms=0
-	(( ms = t%1000, t /= 1000, secs = t%60, t /= 60, mins = t%60, hrs = t/60 ))
-	echo "${hrs}h ${mins}m ${secs}s ${ms}ms" | sed 's/0h //;s/0m //;s/0s //'
-}
-
 quiet() { "$@" &>/dev/null; return $?; }
 
-# ----------------------------
-# Package update helpers
-# ----------------------------
-_update() {
+_update_package() {
 	local pkg_dir="$1"
 	export TERMUX_PKG_NAME
 	TERMUX_PKG_NAME="$(basename "$pkg_dir")"
@@ -82,7 +62,7 @@ _update() {
 }
 
 # ----------------------------
-# Fetch tags in parallel
+# Fetch tags and check updates
 # ----------------------------
 declare -A _LATEST_TAGS=()
 declare -A _FAILED_UPDATES=()
@@ -91,26 +71,12 @@ declare -A _ALREADY_SEEN=()
 _fetch_and_cache_tags() {
 	local pkg_dirs=("$@")
 	for pkg_dir in "${pkg_dirs[@]}"; do
+		# Skip packages that already call termux_pkg_auto_update in build.sh
 		if [ -f "$pkg_dir/build.sh" ] && grep -q 'termux_pkg_auto_update' "$pkg_dir/build.sh"; then
 			continue
 		fi
 		BUILD_PACKAGES=false quiet _should_update "$pkg_dir" || continue
 	done
-}
-
-_check_updated() {
-	local pkg_dir="$1"
-	local latest_tag="${_LATEST_TAGS[${pkg_dir##*/}]:-}"
-	[[ -n "$latest_tag" ]] || return 1
-	set +eu
-	if [ -f "$pkg_dir/build.sh" ]; then
-		quiet source "$pkg_dir/build.sh"
-	fi
-	export TERMUX_PKG_NAME="${pkg_dir##*/}"
-	TERMUX_PKG_UPGRADE_VERSION_DRY_RUN=1
-	termux_pkg_upgrade_version "$latest_tag" >/dev/null
-	set -eu
-	return $?
 }
 
 _run_update() {
@@ -122,7 +88,7 @@ _run_update() {
 	_CURRENT_VERSION="$(set +eu; [ -f "$pkg_dir/build.sh" ] && . "$pkg_dir/build.sh"; echo "${TERMUX_PKG_VERSION#*:}")"
 	read -rt0.001 _ < "$IPC_FIFO"
 
-	if output="$(set -euo pipefail; exec > >(tee /dev/fd/2) 2>&1; _update "$pkg_dir")"; then
+	if output="$(set -euo pipefail; exec > >(tee /dev/fd/2) 2>&1; _update_package "$pkg_dir")"; then
 		read -rt0.001 _NEWEST_VERSION < "$IPC_FIFO"
 		: "${_NEWEST_VERSION:=${_CURRENT_VERSION}}"
 		if termux_pkg_is_update_needed "$_CURRENT_VERSION" "$_NEWEST_VERSION"; then
@@ -144,18 +110,22 @@ export IPC_FIFO="${TMPDIR:-/tmp}/termux_ipc_$$.fifo"
 mkfifo "$IPC_FIFO"
 exec {IPC_FIFO_FD}<>"$IPC_FIFO"
 
+# Collect only root-packages if specified
 declare -a PACKAGE_DIRS_LIST=()
 for pkg in "$@"; do
-	pkg_dir="$pkg"
 	if [[ ! -d "$pkg" ]]; then
 		for channel in $TERMUX_PACKAGES_DIRECTORIES; do
-			if [[ -d "$channel/$pkg" ]]; then
-				pkg_dir="$channel/$pkg"
+			if [[ "$channel" == "root-packages" ]] && [[ -d "$channel/$pkg" ]]; then
+				PACKAGE_DIRS_LIST+=("$channel/$pkg")
 				break
 			fi
 		done
+	else
+		# if directory passed directly, verify it's root-packages
+		if [[ "$(basename "$(dirname "$pkg")")" == "root-packages" ]]; then
+			PACKAGE_DIRS_LIST+=("$pkg")
+		fi
 	fi
-	PACKAGE_DIRS_LIST+=("$pkg_dir")
 done
 
 _fetch_and_cache_tags "${PACKAGE_DIRS_LIST[@]}"
@@ -166,7 +136,7 @@ for pkg_dir in "${PACKAGE_DIRS_LIST[@]}"; do
 done
 
 exec {IPC_FIFO_FD}<&-
-rm -f "$IPC_FIFO" "$TERMUX_REPOLOGY_DATA_FILE"
+rm -f "$IPC_FIFO"
 
 # ----------------------------
 # Summary
